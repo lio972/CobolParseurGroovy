@@ -14,13 +14,14 @@ class CobolParser {
 
 		def dossier = "/CobolParseurGroovy/cobolsrccode/PPGEMB17.cob"
 		def srcCobol = "C:/Users/Lio/workspace/CobolParseurGroovy/cobolsrccode/PPGEMB17.cob"
-		File fichierSrc = new File(srcCobol);
+		def fichierSrc = new File(srcCobol);
 		println (srcCobol + " est un directory " + fichierSrc.isDirectory());
 		println (srcCobol + " est un fichier " + fichierSrc.isFile())
 		String [] tableau = []
 		//String [] listCompsosant = null
 		
 		try {
+			//String [] listCompsosant = new String [50]
 			String [] listCompsosant = new String [50]
 			def idw = 0
 			fichierSrc.eachLine {ligne ->
@@ -41,7 +42,7 @@ class CobolParser {
 					}
 				}
 /*
- * 				Lister tous les noms de paragraphe cobol non commenté
+ * 				Lister tous les noms de paragraphe cobol non commentï¿½
  */
 				if (ligne =~ /\d{5}-(.)*\./ && !(ligne =~'PERFORM ') && !(ligne.toString()[6].equals("*"))){
 					println ligne
