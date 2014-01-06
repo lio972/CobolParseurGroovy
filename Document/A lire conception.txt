@@ -1,0 +1,8 @@
+obj:lire des fichiers cobol sortir:
+
+- liste de call
+- liste de composants appele
+- construire des fichier dot
+- construire les fichier images (png, svg) à partir des fichier dot
+
+
