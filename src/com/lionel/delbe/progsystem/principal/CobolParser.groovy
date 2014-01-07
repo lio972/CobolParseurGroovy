@@ -1,4 +1,4 @@
-package com.lionel.delbe.progsystem.main
+package com.lionel.delbe.progsystem.principal
 
 import java.awt.TrayIcon.MessageType;
 

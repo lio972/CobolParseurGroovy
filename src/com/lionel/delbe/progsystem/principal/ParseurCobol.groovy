@@ -1,4 +1,6 @@
-package com.lionel.delbe.progsystem.*
+package com.lionel.delbe.progsystem.principal
+
+import com.lionel.delbe.progsystem.*
 
 /**
  * Created with IntelliJ IDEA.
@@ -15,7 +17,7 @@ class ParseurCobol {
      */
     public static void main(args){
 
-        MonScanner scanner = new Mon
+        //MonScanner scanner = new Mon
         try {
             def cheminDossierSrc = args[0];
             println(args[0]);
@@ -25,8 +27,10 @@ class ParseurCobol {
             dossierSrc.eachFile(){un_fichier ->
                 println(un_fichier)
                 // appeler scanner et lui passer un objet de type fichier
-                scanner =  new MonScanner(un_fichier)
-                scanner.
+                //MonS =  new MonScanner(un_fichier)
+                MonScanner scannerCode = new MonScanner(un_fichier)
+                scannerCode.displayFichierEntree()
+                scannerCode.afficherContenuFichier()
             }
 
         }catch (Exception ex){
