@@ -29,7 +29,7 @@ class MonScanner {
     def private rechercherLesCalls(){
            /*regular expression for  include\s+([\w\d]+)*([^\s*])
 
-           /**#regular expression for link  include\s+([\w\d]+)*([^\s*])
+           /**#regular expression for link  link\s+program\s*\(.+\)
               EXEC  CICS  LINK  PROGRAM  ('MA90T07')
                   COMMAREA (MATERCOM)
             */
