@@ -9,6 +9,7 @@ package com.lionel.delbe.progsystem.principal
  */
 class MonScanner {
     File fichier = null
+    Analyseur analyseur = null
 
     MonScanner(File fichier) {
         this.fichier = fichier
@@ -24,5 +25,15 @@ class MonScanner {
        fichier.eachLine {ligne -> println(ligne)}
 
     }
+
+    def private rechercherLesCalls(){
+           /*regular expression for  include\s+([\w\d]+)*([^\s*])
+
+           /**#regular expression for link  include\s+([\w\d]+)*([^\s*])
+              EXEC  CICS  LINK  PROGRAM  ('MA90T07')
+                  COMMAREA (MATERCOM)
+            */
+    }
+
 
 }
