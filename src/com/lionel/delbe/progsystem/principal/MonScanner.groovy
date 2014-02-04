@@ -51,8 +51,8 @@ class MonScanner {
         /*regular expression for  include\s+([\w\d]+)*([^\s*])*/
         if (UneLigne =~ COBOL_INCLUDE && (UneLigne.charAt(6) != "*")) {
             println UneLigne
-            def toto = UneLigne =~ COBOL_INCLUDE
-            println(toto)
+            def String toto = UneLigne.toString() =~ COBOL_INCLUDE
+            println("toto=$toto")
         }
         if (UneLigne =~ COBOL_CALLS && (UneLigne.charAt(6) != "*")) {
             println UneLigne
