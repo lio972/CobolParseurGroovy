@@ -8,23 +8,10 @@
 00008 * NOM DE TRANSACTION : FB01                        A 13:58        EQW9ZWFZ
 00009 * NOM DE MAP         : FB01M0Z                                    EQW9ZWFZ
 00010 * NOM DU PGM BATCH   : ........ (SI MODULE COMMUN TP/BATCH)       EQW9ZWFZ
-00011 * AUTEUR             : B.BAURèS                                   EQW9ZWFZ
+00011 * AUTEUR             : B.SSSï¿½S                                   EQW9ZWFZ
 00012 * LOGON TSO          : ETDA4                                      EQW9ZWFZ
 00013 *                                                                 EQW9ZWFZ
 00014 * TITRE              : COMPOSITION DU CONTRAT                     EQW9ZWFZ
-00015 *---------------------------------------------------------------+ EQW9ZWFZ
-00016 * CNC$PROG MAINT     : TK    090990 AJOUT TRAITEMENT TS PLAN      EQW9ZWFZ
-00017 *                    :              POUR  EXIT DE SELECTION DYNA  EQW9ZWFZ
-00018 *   09/09/90         :              MIQUE DE PLAN                 EQW9ZWFZ
-00019 *                    : POUR TOUTE   CONVERSATION (SAUF MENU)      EQW9ZWFZ
-00020 *---------------------------------------------------------------+ EQW9ZWFZ
-00021 * CNC$PROG MAINT     : TK    AJOUT ++INCLUDE SQKCPLDE             EQW9ZWFZ
-00022 *                    :       AJOUT APPEL DELETE-TS-PLAN DANS      EQW9ZWFZ
-00023 *  09-10-90          :       SORTIE-LEVEL-(SUP/MAX/SIGNATURE)     EQW9ZWFZ
-00024 *                    :       ET ABANDON-TACHE (SQKCMERO)          EQW9ZWFZ
-00025 *                    : POUR TOUTE   CONVERSATION (SAUF MENU)      EQW9ZWFZ
-00026 *---------------------------------------------------------------+ EQW9ZWFZ
-00027 *                          >> BUT <<                              EQW9ZWFZ
 00028 * .............................................................   EQW9ZWFZ
 00029 *                                                               ! EQW9ZWFZ
 00030 *                       >> SYNOPTIQUE <<                        ! EQW9ZWFZ
@@ -58,53 +45,6 @@
 00058 * 99/99/99    !                                                 ! EQW9ZWFZ
 00059 * AUTEUR      !                                                 ! EQW9ZWFZ
 00060 * LEVEL       !                                                 ! EQW9ZWFZ
-00061 *-------------+-------------------------------------------------+ EQW9ZWFZ
-00058 * 03/05/2002  ! FD F1936: LE CONTROLE DU NIVEAU D'HABILITATION  ! EQW9ZWFZ
-00059 * C.LANDRODIE !           POUR ACCES A CRAN FB11 EST SUPPRIME.  ! EQW9ZWFZ
-00060 *             !           IL SE FAIT DANS FB11T00               ! EQW9ZWFZ
-00061 *-------------+-------------------------------------------------+ EQW9ZWFZ
-00058 * 02/09/2002  ! U3137   : REMISE EN COURS DES GTIES LORS DE LA  ! EQW9ZWFZ
-00059 * B.BAURES    !           RESTAURATION D'UN VéHICULE.           ! EQW9ZWFZ
-      *-------------+-------------------------------------------------+
-00066 * 30/07/2002  ! FD 23216 : OPTION CHANGEMENT DE VéHICULE        ! FB01T00B
-00067 * B.BAURES    !                                                 ! FB01T00B
-      *-------------+-------------------------------------------------+
-00066 * 15/11/2002  ! FD 22110 : PB ALIMENTATION CIGAL                ! FB01T00B
-00067 * A.BERNARD   !                                                 ! FB01T00B
-      *-------------+-------------------------------------------------+
-00066 * 14/02/2003  ! FD 27833 : VISUALISATION DES DONNéES PERSONNES  ! FB01T00B
-00067 * C.LANDRODIE ! ET VéHICULE POUR LES SUSPENS REPRIS POUR AC     ! FB01T00B
-      *-------------+-------------------------------------------------+
-U3319 * 22/04/2003  ! FD U3319 : EXT.AACONV + MODIF ALIM. BANDEAU     ! EFU4RQMP
-U3319 * O.LASEIGNE  !            CLIENT                               ! EFU4RQMP
-      *-------------+-------------------------------------------------+
-U3796 * 30/04/2003  ! FD U3796 : ANOMALIE RECTIFICATIF                ! EFU4RQMP
-U3796 * R. SANCHEZ  !                                                   EFU4RQMP
-U3796 *-------------+-------------------------------------------------+
-U3402 * 26/09/2003  ! FD U3402 : ANOMALIE SUR CTRL USAGE PROF INCOMPA-! EFU4RQMP
-U3402 * A. BERNARD  !            TIBLES, MISE A BLANC PRMTYPC         ! EFU4RQMP
-U3796 *-------------+-------------------------------------------------+
-F2980 * 03/12/2003  ! FD 32980 : EVOLUTION HORS SERIE PRO             ! EFU4RQMP
-F2980 * B. MELLON   !            RECHERCHE VDR = E                    ! EFU4RQMP
-F2980 *-------------+-------------------------------------------------+
-F3576 * 14/11/2003  ! FD 33576 : EVOLUTION MESURES DE SOUSCRIPTION    !
-F3576 * A. LEMAITRE !            RECOMPILATION POUR PRISE EN COMPTE   !
-F3576 *             !            DE LA NOUVELLE VERSION DE L'INCLUDE  !
-F3576 *             !            FBIVEHI                              !
-F3576 *-------------+-------------------------------------------------+
-F37105* 17/03/2004  ! FD 37105 : EVOLUTION MESURES AUTOMOBILES        ! EFU4RQMP
-F37105* B. MELLON   !            REGLES DES BUTOIRS                   ! EFU4RQMP
-F37105*-------------+-------------------------------------------------+
-F37105* 25/03/2004  ! FD 37105 : - ANO ALIMENTATION ENSP/ENAP         ! EFU4RQMP
-F37105* B. CARDON   !            - ANO COPTYPC = 1                    ! EFU4RQMP
-F37105*-------------+-------------------------------------------------+
-36835 * 25/06/2004  ! FD 36835 : MISE A NIVEAU CONVERGENES            !
-36835 * D CARDON    !            CARTE GRISE --> RECOMPIL             !
-36835 *-------------+-------------------------------------------------+
-DELTS * B PORTEFAIX ! 30/12/2004 AJOUT INCLUDE DELETE TS              !
-      *-------------+-------------------------------------------------+
-U9949 * D CARDON    ! 03/07/2006 VARIABLE ENERGIE NON REDETERMINEE    !
-U9949 *             !  EN CHANGEMENT DE VEHICULE                      !
 U9949 *-------------+-------------------------------------------------+
 00062 *                       *************                           ! EQW9ZWFZ
 00063 *                       ** LEGENDE **                           ! EQW9ZWFZ
@@ -132,12 +72,12 @@ U9949 *-------------+-------------------------------------------------+
 00085 *                   - LONGUEUR DE LA COMMAREA                   ! EQW9ZWFZ
 00086 *                                                               ! EQW9ZWFZ
 00087 * MAINTENANCE     : LE LEVEL D'UNE MAINTENANCE CORRESPOND AU 1ER! EQW9ZWFZ
-00088 *                   N° DE LEVEL D'INSTRUCTION CORRESPONDANT A   ! EQW9ZWFZ
+00088 *                   Nï¿½ DE LEVEL D'INSTRUCTION CORRESPONDANT A   ! EQW9ZWFZ
 00089 *                   CETTE MAINTENANCE.                          ! EQW9ZWFZ
 00090 *===============================================================+ EQW9ZWFZ
-00090 * 21062002     *  F22110 : HS PHASE 2  NE PLUS DéCLENCHER LE    + EQW9ZWFZ
+00090 * 21062002     *  F22110 : HS PHASE 2  NE PLUS Dï¿½CLENCHER LE    + EQW9ZWFZ
 00090 * A SOULOUMIAC *  CONTROLE SUR MOTIF  SI VEHI OU PERS SORTIS    + EQW9ZWFZ
-00090 *              *  LORS D'UN MOUVEMENT PRéCEDENT                 + EQW9ZWFZ
+00090 *              *  LORS D'UN MOUVEMENT PRï¿½CEDENT                 + EQW9ZWFZ
 00090 *===============================================================+ EQW9ZWFZ
 00091  ENVIRONMENT DIVISION.                                            EQW9ZWFZ
 00092  CONFIGURATION SECTION.                                           EQW9ZWFZ
@@ -1082,7 +1022,7 @@ F37105 01 WSS-TOP-PERMIS   PIC X.                                       EQW9ZWFZ
 01011             MOVE SPACES              TO NOM-TACHE-START           EQW9ZWFZ
 01012          END-IF                                                   EQW9ZWFZ
 01013 * CE TRAITEMENT LIS LES TS VEHICULES ET PERSONNES, CONSTRUIT      EQW9ZWFZ
-01014 * LA TS TECHNIQUE , CRéE LE FICHIER ORDONNE D'AFFICHAGE           EQW9ZWFZ
+01014 * LA TS TECHNIQUE , CRï¿½E LE FICHIER ORDONNE D'AFFICHAGE           EQW9ZWFZ
 01015          PERFORM LECT-TS-PRODUIT-TECH THRU FLECT-TS-PRODUIT-TECH  EQW9ZWFZ
 01016          PERFORM APPEL-MODULE-DET THRU FAPPEL-MODULE-DET          EQW9ZWFZ
 01017          IF FB90C11-RETCOD NOT = '00' AND '01'                    EQW9ZWFZ
@@ -2077,9 +2017,9 @@ F7833 * VISUALISATION SANS MODIFICATION                                 EQW9ZWFZ
 F7833 *
 F7833 * - POUR LES SUSPENS EN DEMANDE D'ACCORD: SI LE SITE REPRENANT LE
 F7833 * SUSPENS (OM-GENE-CODSIT) N'EST PAS LE SITE QUI A FAIT LA DEMANDE
-F7833 * D'ACCORD (INF-OPID-SITE: SITE DE LA DERNIèRE INTERVENTION)
-F7833 * - POUR LES SUSPENS EMIS EN ATTENTE D'éPURARTION
-F7833 * --> SEULE LA VISUALISATION DES DONNéES EST POSSIBLE, SANS
+F7833 * D'ACCORD (INF-OPID-SITE: SITE DE LA DERNIï¿½RE INTERVENTION)
+F7833 * - POUR LES SUSPENS EMIS EN ATTENTE D'ï¿½PURARTION
+F7833 * --> SEULE LA VISUALISATION DES DONNï¿½ES EST POSSIBLE, SANS
 F7833 *     MODIFICATION (CODE SELECTION 'V')
 F7833 *
 F7833         IF ((INF-ETAT OF TS-SUSPENS1 = '3')                       EQW9ZWFZ
@@ -2133,7 +2073,7 @@ F7833                  END-IF                                           EQW9ZWFZ
 01986 * MOTIF DE SORTIE: VALEURS POSSIBLE 1 OU 2 OU 3 OU 4 OU 6 OU 8    EQW9ZWFZ
 01987 *                                OU 9 OU H OU L OU N OU P OU SPACEEQW9ZWFZ
 02009 *                                OU R UNIQUEMENT POUR CHANGEMENT  FB01T00B
-02010 *                               DE VéHICULE, MOTIF NON SAISISSABLEFB01T00B
+02010 *                               DE Vï¿½HICULE, MOTIF NON SAISISSABLEFB01T00B
 01988 *                                                                 EQW9ZWFZ
 01989      MOVE 'N' TO WSS-APPEL-AIDE-MOTIF.                            EQW9ZWFZ
 01990 *                                                                 EQW9ZWFZ
@@ -2308,7 +2248,7 @@ F7833                  END-IF                                           EQW9ZWFZ
 02123            END-IF                                                 EQW9ZWFZ
 02124         END-IF                                                    EQW9ZWFZ
 02125      END-IF.                                                      EQW9ZWFZ
-02126 *  SI AJOUT D'UN ONZIèME CONDUCTEUR BLOQUAGE                      EQW9ZWFZ
+02126 *  SI AJOUT D'UN ONZIï¿½ME CONDUCTEUR BLOQUAGE                      EQW9ZWFZ
 02127 *  SI AJOUT UN DEUXIEME CONDUCTEUR ET PREMIER COND 'PM' BLOQUAGE  EQW9ZWFZ
 02128      IF ECR-AJOUTCONO = 'O'                                       EQW9ZWFZ
 02129         IF COM-FB-NBRE-PERS-ENC = 10                              EQW9ZWFZ
@@ -2332,7 +2272,7 @@ F7833                  END-IF                                           EQW9ZWFZ
 02147            END-IF                                                 EQW9ZWFZ
 02148         END-IF                                                    EQW9ZWFZ
 02149      END-IF.                                                      EQW9ZWFZ
-02150 *  SI AJOUT D'UN ONZIèME VEHICULE BLOQUAGE                        EQW9ZWFZ
+02150 *  SI AJOUT D'UN ONZIï¿½ME VEHICULE BLOQUAGE                        EQW9ZWFZ
 02151      IF ECR-AJOUTVEHO = '1' OR '2' OR '3' OR '4' OR '5'           EQW9ZWFZ
 02152         IF COM-FB-NBRE-VEHI-ENC = 10                              EQW9ZWFZ
 02153            MOVE NOR-ALP        TO   ECR-AJOUTVEHA                 EQW9ZWFZ
@@ -2449,7 +2389,7 @@ F1936 *                                                                 EQW9ZWFZ
 02207         END-IF                                                    EQW9ZWFZ
 02208      END-IF.                                                      EQW9ZWFZ
 02209 *  SI CODE ACTION A 'M' => L' ELEMENT DE COMPOSITION DU CONTRAT   EQW9ZWFZ
-02210 *  DOIT êTRE EN COURS                                             EQW9ZWFZ
+02210 *  DOIT ï¿½TRE EN COURS                                             EQW9ZWFZ
 02211      IF OK                                                        EQW9ZWFZ
 02212         PERFORM VARYING I FROM 1 BY 1 UNTIL                       EQW9ZWFZ
 02213            ECR-CSECODCO (I) = 'M'                                 EQW9ZWFZ
@@ -2469,8 +2409,8 @@ F1936 *                                                                 EQW9ZWFZ
 02227         END-IF                                                    EQW9ZWFZ
 02228      END-IF.                                                      EQW9ZWFZ
 02343 *  SI CODE ACTION A 'C' => L' ELEMENT DE COMPOSITION DU CONTRAT   FB01T00B
-02344 *  DOIT êTRE EN COURS, êTRE UN 4R, CC OU 2R UNIQUEMENT            FB01T00B
-02345 * LE VEHICULE CHANGé NE DOIT PAS êTRE UNE ENTRéE LORS DU MOUVEMENTFB01T00B
+02344 *  DOIT ï¿½TRE EN COURS, ï¿½TRE UN 4R, CC OU 2R UNIQUEMENT            FB01T00B
+02345 * LE VEHICULE CHANGï¿½ NE DOIT PAS ï¿½TRE UNE ENTRï¿½E LORS DU MOUVEMENTFB01T00B
 02346 * EN COURS                                                        FB01T00B
 02229      IF OK                                                        EQW9ZWFZ
 02230         PERFORM VARYING I FROM 1 BY 1 UNTIL                       EQW9ZWFZ
@@ -2531,7 +2471,7 @@ F1936 *                                                                 EQW9ZWFZ
 02233         END-PERFORM                                               EQW9ZWFZ
 02234         IF ECR-CSECODCO (I) = 'R'                                 EQW9ZWFZ
 02235 *  SI CODE ACTION A 'R' => L' ELEMENT DE COMPOSITION DU CONTRAT   EQW9ZWFZ
-02236 *  DOIT êTRE SORTIE à L'EFFET DU JOURS                            EQW9ZWFZ
+02236 *  DOIT ï¿½TRE SORTIE ï¿½ L'EFFET DU JOURS                            EQW9ZWFZ
 02237            MOVE ECR-DATSORDO (I)           TO WSS-JJMMSSAA        EQW9ZWFZ
 02238            MOVE CORRESPONDING WSS-JJMMSSAA TO WSS-SSAAMMJJ        EQW9ZWFZ
 02239            IF COM-FB-DATE-EFFET-1 NOT = SPACES AND LOW-VALUE      EQW9ZWFZ
@@ -2599,7 +2539,7 @@ F1936 *                                                                 EQW9ZWFZ
 02301            OR I = 10                                              EQW9ZWFZ
 02302         END-PERFORM                                               EQW9ZWFZ
 02303 *  SI CODE ACTION A 'D' => L' ELEMENT DE COMPOSITION DU CONTRAT   EQW9ZWFZ
-02304 *  DOIT êTRE EN COURS                                             EQW9ZWFZ
+02304 *  DOIT ï¿½TRE EN COURS                                             EQW9ZWFZ
 02305         IF OK                                                     EQW9ZWFZ
 02306            IF ECR-CSECODCO (I) = 'D'                              EQW9ZWFZ
 02307               IF ECR-DATSORDO (I) NOT = SPACES                    EQW9ZWFZ
@@ -2629,8 +2569,8 @@ F1936 *                                                                 EQW9ZWFZ
 02331               END-IF                                              EQW9ZWFZ
 02332            END-IF                                                 EQW9ZWFZ
 02333         END-IF                                                    EQW9ZWFZ
-02334 * POUR SORTIR UNE PERSONNE OU UN VéHICULE IL FAUT QUE LE NOMBRE   EQW9ZWFZ
-02335 * DE PERSONNES OU DE VéHICULES SOIENT > 1                         EQW9ZWFZ
+02334 * POUR SORTIR UNE PERSONNE OU UN Vï¿½HICULE IL FAUT QUE LE NOMBRE   EQW9ZWFZ
+02335 * DE PERSONNES OU DE Vï¿½HICULES SOIENT > 1                         EQW9ZWFZ
 02336         IF OK                                                     EQW9ZWFZ
 02337            IF ECR-CSECODCO(I) = 'D'                               EQW9ZWFZ
 02338               IF ECR-STATYPCO (I) = 'CF' OR 'PM' OR 'CJ' OR 'ENSP'EQW9ZWFZ
@@ -2659,7 +2599,7 @@ F1936 *                                                                 EQW9ZWFZ
 02361               END-IF                                              EQW9ZWFZ
 02362            END-IF                                                 EQW9ZWFZ
 02363         END-IF                                                    EQW9ZWFZ
-02364 * POUR SORTIR LE DERNIER VéHICULE TRACTEUR (4R OU CC)             EQW9ZWFZ
+02364 * POUR SORTIR LE DERNIER Vï¿½HICULE TRACTEUR (4R OU CC)             EQW9ZWFZ
 02365 * IL FAUT QUE LE NOMBRE                                           EQW9ZWFZ
 02366 * DE VEHICULE TRACTE (REM OU CAR) SOIENT = ZERO                   EQW9ZWFZ
 02367         IF OK                                                     EQW9ZWFZ
@@ -2705,10 +2645,10 @@ F1936 *                                                                 EQW9ZWFZ
 02407         END-IF                                                    EQW9ZWFZ
 02408      END-IF.                                                      EQW9ZWFZ
 
-F7833 *  SI CODE ACTION A 'V' => LE SUSPENS DOIT êTRE                   EQW9ZWFZ
+F7833 *  SI CODE ACTION A 'V' => LE SUSPENS DOIT ï¿½TRE                   EQW9ZWFZ
 F7833 *                          EN DEMANDE D'ACCORD                    EQW9ZWFZ
 F7833 *  AU NIVEAU DU MODULE DE CONTROLE TECHNIQUE ET DES ECRANS        EQW9ZWFZ
-F7833 *  SUIVANTS, LE CODE SéLECTION SERA GéRé COMME 'M'                EQW9ZWFZ
+F7833 *  SUIVANTS, LE CODE Sï¿½LECTION SERA Gï¿½Rï¿½ COMME 'M'                EQW9ZWFZ
 F7833      IF OK                                                        EQW9ZWFZ
 F7833         PERFORM VARYING I FROM 1 BY 1 UNTIL                       EQW9ZWFZ
 F7833            ECR-CSECODCO (I) = 'V'                                 EQW9ZWFZ
@@ -3013,11 +2953,11 @@ F7833      END-IF.                                                      EQW9ZWFZ
 02757  FIN-MISE-A-JOUR-TS. EXIT.                                        EQW9ZWFZ
 02758 *                                                                 EQW9ZWFZ
 02759 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * EQW9ZWFZ
-02760 * MISE à JOURS DE LA TS LORS D'UNE RESTAURATION                 * EQW9ZWFZ
+02760 * MISE ï¿½ JOURS DE LA TS LORS D'UNE RESTAURATION                 * EQW9ZWFZ
 02761 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * EQW9ZWFZ
-02762 *  MISE à JOURS DE LA DATE DE SORTIE                              EQW9ZWFZ
-02763 *  MISE à JOURS DU MOTIF DE SORTIE                                EQW9ZWFZ
-02764 *  MISE à JOURS DU CODE ACTION DB2 (OCCURS 2)                     EQW9ZWFZ
+02762 *  MISE ï¿½ JOURS DE LA DATE DE SORTIE                              EQW9ZWFZ
+02763 *  MISE ï¿½ JOURS DU MOTIF DE SORTIE                                EQW9ZWFZ
+02764 *  MISE ï¿½ JOURS DU CODE ACTION DB2 (OCCURS 2)                     EQW9ZWFZ
 02765  RESTAURATION-TS.                                                 EQW9ZWFZ
 02766      IF WSS-TYPTS (IG) = 'P'                                      EQW9ZWFZ
 02767         MOVE WSS-RANTS (IG)             TO RANG-TS-PERS           EQW9ZWFZ
@@ -3063,13 +3003,13 @@ F7833      END-IF.                                                      EQW9ZWFZ
                  END-IF
               END-PERFORM
       *-----------
-      * TRAITEMENT DU CAS OU L'ON RESTAURE UN VéHICULE QUE L'ON VIENT DEFB01T00B
+      * TRAITEMENT DU CAS OU L'ON RESTAURE UN Vï¿½HICULE QUE L'ON VIENT DEFB01T00B
       * REPLACER :                                                      FB01T00B
-      *  - ON REMET EN COURS LE VéHICULE REMPLACé AVEC SES DONNéES      FB01T00B
-      *  - LE VéHICULE REMPLAçANT DEVIENT UN AJOUT DE VéHICULE CLASSIQUEFB01T00B
-      *    POUR LEQUEL ON NE DOIT PLUS TENIR COMPTE DES DONNéES QU'IL   FB01T00B
-      *    AVAIT RéCUPERé DU VEHICULE REMPLACé, ON DOIT RESAISIR        FB01T00B
-      *    CERTAINES DONNéES DU VéHICULE AJOUTé.                        FB01T00B
+      *  - ON REMET EN COURS LE Vï¿½HICULE REMPLACï¿½ AVEC SES DONNï¿½ES      FB01T00B
+      *  - LE Vï¿½HICULE REMPLAï¿½ANT DEVIENT UN AJOUT DE Vï¿½HICULE CLASSIQUEFB01T00B
+      *    POUR LEQUEL ON NE DOIT PLUS TENIR COMPTE DES DONNï¿½ES QU'IL   FB01T00B
+      *    AVAIT Rï¿½CUPERï¿½ DU VEHICULE REMPLACï¿½, ON DOIT RESAISIR        FB01T00B
+      *    CERTAINES DONNï¿½ES DU Vï¿½HICULE AJOUTï¿½.                        FB01T00B
       *-----------
               IF VEHCHGC OF TS-VEHICULE (1) = '1'
                 IF VEHORCX OF TS-VEHICULE(1) = ZERO
@@ -3113,22 +3053,22 @@ F7833      END-IF.                                                      EQW9ZWFZ
 02805  FIN-RESTAURATION-TS.                                             EQW9ZWFZ
 02911 *                                                                 FB01T00B
 02912 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * FB01T00B
-02913 * MISE à JOURS DES TS LORS D'UN CHANGEMENT DE VEHICULE          * FB01T00B
+02913 * MISE ï¿½ JOURS DES TS LORS D'UN CHANGEMENT DE VEHICULE          * FB01T00B
 02914 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * FB01T00B
 02915 * LE CHANGEMENT SE FAIT EN 2 TEMPS :                              FB01T00B
-02916 *  1/ MISE à JOUR DE LA TS DU VéHICULE REMPLACé                   FB01T00B
-02917 *     - MISE à JOURS DE LA DATE DE SORTIE                         FB01T00B
-02918 *     - MISE à JOURS DU MOTIF DE SORTIE                           FB01T00B
-02919 *     - MISE à JOURS DU CODE ACTION DB2 (OCCURS 2)                FB01T00B
-02920 *     - MISE à JOURS DU TOP DE CHANGEMENT VEHICULE                FB01T00B
-02921 *  2/ CREATION DE LA TS DU VéHICULE REMPLACANT                    FB01T00B
-02922 *     - MISE à JOURS DE LA DATE DE SORTIE                         FB01T00B
-02923 *     - MISE à JOURS DU MOTIF DE SORTIE                           FB01T00B
-02924 *     - MISE à JOURS DU CODE ACTION DB2 (OCCURS 2)                FB01T00B
-02925 *     - MISE à JOURS DU TOP DE CHANGEMENT VEHICULE                FB01T00B
+02916 *  1/ MISE ï¿½ JOUR DE LA TS DU Vï¿½HICULE REMPLACï¿½                   FB01T00B
+02917 *     - MISE ï¿½ JOURS DE LA DATE DE SORTIE                         FB01T00B
+02918 *     - MISE ï¿½ JOURS DU MOTIF DE SORTIE                           FB01T00B
+02919 *     - MISE ï¿½ JOURS DU CODE ACTION DB2 (OCCURS 2)                FB01T00B
+02920 *     - MISE ï¿½ JOURS DU TOP DE CHANGEMENT VEHICULE                FB01T00B
+02921 *  2/ CREATION DE LA TS DU Vï¿½HICULE REMPLACANT                    FB01T00B
+02922 *     - MISE ï¿½ JOURS DE LA DATE DE SORTIE                         FB01T00B
+02923 *     - MISE ï¿½ JOURS DU MOTIF DE SORTIE                           FB01T00B
+02924 *     - MISE ï¿½ JOURS DU CODE ACTION DB2 (OCCURS 2)                FB01T00B
+02925 *     - MISE ï¿½ JOURS DU TOP DE CHANGEMENT VEHICULE                FB01T00B
 02926                                                                   FB01T00B
 02927  CHANGEMENT-VEHI.                                                 FB01T00B
-02928 *  1/ MISE à JOUR DE LA TS DU VéHICULE REMPLACé                   FB01T00B
+02928 *  1/ MISE ï¿½ JOUR DE LA TS DU Vï¿½HICULE REMPLACï¿½                   FB01T00B
 02929      MOVE WSS-RANTS (IG)             TO RANG-TS-VEHI.             FB01T00B
 02930      ADD 1          TO COM-FB-NBRE-VEHI-SOR.                      FB01T00B
 02931      SUBTRACT  1    FROM COM-FB-NBRE-VEHI-ENC.                    FB01T00B
@@ -3144,7 +3084,7 @@ F7833      END-IF.                                                      EQW9ZWFZ
 02944      END-IF.                                                      FB01T00B
 02945      PERFORM ECR-TS-VEHICULE THRU FECR-TS-VEHICULE.               FB01T00B
 02946                                                                   FB01T00B
-02947 *  2/ CREATION DE LA TS DU VéHICULE REMPLACANT                    FB01T00B
+02947 *  2/ CREATION DE LA TS DU Vï¿½HICULE REMPLACANT                    FB01T00B
 02948      MOVE SPACES TO DONNEES-VEHICULE OF TS-VEHICULE(2).           FB01T00B
 02949      MOVE SPACES TO DONNEES-VEHICULE OF TS-VEHICULE(3).           FB01T00B
 02950      MOVE SPACES TO DONNEES-VEHICULE OF TS-VEHICULE(4).           FB01T00B
@@ -3167,8 +3107,8 @@ F7833      END-IF.                                                      EQW9ZWFZ
 02961      END-IF.                                                      FB01T00B
 02965      MOVE SPACES     TO VEHMARL  OF TS-VEHICULE(1).               FB01T00B
 02966      MOVE SPACES     TO VEHMODL  OF TS-VEHICULE(1).               FB01T00B
-02967 *ON CONSERVE LA CYLINDRéE POUR LES 2ROUES CAR ON NE PEUT REMPLACERFB01T00B
-02968 *UN 2R QUE PAR UN 2R DE MêME CATéGORIE (50 CM3 PAR 50 CM3 ETC...) FB01T00B
+02967 *ON CONSERVE LA CYLINDRï¿½E POUR LES 2ROUES CAR ON NE PEUT REMPLACERFB01T00B
+02968 *UN 2R QUE PAR UN 2R DE Mï¿½ME CATï¿½GORIE (50 CM3 PAR 50 CM3 ETC...) FB01T00B
 02969      IF VEHTYPC OF TS-VEHICULE(1) NOT = '2R '                     FB01T00B
 02973        MOVE SPACES     TO RVEHCYLN OF TS-VEHICULE(1)              FB01T00B
 02974        MOVE SPACES     TO  VEHGENC OF TS-VEHICULE(1)              FB01T00B
@@ -3212,9 +3152,9 @@ U9949      MOVE SPACES     TO VEHNRJC  OF TS-VEHICULE(1).               FB01T00B
 02806 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * EQW9ZWFZ
 02807 * MISE A JOURS DE LA TS LORS D'UNE SORTIE                       * EQW9ZWFZ
 02808 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * EQW9ZWFZ
-02809 *  MISE à JOURS DE LA DATE DE SORTIE                              EQW9ZWFZ
-02810 *  MISE à JOURS DU MOTIF DE SORTIE                                EQW9ZWFZ
-02811 *  MISE à JOURS DU CODE ACTION DB2 (OCCURS 2)                     EQW9ZWFZ
+02809 *  MISE ï¿½ JOURS DE LA DATE DE SORTIE                              EQW9ZWFZ
+02810 *  MISE ï¿½ JOURS DU MOTIF DE SORTIE                                EQW9ZWFZ
+02811 *  MISE ï¿½ JOURS DU CODE ACTION DB2 (OCCURS 2)                     EQW9ZWFZ
 02812  SORTIE-TS.                                                       EQW9ZWFZ
 02813      IF WSS-TYPTS (IG) = 'P'                                      EQW9ZWFZ
 02814         MOVE WSS-RANTS (IG)             TO RANG-TS-PERS           EQW9ZWFZ
@@ -3268,7 +3208,7 @@ U9949      MOVE SPACES     TO VEHNRJC  OF TS-VEHICULE(1).               FB01T00B
 02862 * MISE A JOURS DE LA TS LORS D'UNE SORTIE                       * EQW9ZWFZ
 02863 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * EQW9ZWFZ
 02864 *                                                                 EQW9ZWFZ
-02865 *  MISE à JOURS DU MOTIF DE SORTIE                                EQW9ZWFZ
+02865 *  MISE ï¿½ JOURS DU MOTIF DE SORTIE                                EQW9ZWFZ
 02866 *                                                                 EQW9ZWFZ
 02867  MAJ-MOTIF-TS.                                                    EQW9ZWFZ
 02868 *                                                                 EQW9ZWFZ
@@ -3697,7 +3637,7 @@ U3319  ++INCLUDE SQKCECRS
 03307 *                                                                 EQW9ZWFZ
 03308 * RECUPERATION DU NIVEAU SUPERIEUR DANS LA PILE DES CONVERSATIONS EQW9ZWFZ
 03309 * ICI GESTION HORS FUE PERMETTANT EN EN ET RP DE NE PAS REAFFICHE EQW9ZWFZ
-03310 * L'éCRAN PERSONNE FB02                                           EQW9ZWFZ
+03310 * L'ï¿½CRAN PERSONNE FB02                                           EQW9ZWFZ
 03311      SUBTRACT 1 FROM COM-GENE-INDCNV.                             EQW9ZWFZ
 03312      MOVE COM-GENE-PILCNV(COM-GENE-INDCNV) TO NOM-TACHE-XCTL.     EQW9ZWFZ
 03313 *  DELETE DE LA TS ECRAN                                          EQW9ZWFZ
@@ -3844,7 +3784,7 @@ U3319  ++INCLUDE SQKCECRS
 03454 *                                                                 EQW9ZWFZ
 03455 *                                                                 EQW9ZWFZ
 03456 ******************************************************************EQW9ZWFZ
-03457 * MISE à JOUR DES PERSONNES DANS LA TS TECHNIQUE                 *EQW9ZWFZ
+03457 * MISE ï¿½ JOUR DES PERSONNES DANS LA TS TECHNIQUE                 *EQW9ZWFZ
 03458 ******************************************************************EQW9ZWFZ
 03459 *                                                                 EQW9ZWFZ
 03460  ENREG-TS-TECH-PERS.                                              EQW9ZWFZ
@@ -3906,7 +3846,7 @@ F37105     END-IF.
 03510      EXIT.                                                        EQW9ZWFZ
 03511 *                                                                 EQW9ZWFZ
 03512 ******************************************************************EQW9ZWFZ
-03513 * MISE à JOUR DES VEHICULES DANS LA TS TECHNIQUE                 *EQW9ZWFZ
+03513 * MISE ï¿½ JOUR DES VEHICULES DANS LA TS TECHNIQUE                 *EQW9ZWFZ
 03514 ******************************************************************EQW9ZWFZ
 03515 *                                                                 EQW9ZWFZ
 03516  ENREG-TS-TECH-VEHI.                                              EQW9ZWFZ
@@ -4623,7 +4563,7 @@ F37105     MOVE COM-FB-VALEUR-BUTOIR    TO FB90C11-VALEUR-BUTOIR.       EQW9ZWFZ
 04157      MOVE COM-GENE-CODSIT           TO COM-AU-SITE.               EQW9ZWFZ
 04158      MOVE COM-GENE-CODCNV           TO COM-AU-CONVERS.            EQW9ZWFZ
 04159      MOVE COM-GENE-CODUSR           TO COM-AU-USAGER.             EQW9ZWFZ
-04160 *              COM-AU-SWAP   (1 : SWAP N°1 / 2 : SWAP N°2)        EQW9ZWFZ
+04160 *              COM-AU-SWAP   (1 : SWAP Nï¿½1 / 2 : SWAP Nï¿½2)        EQW9ZWFZ
 04161      MOVE '1'                       TO COM-AU-SWAP.               EQW9ZWFZ
 04162 *              COM-AU-TYPETS (M : MENU / C : CONVERSATION)        EQW9ZWFZ
 04163      MOVE 'C'                       TO COM-AU-TYPETS.             EQW9ZWFZ
@@ -4648,7 +4588,7 @@ F37105     MOVE COM-FB-VALEUR-BUTOIR    TO FB90C11-VALEUR-BUTOIR.       EQW9ZWFZ
 04182      MOVE COM-GENE-CODSIT           TO COM-AU-SITE.               EQW9ZWFZ
 04183      MOVE COM-GENE-CODCNV           TO COM-AU-CONVERS.            EQW9ZWFZ
 04184      MOVE COM-GENE-CODUSR           TO COM-AU-USAGER.             EQW9ZWFZ
-04185 *              COM-AU-SWAP   (1 : SWAP N°1 / 2 : SWAP N°2)        EQW9ZWFZ
+04185 *              COM-AU-SWAP   (1 : SWAP Nï¿½1 / 2 : SWAP Nï¿½2)        EQW9ZWFZ
 04186      MOVE '1'                       TO COM-AU-SWAP.               EQW9ZWFZ
 04187 *                                                                 EQW9ZWFZ
 04188      EXEC CICS LINK PROGRAM  ('AUAAL04')                          EQW9ZWFZ

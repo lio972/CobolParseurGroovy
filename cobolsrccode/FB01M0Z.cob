@@ -1,5 +1,5 @@
       ***************************************************************** 00000010
-      * COMPOSITION CONTRAT 4 ROUES GFA                                 00000020
+      * COMPOSITION CONTRAT 4 ROUES XXX                                 00000020
       ***************************************************************** 00000030
        02   FB01M0I.                                                    00000040
                05 FILLER     PIC X(12).                                 00000050
@@ -35,7 +35,7 @@
                05 ECR-NOMCF  PIC X.                                     00000350
                05 ECR-NOMCI  PIC X(30).                                 00000360
                05 ECR-LIGNEI OCCURS   10 TIMES .                        00000370
-      * code sélection                                                  00000380
+      * code sï¿½lection                                                  00000380
                  06 ECR-CSECODCL  COMP PIC S9(4).                       00000390
                  06 ECR-CSECODCF  PIC X.                                00000400
                  06 ECR-CSECODCI  PIC X.                                00000410
@@ -43,7 +43,7 @@
                  06 ECR-IDENTIFL  COMP PIC S9(4).                       00000430
                  06 ECR-IDENTIFF  PIC X.                                00000440
                  06 ECR-IDENTIFI  PIC X(30).                            00000450
-      * date d'entrée                                                   00000460
+      * date d'entrï¿½e                                                   00000460
                  06 ECR-DATENTDL  COMP PIC S9(4).                       00000470
                  06 ECR-DATENTDF  PIC X.                                00000480
                  06 ECR-DATENTDI  PIC X(8).                             00000490
@@ -67,7 +67,7 @@
                05 ECR-AJOUTCONL   COMP PIC S9(4).                       00000630
                05 ECR-AJOUTCONF   PIC X.                                00000640
                05 ECR-AJOUTCONI   PIC X.                                00000650
-      * code ajout véhiule                                              00000660
+      * code ajout vï¿½hiule                                              00000660
                05 ECR-AJOUTVEHL   COMP PIC S9(4).                       00000670
                05 ECR-AJOUTVEHF   PIC X.                                00000680
                05 ECR-AJOUTVEHI   PIC X.                                00000690
@@ -120,7 +120,7 @@
                05 ECR-NOMCA  PIC X.                                     00001160
                05 ECR-NOMCO  PIC X(30).                                 00001170
                05 ECR-LIGNEO OCCURS   10 TIMES .                        00001220
-      * code sélection                                                  00001190
+      * code sï¿½lection                                                  00001190
                  06 FILLER   PIC X(2).                                  00001200
                  06 ECR-CSECODCA  PIC X.                                00001210
                  06 ECR-CSECODCO  PIC X.                                00001220
@@ -128,7 +128,7 @@
                  06 FILLER   PIC X(2).                                  00001240
                  06 ECR-IDENTIFA  PIC X.                                00001250
                  06 ECR-IDENTIFO  PIC X(30).                            00001260
-      * date d'entrée                                                   00001270
+      * date d'entrï¿½e                                                   00001270
                  06 FILLER   PIC X(2).                                  00001280
                  06 ECR-DATENTDA  PIC X.                                00001290
                  06 ECR-DATENTDO  PIC X(8).                             00001300
@@ -152,7 +152,7 @@
                05 FILLER     PIC X(2).                                  00001440
                05 ECR-AJOUTCONA   PIC X.                                00001450
                05 ECR-AJOUTCONO   PIC X.                                00001460
-      * code ajout véhiule                                              00001470
+      * code ajout vï¿½hiule                                              00001470
                05 FILLER     PIC X(2).                                  00001480
                05 ECR-AJOUTVEHA   PIC X.                                00001490
                05 ECR-AJOUTVEHO   PIC X.                                00001500

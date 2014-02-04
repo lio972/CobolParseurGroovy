@@ -11,29 +11,36 @@ class MonScanner {
     File fichier = null
     Analyseur analyseur = null
     def private COBOL_INCLUDE = /(INCLUDE)(\s+)(([\w\d]+)*)(([^\s*])*)/
-    def private COBOL_LINK = /LINK\s+PROGRAM\s*\(.+\)/
-    def private COBOL_CALLS = /CALL\s+\(.+\)/
+    def private COBOL_LINK = /(LINK)(\s+)(PROGRAM)(\s*)(\((.+)\))/
+    def private COBOL_CALLS = /(CALL)(\s+)(\((.+)\))/
     def ArrayList includes = new ArrayList()
     def ArrayList links = new ArrayList()
     def ArrayList calls = new ArrayList()
 
     MonScanner(File fichier) {
         this.fichier = fichier
-        println fichier.getAbsolutePath()
+        println fichier.name
     }
 
     def private displayFichierEntree() {
-        println(fichier)
+        //println(fichier)
     }
 
     def private afficherContenuFichier() {
-        println "debut de lecture"
+        println("debut de lecture " + fichier.getName())
         fichier.eachLine { ligne ->
             rechercherLesCalls(ligne)
         }
         println "includes==>" + includes
         println "calls   ==>" + calls
         println "links   ==>" + links
+
+        println(fichier.absolutePath)
+        println(fichier.absoluteFile)
+        println(fichier.parent)
+        println(fichier.parent + "\\" + fichier.name + ".dot")
+        def output = new File(fichier.parent + "\\" + fichier.name + ".dot")
+
     }
 
 
@@ -56,6 +63,7 @@ class MonScanner {
         if (UneLigne =~ COBOL_CALLS && (UneLigne.charAt(6) != "*")) {
             println UneLigne
             def toto = (UneLigne =~ COBOL_CALLS)
+            println(toto[0])
             if (!calls.contains(toto[0][3])) {
                 calls.add(toto[0][3])
             }
@@ -66,8 +74,10 @@ class MonScanner {
         if (UneLigne =~ COBOL_LINK && (UneLigne.charAt(6) != "*")) {
             println UneLigne
             def toto = (UneLigne =~ COBOL_LINK)
-            if (!links.contains(toto[0][3])) {
-                links.add(toto[0][3])
+            println(toto[0])
+            println(toto[0][6])
+            if (!links.contains(toto[0][6])) {
+                links.add(toto[0][6])
             }
             links.sort()
         }

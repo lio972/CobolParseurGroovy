@@ -1,4 +1,4 @@
-         TITLE 'COMPOSITION CONTRAT 4 ROUES GFA '                       00001
+         TITLE 'COMPOSITION CONTRAT XXXXXXXXXXX '                       00001
          PRINT ON,NOGEN                                                 00002
 FB01M0   DFHMSD TYPE=MAP,LANG=COBOL,MODE=INOUT,STORAGE=AUTO,SUFFIX=     00003
          TITLE 'COMPOSITION CONTRAT 4 ROUES GFA '                       00004
@@ -265,7 +265,7 @@ DFH0079  DFHMDF POS=(19,26),LENGTH=1,ATTRB=(UNPROT,NORM),COLOR=NEUTRAL  00261
 * AJOUTVEH                        ECR-AJOUTVEH                          00265
 DFH0080  DFHMDF POS=(20,26),LENGTH=1,ATTRB=(UNPROT,NORM),COLOR=NEUTRAL  00266
          DFHMDF POS=(20,28),LENGTH=31,                                 *00267
-               INITIAL='(Préciser le type ou taper ''?'')',            *00268
+               INITIAL='(Prï¿½ciser le type ou taper ''?'')',            *00268
                ATTRB=(ASKIP,NORM)                                       00269
          DFHMDF POS=(20,80),LENGTH=79,                                 *00270
                INITIAL='-----------------------------------------------*00271
