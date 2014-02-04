@@ -40,6 +40,13 @@ class MonScanner {
         println(fichier.parent)
         println(fichier.parent + "\\" + fichier.name + ".dot")
         def output = new File(fichier.parent + "\\" + fichier.name + ".dot")
+         output << "digraph g{\r\n"
+         calls.each {it -> output << "               " + fichier.name + " -> " + it.toString()+"\r\n"
+         }
+         includes.each {it -> output << "               " + fichier.name + " -> " + it.toString()+"\r\n"
+         }
+         output << "}\r\n"
+
 
     }
 
