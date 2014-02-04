@@ -38,7 +38,12 @@ class MonScanner {
         println(fichier.absolutePath)
         println(fichier.absoluteFile)
         println(fichier.parent)
-        println(fichier.parent + "\\" + fichier.name + ".dot")
+        def nomfichierout = fichier.parent + "\\" + fichier.name + ".dot"
+        println(nomfichierout)
+        if(new File(nomfichierout).exists()){
+            new File(nomfichierout).delete()
+            println("suppression $nomfichierout:OK")
+        }
         def output = new File(fichier.parent + "\\" + fichier.name + ".dot")
          output << "digraph g{\r\n"
          calls.each {it -> output << "               " + fichier.name + " -> " + it.toString()+"\r\n"
