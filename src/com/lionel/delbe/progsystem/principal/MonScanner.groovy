@@ -38,17 +38,22 @@ class MonScanner {
         println(fichier.absolutePath)
         println(fichier.absoluteFile)
         println(fichier.parent)
-        def nomfichierout = fichier.parent + "\\" + fichier.name + ".dot"
+        println(fichier.name.split("\\.")[0])
+        def nomfichierout = fichier.parent + "\\" + fichier.name.split("\\.")[0] + ".dot"
         println(nomfichierout)
         if(new File(nomfichierout).exists()){
             new File(nomfichierout).delete()
             println("suppression $nomfichierout:OK")
         }
-        def output = new File(fichier.parent + "\\" + fichier.name + ".dot")
+        def output = new File(fichier.parent + "\\" + fichier.name.split("\\.")[0] + ".dot")
          output << "digraph g{\r\n"
-         calls.each {it -> output << "               " + fichier.name + " -> " + it.toString()+"\r\n"
+         output << "node [shape=box, color=lightblue2, style=filled];\r\n"
+         output << fichier.name.split("\\.")[0] + " [shape=circle, color=blue, fontcolor=white];\r\n"
+         links.each {it -> output << "   " + fichier.name.split("\\.")[0] + " -> " + it.toString()+";\r\n"
+            output << "   " + it + " [shape=circle, color=thistle1, fontcolor=purple];\r\n"
          }
-         includes.each {it -> output << "               " + fichier.name + " -> " + it.toString()+"\r\n"
+
+        includes.each {it -> output << "   " + fichier.name.split("\\.")[0] + " -> " + it.toString()+";\r\n"
          }
          output << "}\r\n"
 
