@@ -30,8 +30,12 @@ def montexte = "01486 *                                                         
         "01500      END-IF.                                                      EFUTSTA4\n" +
         "01501 *               "
 montexte.eachLine {if(it =~ COBOL_LINK) {
-        //selection = it =~COBOL_LINK
-        println(it)
+        //  selection = it =~COBOL_LINK
+    resultat = (it =~ COBOL_LINK)
+    toto = resultat[0].toString().tokenize()
+    println(resultat[0] + "==>")
+    println(toto)
+    println(it)
         //resultat = selection.matches()
         //println(resultat[0][1])
     }
