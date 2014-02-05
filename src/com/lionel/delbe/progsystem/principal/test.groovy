@@ -57,3 +57,7 @@ def existeCoteAlorsSuppressionString(String texte){
 println(existeCoteAlorsSuppressionString(titi))
 //println(marc)
 //def monregex =
+
+def uneConnection = new AccessDatabase()
+uneConnection.connectionDatabase()
+uneConnection.deconnectionDatabase()
