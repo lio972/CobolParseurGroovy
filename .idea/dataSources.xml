@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="2210491930">
+    <data-source source="LOCAL" name="Data Source" product="H2" version="1.3.170 (2012-11-30)" jdbc-version="4.0" driver-name="H2 JDBC Driver" driver-version="1.3.170 (2012-11-30)" uuid="17ecc6bb-8b05-48e6-9829-fbd862aa02af">
+      <identifier-quote-string>&quot;</identifier-quote-string>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.h2.Driver</jdbc-driver>
+      <jdbc-url>jdbc:h2:~/datastore/CobolParseurDBMS</jdbc-url>
+      <user-name>sa</user-name>
+      <schema-pattern>COBOLPARSEURDBMS.PUBLIC</schema-pattern>
+      <default-dialect>DB2</default-dialect>
+      <libraries>
+        <library>
+          <url>jar://$PROJECT_DIR$/external/h2-1.3.170.jar!/</url>
+        </library>
+        <library>
+          <url>file://$PROJECT_DIR$/external/h2-license.txt</url>
+        </library>
+      </libraries>
+    </data-source>
+  </component>
+</project>
+
