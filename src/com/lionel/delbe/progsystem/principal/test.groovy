@@ -41,4 +41,19 @@ montexte.eachLine {if(it =~ COBOL_LINK) {
     }
 }
 
+titi = '\'MOMO\''
+println(titi)
+println(titi.getClass())
+
+marc = titi[1..titi.length() - 2]
+
+// suppression de cote sur des string possedant ces elements
+def existeCoteAlorsSuppressionString(String texte){
+    if(texte[0]== '\'' && texte[texte.length() - 1]== '\''){
+        return texte[1..texte.length()-2]
+    }
+}
+
+println(existeCoteAlorsSuppressionString(titi))
+//println(marc)
 //def monregex =

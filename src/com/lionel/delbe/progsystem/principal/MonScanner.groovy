@@ -12,7 +12,8 @@ class MonScanner {
     Analyseur analyseur = null
     def private COBOL_INCLUDE = /(INCLUDE)(\s+)(([\w\d]+)*)(([^\s*])*)/
     def private COBOL_LINK = /(LINK)(\s+)(PROGRAM)(\s*)(\((.+)\))/
-    def private COBOL_CALLS = /(CALL)(\s+)(\((.+)\))/
+    //def private COBOL_CALLS = /(CALL)(\s+)(\((.+)\))/  //TODO :Corriger  la detection des call
+    def private COBOL_CALLS = /(CALL)(\s+)(\S+)(\s*)/  //TODO :Corriger  la detection des call
     def ArrayList includes = new ArrayList()
     def ArrayList links = new ArrayList()
     def ArrayList calls = new ArrayList()
@@ -39,26 +40,61 @@ class MonScanner {
         println(fichier.absoluteFile)
         println(fichier.parent)
         println(fichier.name.split("\\.")[0])
-        def nomfichierout = fichier.parent + "\\" + fichier.name.split("\\.")[0] + ".dot"
-        println(nomfichierout)
-        if(new File(nomfichierout).exists()){
-            new File(nomfichierout).delete()
-            println("suppression $nomfichierout:OK")
+
+        //creation du fichier de sortie ssi includes ou links ou call est > 0
+
+        if (includes.size() > 0 || links.size() > 0 || calls.size() > 0) {
+
+            def nomfichierout = fichier.parent + "\\" + fichier.name.split("\\.")[0] + ".dot"
+            println(nomfichierout)
+            if (new File(nomfichierout).exists()) {
+                new File(nomfichierout).delete()
+                println("suppression $nomfichierout:OK")
+                //TODO : corriger la gestion de la suppression des fichiers existant avant regeneration
+            }
+            def output = new File(fichier.parent + "\\" + fichier.name.split("\\.")[0] + ".dot")
+            output << "digraph g{\r\n"
+            output << "node [shape=box, color=lightblue2, style=filled];\r\n"
+            output << fichier.name.split("\\.")[0] + " [shape=circle, color=blue, fontcolor=white];\r\n"
+
+            // gestion des link
+            if (links.size() > 0) {
+                links.each { it ->
+                    output << "   " + fichier.name.split("\\.")[0] + " -> " + existeCoteAlorsSuppressionString(it).toString() + ";\r\n"
+                    output << "   " + existeCoteAlorsSuppressionString(it) + " [shape=circle, color=thistle1, fontcolor=purple];\r\n"
+                }
+            }
+
+            // gestion des includes
+            if (includes.size() > 0) {
+                includes.each { it -> output << "   " + fichier.name.split("\\.")[0] + " -> " + it.toString() + ";\r\n"
+                }
+            }
+
+            // gestion des calls
+            if (calls.size() > 0) {
+                calls.each { it -> output << "   " + fichier.name.split("\\.")[0] + " -> " + it.toString() + ";\r\n"
+                output << "    " + it + " [color=yellow, style=filled, shape=polygon, sides=6];\r\n"
+                 //TODO ajouter un mise ne forme pour la representation des call sous DOT
+                }
+            }
+
+            // fin du fichier dot
+            output << "}\r\n"
         }
-        def output = new File(fichier.parent + "\\" + fichier.name.split("\\.")[0] + ".dot")
-         output << "digraph g{\r\n"
-         output << "node [shape=box, color=lightblue2, style=filled];\r\n"
-         output << fichier.name.split("\\.")[0] + " [shape=circle, color=blue, fontcolor=white];\r\n"
-         links.each {it -> output << "   " + fichier.name.split("\\.")[0] + " -> " + it.toString()+";\r\n"
-            output << "   " + it + " [shape=circle, color=thistle1, fontcolor=purple];\r\n"
-         }
-
-        includes.each {it -> output << "   " + fichier.name.split("\\.")[0] + " -> " + it.toString()+";\r\n"
-         }
-         output << "}\r\n"
-
 
     }
+
+
+    // suppression de cote sur des string possedant ces elements
+    def existeCoteAlorsSuppressionString(String texte){
+        if(texte[0]== '\'' && texte[texte.length() - 1]== '\''){
+            return texte[1..texte.length()-2]
+        }
+    }
+
+
+
 
 
     def rechercherLesCalls(UneLigne) {
