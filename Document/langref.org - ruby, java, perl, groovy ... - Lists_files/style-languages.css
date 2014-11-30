@@ -1,0 +1,288 @@
+
+.ruby .code {
+    background-color:#f8e6e6;
+    border:1px solid #BB0000;
+    font-family:Courier,monospace;
+}
+
+.ruby .code .type {
+    color:white;
+    border: 1px solid #BB0000;
+
+    background-color:#BB0000;
+}
+
+.ruby .code .version {
+    color:#BB0000
+}
+
+
+.java .code {
+    background-color:#e6e6f8;
+    border:1px solid #0000BB;
+    font-family:Courier,monospace;
+}
+
+.java .code .type {
+    color:white;
+    border: 1px solid #0000BB;
+
+    background-color:#0000BB;
+}
+
+.java .code .version {
+    color:#0000BB
+}
+
+
+.perl .code {
+    background-color:#f8f8e6;
+    border:1px solid #BBBB00;
+    font-family:Courier,monospace;
+}
+
+.perl .code .type {
+    color:white;
+    border: 1px solid #BBBB00;
+
+    background-color:#BBBB00;
+}
+
+.perl .code .version {
+    color:#BBBB00
+}
+
+
+.groovy .code {
+    background-color:#e6f8e6;
+    border:1px solid #00BB00;
+    font-family:Courier,monospace;
+}
+
+.groovy .code .type {
+    color:white;
+    border: 1px solid #00BB00;
+
+    background-color:#00BB00;
+}
+
+.groovy .code .version {
+    color:#00BB00
+}
+
+
+.scala .code {
+    background-color:#e6f8f8;
+    border:1px solid #00BBBB;
+    font-family:Courier,monospace;
+}
+
+.scala .code .type {
+    color:white;
+    border: 1px solid #00BBBB;
+
+    background-color:#00BBBB;
+}
+
+.scala .code .version {
+    color:#00BBBB
+}
+
+
+.python .code {
+    background-color:#f8e6f8;
+    border:1px solid #BB00BB;
+    font-family:Courier,monospace;
+}
+
+.python .code .type {
+    color:white;
+    border: 1px solid #BB00BB;
+
+    background-color:#BB00BB;
+}
+
+.python .code .version {
+    color:#BB00BB
+}
+
+
+.cpp .code {
+    background-color:#eeeeee;
+    border:1px solid #555555;
+    font-family:Courier,monospace;
+}
+
+.cpp .code .type {
+    color:white;
+    border: 1px solid #555555;
+
+    background-color:#555555;
+}
+
+.cpp .code .version {
+    color:#555555
+}
+
+
+.fsharp .code {
+    background-color:#f2ffe6;
+    border:1px solid #7CFC00;
+    font-family:Courier,monospace;
+}
+
+.fsharp .code .type {
+    color:white;
+    border: 1px solid #7CFC00;
+
+    background-color:#7CFC00;
+}
+
+.fsharp .code .version {
+    color:#7CFC00
+}
+
+
+.erlang .code {
+    background-color:#f5e6eb;
+    border:1px solid #990033;
+    font-family:Courier,monospace;
+}
+
+.erlang .code .type {
+    color:white;
+    border: 1px solid #990033;
+
+    background-color:#990033;
+}
+
+.erlang .code .version {
+    color:#990033
+}
+
+
+.ocaml .code {
+    background-color:#f0f0ff;
+    border:1px solid #6666ff;
+    font-family:Courier,monospace;
+}
+
+.ocaml .code .type {
+    color:white;
+    border: 1px solid #6666ff;
+
+    background-color:#6666ff;
+}
+
+.ocaml .code .version {
+    color:#6666ff
+}
+
+
+.csharp .code {
+    background-color:#e6e6e6;
+    border:1px solid #000000;
+    font-family:Courier,monospace;
+}
+
+.csharp .code .type {
+    color:white;
+    border: 1px solid #000000;
+
+    background-color:#000000;
+}
+
+.csharp .code .version {
+    color:#000000
+}
+
+
+.php .code {
+    background-color:#f5f5fa;
+    border:1px solid #9999CC;
+    font-family:Courier,monospace;
+}
+
+.php .code .type {
+    color:black;
+    border: 1px solid #9999CC;
+
+    background-color:#9999CC;
+}
+
+.php .code .version {
+    color:#9999CC
+}
+
+
+.haskell .code {
+    background-color:#fff2ec;
+    border:1px solid #FF8040;
+    font-family:Courier,monospace;
+}
+
+.haskell .code .type {
+    color:black;
+    border: 1px solid #FF8040;
+
+    background-color:#FF8040;
+}
+
+.haskell .code .version {
+    color:#FF8040
+}
+
+
+.clojure .code {
+    background-color:#eef0ea;
+    border:1px solid #556B2F;
+    font-family:Courier,monospace;
+}
+
+.clojure .code .type {
+    color:white;
+    border: 1px solid #556B2F;
+
+    background-color:#556B2F;
+}
+
+.clojure .code .version {
+    color:#556B2F
+}
+
+
+.fantom .code {
+    background-color:#e6e6fa;
+    border:1px solid #0000CC;
+    font-family:Courier,monospace;
+}
+
+.fantom .code .type {
+    color:white;
+    border: 1px solid #0000CC;
+
+    background-color:#0000CC;
+}
+
+.fantom .code .version {
+    color:#0000CC
+}
+
+
+.go .code {
+    background-color:#e7e7e7;
+    border:1px solid #0B0B0B;
+    font-family:Courier,monospace;
+}
+
+.go .code .type {
+    color:white;
+    border: 1px solid #0B0B0B;
+
+    background-color:#0B0B0B;
+}
+
+.go .code .version {
+    color:#0B0B0B
+}
+

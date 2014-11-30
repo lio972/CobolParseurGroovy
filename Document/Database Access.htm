@@ -1,0 +1,519 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0055)http://pleac.sourceforge.net/pleac_groovy/dbaccess.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Database Access</title><meta name="GENERATOR" content="Modular DocBook HTML Stylesheet Version 1.79"><link rel="HOME" title="PLEAC-Groovy
+" href="http://pleac.sourceforge.net/pleac_groovy/index.html"><link rel="PREVIOUS" title="Classes, Objects, and Ties" href="http://pleac.sourceforge.net/pleac_groovy/classesetc.html"><link rel="NEXT" title="User Interfaces" href="http://pleac.sourceforge.net/pleac_groovy/userinterfaces.html"><style type="text/css">    <!--
+      .comment {
+        /* font-lock-comment-face */
+        color: #bebebe;
+      }
+      .constant {
+        /* font-lock-constant-face */
+        color: #ff7f50;
+      }
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #b2dfee;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #ffa500;
+      }
+      .negation-char {
+      }
+      .number {
+        /* font-lock-number-face */
+        color: #cdcd00;
+      }
+      .punctuation {
+        /* font-lock-punctuation-face */
+        color: #00ffff;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #00cd00;
+      }
+      .type {
+        /* font-lock-type-face */
+        color: #98fb98;
+      }
+      .variable-name {
+        /* font-lock-variable-name-face */
+        color: #9ac0cd;
+      }
+      .warning {
+        /* font-lock-warning-face */
+        color: #ffc0cb;
+        font-weight: bold;
+      }
+    -->
+    </style><style type="text/css"></style><style type="text/css">#yieldsquare-ad {
+  margin:10px auto 20px;
+
+  width: 728px;
+}
+
+#yieldsquare-about a {
+  cursor: pointer;
+}
+
+.yieldsquare-enabled {
+  border-radius:0 0 5px 5px;
+  box-shadow: inset 0 0 75px 75px lightgray, 0 0 0 lightgray;
+  -webkit-transition:opacity 1s linear;
+}
+
+.yieldsquare-disabled-first {
+  -webkit-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.45);
+  -webkit-transition: opacity 1s linear;
+  background-image: url(http://s3.amazonaws.com/static.yieldsquare.com/ads-disabled/messagebed.gif);
+  height: 90px;
+  opacity: 1;
+  position: relative;
+  width: 728px;
+}
+
+.yieldsquare-disabled-second {
+  -webkit-transition: all 0.4s ease-in-out;
+  background-image: url(http://s3.amazonaws.com/static.yieldsquare.com/ads-disabled/messagebed.gif);
+  border-radius:0 0 5px 5px;
+  box-shadow: inset 0 0 35px 35px transparent, 0 0 75px 50px transparent;
+  height: 90px;
+  opacity: 0;
+  position: relative;
+  width: 728px;
+}
+
+#yieldsquare-about-ad {
+  font:11px arial !important;
+  color:#555;
+  padding: 4px;
+  text-align:center;
+}
+
+#yieldsquare-about-ad a {
+  cursor: pointer;
+  color: #333;
+}
+
+.yieldsquare-message-icon {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.yieldsquare-message-p {
+    font: 13px/17px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+    width: 542px;
+    height: 74px;
+    left: 123px;
+    position: absolute;
+    top: 0px;
+    color: #3d3d3d;
+    margin-top: 13px;
+    margin-bottom: 13px;
+}
+
+.yieldsquare-message-p span {
+    font: bold 16px/17px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+    color: #292929;
+}
+
+.yieldsquare-message-p a {
+    text-decoration: none;
+    color: #1d97cf;
+}
+
+.yieldsquare-message-p a:hover {
+    text-decoration: underline;
+}
+
+#yieldsquare-message-x {
+    position: absolute;
+    left: 715px;
+    top: 6px;
+}
+
+</style></head><body text="#cecece" bgcolor="#4f6f6f" link="#f5deb3" vlink="#d5ae83" class="SECT1" alink="#0000FF"><div class="NAVHEADER"><table summary="Header navigation table" width="100%" border="0" cellpadding="0" cellspacing="0"><tbody><tr><th colspan="3" align="center">PLEAC-Groovy
+</th></tr><tr><td width="10%" align="left" valign="bottom"><a href="http://pleac.sourceforge.net/pleac_groovy/classesetc.html" accesskey="P">Prev</a></td><td width="80%" align="center" valign="bottom"></td><td width="10%" align="right" valign="bottom"><a href="http://pleac.sourceforge.net/pleac_groovy/userinterfaces.html" accesskey="N">Next</a></td></tr></tbody></table><hr align="LEFT" width="100%"></div><div class="SECT1"><h1 class="SECT1"><a name="DBACCESS">14. Database Access</a></h1><div class="SECT2"><h2 class="SECT2"><a name="AEN754">Introduction</a></h2><table border="0" bgcolor="#2F4F4F" width="100%"><tbody><tr><td><pre class="SCREEN"><font color="#f5deb3" size="+1"><span class="comment">//----------------------------------------------------------------------------------
+</span>As discussed <span class="keyword">in</span> <span class="number">14.1</span>, many database <span class="type">options</span> <span class="variable-name">exist</span>, one of which <span class="type">is</span> <span class="constant">JDBC</span>.
+<span class="variable-name">Over</span> <span class="number">200</span> JDBC drivers are listed at the following URL:
+http:<span class="comment">//developers.sun.com/product/jdbc/drivers/browse_all.jsp
+//----------------------------------------------------------------------------------
+</span></font></pre></td></tr></tbody></table></div><div class="SECT2"><h2 class="SECT2"><a name="AEN757">Making and Using a DBM File</a></h2><table border="0" bgcolor="#2F4F4F" width="100%"><tbody><tr><td><pre class="SCREEN"><font color="#f5deb3" size="+1"><span class="comment">//----------------------------------------------------------------------------------
+// Groovy can make use of various Java persistence libraries and has special
+// support built-in (e.g. datasets) for interacting wth RDBMS systems.
+// Some of the options include:
+//   object serialization (built in to Java)
+//   pbeans: pbeans.sf.net
+//   prevayler: http://www.prevayler.org
+//   Berkeley DB Java edition: http://www.oracle.com/database/berkeley-db/je/
+//   JDBC: Over 200 drivers are listed at http://developers.sun.com/product/jdbc/drivers
+//   Datasets (special Groovy support)
+//   XML via e.g. xstream or JAXB or XmlBeans or ...
+//   ORM: over 20 are listed at http://java-source.net/open-source/persistence
+//   JNI: can be used directly on a platform that supports e.g. DBM or via
+//     a cross platform API such as Apache APR which includes DBM routines:
+//     http://apr.apache.org/docs/apr-util/0.9/group__APR__Util__DBM.html
+//   jmork: used for Firefox/Thunderbird databases, e.g. address books, history files
+// JDBC or Datasets would normally be most common for all examples in this chapter.
+</span>
+
+<span class="comment">// Example shown using berkeley db Java edition - not quite as transparent as
+// cookbook example as Berkeley DB Java addition makes transactions visible.
+</span><span class="keyword">import</span> <span class="constant">com</span>.<span class="constant">sleepycat</span>.<span class="constant">je</span>.*
+<span class="type">tx</span> = <span class="constant">null</span>
+envHome = <span class="keyword">new</span> <span class="type">File</span><span class="punctuation">(</span><span class="string">"D:/Projects/GroovyExamples/Pleac/data/db"</span><span class="punctuation">)</span>
+
+myEnvConfig = <span class="keyword">new</span> <span class="type">EnvironmentConfig</span><span class="punctuation">()</span>
+myEnvConfig.setAllowCreate<span class="punctuation">(</span><span class="constant">true</span><span class="punctuation">)</span>
+myEnv = <span class="keyword">new</span> <span class="type">Environment</span><span class="punctuation">(</span>envHome, myEnvConfig<span class="punctuation">)</span>
+
+myDbConfig = <span class="keyword">new</span> <span class="type">DatabaseConfig</span><span class="punctuation">()</span>
+myDbConfig.setAllowCreate<span class="punctuation">(</span><span class="constant">true</span><span class="punctuation">)</span>
+myDb = myEnv.openDatabase<span class="punctuation">(</span>tx, <span class="string">"vendorDB"</span>, myDbConfig<span class="punctuation">)</span>
+
+theKey = <span class="keyword">new</span> <span class="type">DatabaseEntry</span><span class="punctuation">(</span><span class="string">"key"</span>.getBytes<span class="punctuation">(</span><span class="string">"UTF-8"</span><span class="punctuation">))</span>
+theData = <span class="keyword">new</span> <span class="type">DatabaseEntry</span><span class="punctuation">(</span><span class="string">"data"</span>.getBytes<span class="punctuation">(</span><span class="string">"UTF-8"</span><span class="punctuation">))</span>
+myDb.put<span class="punctuation">(</span>tx, theKey, theData<span class="punctuation">)</span>
+<span class="keyword">if</span> <span class="punctuation">(</span>myDb.get<span class="punctuation">(</span>tx, theKey, theData, <span class="constant">LockMode</span>.DEFAULT<span class="punctuation">)</span> == <span class="constant">OperationStatus</span>.SUCCESS<span class="punctuation">)</span> <span class="punctuation">{</span>
+    key = <span class="keyword">new</span> <span class="type">String</span><span class="punctuation">(</span>theKey.data, <span class="string">"UTF-8"</span><span class="punctuation">)</span>
+    foundData = <span class="keyword">new</span> <span class="type">String</span><span class="punctuation">(</span>theData.data, <span class="string">"UTF-8"</span><span class="punctuation">)</span>
+    println <span class="string">"For key: '$key' found data: '$foundData'."</span>
+<span class="punctuation">}</span>
+myDb.delete<span class="punctuation">(</span>tx, theKey<span class="punctuation">)</span>
+myDb.close<span class="punctuation">()</span>
+myEnv.close<span class="punctuation">()</span>
+
+
+<span class="comment">// userstats using pbeans
+</span><span class="keyword">import</span> <span class="constant">net</span>.<span class="constant">sourceforge</span>.<span class="constant">pbeans</span>.*
+<span class="comment">// on *nix use: whotext = "who".execute().text
+</span>whotext = <span class="string">'''
+gnat ttyp1 May 29 15:39 (coprolith.frii.com)
+bill ttyp1 May 28 15:38 (hilary.com)
+gnit ttyp1 May 27 15:37 (somewhere.org)
+'''</span>
+
+<span class="keyword">class</span> LoginInfo <span class="keyword">implements</span> <span class="type">Persistent</span> <span class="punctuation">{</span>
+    LoginInfo<span class="punctuation">()</span> <span class="punctuation">{}</span>
+    LoginInfo<span class="punctuation">(</span>name<span class="punctuation">)</span> <span class="punctuation">{</span> <span class="keyword">this</span>.name = name<span class="punctuation">;</span> loginCount = <span class="number">1</span> <span class="punctuation">}</span>
+    <span class="type">String</span> <span class="type">name</span>
+    <span class="type">int</span> <span class="variable-name">loginCount</span>
+<span class="punctuation">}</span>
+
+<span class="keyword">def</span> <span class="variable-name">printAllUsers</span><span class="punctuation">(</span><span class="type">store</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+    printUsers<span class="punctuation">(</span>store, store.select<span class="punctuation">(</span>LoginInfo.<span class="keyword">class</span><span class="punctuation">)</span>.collect<span class="punctuation">{</span>it.name<span class="punctuation">}</span>.sort<span class="punctuation">())</span>
+<span class="punctuation">}</span>
+
+<span class="keyword">def</span> <span class="variable-name">printUsers</span><span class="punctuation">(</span><span class="type">store</span>, <span class="type">list</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+    list.each<span class="punctuation">{</span>
+        println <span class="string">"$it  ${store.selectSingle(LoginInfo.class, 'name', it).loginCount}"</span>
+    <span class="punctuation">}</span>
+<span class="punctuation">}</span>
+
+<span class="keyword">def</span> <span class="variable-name">addUsers</span><span class="punctuation">(</span><span class="type">store</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+    whotext.trim<span class="punctuation">()</span>.split<span class="punctuation">(</span><span class="string">'\n'</span><span class="punctuation">)</span>.each<span class="punctuation">{</span>
+        m = it =~ /^<span class="punctuation">(</span>\S+<span class="punctuation">)</span>/
+        name = m<span class="punctuation">[</span><span class="number">0</span><span class="punctuation">][</span><span class="number">1</span><span class="punctuation">]</span>
+        item = store.selectSingle<span class="punctuation">(</span>LoginInfo.<span class="keyword">class</span>, <span class="string">'name'</span>, name<span class="punctuation">)</span>
+        <span class="keyword">if</span> <span class="punctuation">(</span>item<span class="punctuation">)</span> <span class="punctuation">{</span>
+            item.loginCount++
+            store.save<span class="punctuation">(</span>item<span class="punctuation">)</span>
+        <span class="punctuation">}</span> <span class="keyword">else</span> <span class="punctuation">{</span>
+            store.insert<span class="punctuation">(</span><span class="keyword">new</span> <span class="type">LoginInfo</span><span class="punctuation">(</span>name<span class="punctuation">))</span>
+        <span class="punctuation">}</span>
+    <span class="punctuation">}</span>
+<span class="punctuation">}</span>
+
+<span class="keyword">def</span> <span class="variable-name">ds</span> = <span class="keyword">new</span> org.hsqldb.jdbc.<span class="type">jdbcDataSource</span><span class="punctuation">()</span>
+ds.database = <span class="string">'jdbc:hsqldb:hsql://localhost/mydb'</span>
+ds.user = <span class="string">'sa'</span>
+ds.password = <span class="string">''</span>
+store = <span class="keyword">new</span> <span class="type">Store</span><span class="punctuation">(</span>ds<span class="punctuation">)</span>
+<span class="keyword">if</span> <span class="punctuation">(</span>args.size<span class="punctuation">()</span> == <span class="number">0</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+    addUsers<span class="punctuation">(</span>store<span class="punctuation">)</span>
+<span class="punctuation">}</span> <span class="keyword">else</span> <span class="keyword">if</span> <span class="punctuation">(</span>args == <span class="punctuation">[</span><span class="string">'ALL'</span><span class="punctuation">])</span> <span class="punctuation">{</span>
+    printAllUsers<span class="punctuation">(</span>store<span class="punctuation">)</span>
+<span class="punctuation">}</span> <span class="keyword">else</span> <span class="punctuation">{</span>
+    printUsers<span class="punctuation">(</span>store, args<span class="punctuation">)</span>
+<span class="punctuation">}</span>
+<span class="comment">//----------------------------------------------------------------------------------
+</span></font></pre></td></tr></tbody></table></div><div class="SECT2"><h2 class="SECT2"><a name="AEN760">Emptying a DBM File</a></h2><table border="0" bgcolor="#2F4F4F" width="100%"><tbody><tr><td><pre class="SCREEN"><font color="#f5deb3" size="+1"><span class="comment">//----------------------------------------------------------------------------------
+// Groovy would normally use JDBC here (see 14.1 for details)
+</span><span class="keyword">import</span> <span class="constant">com</span>.<span class="constant">sleepycat</span>.<span class="constant">je</span>.*
+<span class="type">tx</span> = <span class="constant">null</span>
+envHome = <span class="keyword">new</span> <span class="type">File</span><span class="punctuation">(</span><span class="string">"D:/Projects/GroovyExamples/Pleac/data/db"</span><span class="punctuation">)</span>
+
+myEnvConfig = <span class="keyword">new</span> <span class="type">EnvironmentConfig</span><span class="punctuation">()</span>
+myEnvConfig.setAllowCreate<span class="punctuation">(</span><span class="constant">true</span><span class="punctuation">)</span>
+myEnv = <span class="keyword">new</span> <span class="type">Environment</span><span class="punctuation">(</span>envHome, myEnvConfig<span class="punctuation">)</span>
+
+myDbConfig = <span class="keyword">new</span> <span class="type">DatabaseConfig</span><span class="punctuation">()</span>
+myDbConfig.setAllowCreate<span class="punctuation">(</span><span class="constant">true</span><span class="punctuation">)</span>
+myDb = myEnv.openDatabase<span class="punctuation">(</span>tx, <span class="string">"vendorDB"</span>, myDbConfig<span class="punctuation">)</span>
+
+theKey = <span class="keyword">new</span> <span class="type">DatabaseEntry</span><span class="punctuation">(</span><span class="string">"key"</span>.getBytes<span class="punctuation">(</span><span class="string">"UTF-8"</span><span class="punctuation">))</span>
+theData = <span class="keyword">new</span> <span class="type">DatabaseEntry</span><span class="punctuation">(</span><span class="string">"data"</span>.getBytes<span class="punctuation">(</span><span class="string">"UTF-8"</span><span class="punctuation">))</span>
+myDb.put<span class="punctuation">(</span>tx, theKey, theData<span class="punctuation">)</span>
+myDb.close<span class="punctuation">()</span>
+<span class="comment">// clear out database
+</span>returnCount = <span class="constant">true</span>
+println myEnv.truncateDatabase<span class="punctuation">(</span>tx, <span class="string">"vendorDB"</span>, returnCount<span class="punctuation">)</span> + <span class="string">' records deleted'</span>
+<span class="comment">// remove database
+</span>myEnv.removeDatabase<span class="punctuation">(</span>tx, <span class="string">"vendorDB"</span><span class="punctuation">)</span>
+myEnv.close<span class="punctuation">()</span>
+<span class="comment">//----------------------------------------------------------------------------------
+</span></font></pre></td></tr></tbody></table></div><div class="SECT2"><h2 class="SECT2"><a name="AEN763">Converting Between DBM Files</a></h2><table border="0" bgcolor="#2F4F4F" width="100%"><tbody><tr><td><pre class="SCREEN"><font color="#f5deb3" size="+1"><span class="comment">//----------------------------------------------------------------------------------
+// Original cookbook example not likely in Groovy.
+// Here is a more realistic example, copying pbeans -&gt; jdbc
+// Creation of pbeans database not strictly needed but shown for completion
+</span>
+<span class="keyword">import</span> <span class="constant">net</span>.<span class="constant">sourceforge</span>.<span class="constant">pbeans</span>.*
+<span class="keyword">import</span> <span class="constant">groovy</span>.<span class="constant">sql</span>.<span class="type">Sql</span>
+
+<span class="keyword">def</span> ds = <span class="keyword">new</span> org.hsqldb.jdbc.<span class="type">jdbcDataSource</span><span class="punctuation">()</span>
+ds.database = <span class="string">'jdbc:hsqldb:hsql://localhost/mydb'</span>
+ds.user = <span class="string">'sa'</span>
+ds.password = <span class="string">''</span>
+store = <span class="keyword">new</span> <span class="type">Store</span><span class="punctuation">(</span>ds<span class="punctuation">)</span>
+
+<span class="keyword">class</span> Person <span class="keyword">implements</span> <span class="type">Persistent</span> <span class="punctuation">{</span>
+    <span class="type">String</span> <span class="type">name</span>
+    <span class="type">String</span> does
+    <span class="type">String</span> <span class="variable-name">email</span>
+<span class="punctuation">}</span>
+
+<span class="comment">// populate with test data
+</span>store.insert<span class="punctuation">(</span><span class="keyword">new</span> <span class="type">Person</span><span class="punctuation">(</span>name:<span class="string">'Tom Christiansen'</span>, does:<span class="string">'book author'</span>, email:<span class="string">'tchrist@perl.com'</span><span class="punctuation">))</span>
+store.insert<span class="punctuation">(</span><span class="keyword">new</span> <span class="type">Person</span><span class="punctuation">(</span>name:<span class="string">'Tom Boutell'</span>, does:<span class="string">'Poet Programmer'</span>, email:<span class="string">'boutell@boutell.com'</span><span class="punctuation">))</span>
+
+people = store.select<span class="punctuation">(</span>Person.<span class="keyword">class</span><span class="punctuation">)</span>
+
+db = <span class="keyword">new</span> <span class="type">Sql</span><span class="punctuation">(</span>ds<span class="punctuation">)</span>
+
+db.execute <span class="string">'CREATE TABLE people ( name VARCHAR, does VARCHAR, email VARCHAR );'</span>
+people.each<span class="punctuation">{</span> p -&gt;
+    db.execute <span class="string">"INSERT INTO people ( name, does, email ) VALUES ($p.name,$p.does,$p.email);"</span>
+<span class="punctuation">}</span>
+db.eachRow<span class="punctuation">(</span><span class="string">"SELECT * FROM people where does like 'book%'"</span><span class="punctuation">){</span>
+    println <span class="string">"$it.name, $it.does, $it.email"</span>
+<span class="punctuation">}</span>
+db.execute <span class="string">'DROP TABLE people;'</span>
+<span class="comment">// =&gt; Tom Christiansen, book author, tchrist@perl.com
+//----------------------------------------------------------------------------------
+</span></font></pre></td></tr></tbody></table></div><div class="SECT2"><h2 class="SECT2"><a name="AEN766">Merging DBM Files</a></h2><table border="0" bgcolor="#2F4F4F" width="100%"><tbody><tr><td><pre class="SCREEN"><font color="#f5deb3" size="+1"><span class="comment">//----------------------------------------------------------------------------------
+// Groovy would normally use JDBC here (see 14.1 for details)
+</span><span class="keyword">import</span> <span class="constant">com</span>.<span class="constant">sleepycat</span>.<span class="constant">je</span>.*
+
+<span class="keyword">def</span> copyEntries<span class="punctuation">(</span>indb, outdb<span class="punctuation">)</span> <span class="punctuation">{</span>
+    cursor = indb1.openCursor<span class="punctuation">(</span><span class="constant">null</span>, <span class="constant">null</span><span class="punctuation">)</span>
+    <span class="keyword">while</span> <span class="punctuation">(</span>cursor.getNext<span class="punctuation">(</span>foundKey, foundData, <span class="constant">LockMode</span>.DEFAULT<span class="punctuation">)</span> == <span class="constant">OperationStatus</span>.SUCCESS<span class="punctuation">)</span>
+        outdb.out<span class="punctuation">(</span>tx, foundKey, foundData<span class="punctuation">)</span>
+    cursor.close<span class="punctuation">()</span>
+<span class="punctuation">}</span>
+
+tx = <span class="constant">null</span>
+envHome = <span class="keyword">new</span> <span class="type">File</span><span class="punctuation">(</span><span class="string">"D:/Projects/GroovyExamples/Pleac/data/db"</span><span class="punctuation">)</span>
+
+myEnvConfig = <span class="keyword">new</span> <span class="type">EnvironmentConfig</span><span class="punctuation">()</span>
+myEnvConfig.setAllowCreate<span class="punctuation">(</span><span class="constant">true</span><span class="punctuation">)</span>
+myEnv = <span class="keyword">new</span> <span class="type">Environment</span><span class="punctuation">(</span>envHome, myEnvConfig<span class="punctuation">)</span>
+
+myDbConfig = <span class="keyword">new</span> <span class="type">DatabaseConfig</span><span class="punctuation">()</span>
+myDbConfig.setAllowCreate<span class="punctuation">(</span><span class="constant">true</span><span class="punctuation">)</span>
+indb1 = myEnv.openDatabase<span class="punctuation">(</span>tx, <span class="string">"db1"</span>, myDbConfig<span class="punctuation">)</span>
+indb2 = myEnv.openDatabase<span class="punctuation">(</span>tx, <span class="string">"db2"</span>, myDbConfig<span class="punctuation">)</span>
+outdb = myEnv.openDatabase<span class="punctuation">(</span>tx, <span class="string">"db3"</span>, myDbConfig<span class="punctuation">)</span>
+foundKey = <span class="keyword">new</span> <span class="type">DatabaseEntry</span><span class="punctuation">()</span>
+foundData = <span class="keyword">new</span> <span class="type">DatabaseEntry</span><span class="punctuation">()</span>
+copyEntries<span class="punctuation">(</span>indb1, outdb<span class="punctuation">)</span>
+copyEntries<span class="punctuation">(</span>indb2, outdb<span class="punctuation">)</span>
+cursor = indb2.openCursor<span class="punctuation">(</span><span class="constant">null</span>, <span class="constant">null</span><span class="punctuation">)</span>
+<span class="keyword">while</span> <span class="punctuation">(</span>cursor.getNext<span class="punctuation">(</span>foundKey, foundData, <span class="constant">LockMode</span>.DEFAULT<span class="punctuation">)</span> == <span class="constant">OperationStatus</span>.SUCCESS<span class="punctuation">)</span>
+    outdb.out<span class="punctuation">(</span>tx, foundKey, foundData<span class="punctuation">)</span>
+cursor.close<span class="punctuation">()</span>
+indb1.close<span class="punctuation">()</span>
+indb2.close<span class="punctuation">()</span>
+outdb.close<span class="punctuation">()</span>
+myEnv.close<span class="punctuation">()</span>
+<span class="comment">//----------------------------------------------------------------------------------
+</span></font></pre></td></tr></tbody></table></div><div class="SECT2"><h2 class="SECT2"><a name="AEN769">Locking DBM Files</a></h2><table border="0" bgcolor="#2F4F4F" width="100%"><tbody><tr><td><pre class="SCREEN"><font color="#f5deb3" size="+1"><span class="comment">//----------------------------------------------------------------------------------
+// If you are using a single file based persistence mechanism you can
+// use the file locking mechanisms mentioned in 7.11 otherwise the
+// database itself or the ORM layer will provide locking mechanisms.
+//----------------------------------------------------------------------------------
+</span></font></pre></td></tr></tbody></table></div><div class="SECT2"><h2 class="SECT2"><a name="AEN772">Sorting Large DBM Files</a></h2><table border="0" bgcolor="#2F4F4F" width="100%"><tbody><tr><td><pre class="SCREEN"><font color="#f5deb3" size="+1"><span class="comment">//----------------------------------------------------------------------------------
+// N/A for most Java/Groovy persistent technologies.
+// Use indexes for RDBMS systems.
+//----------------------------------------------------------------------------------
+</span></font></pre></td></tr></tbody></table></div><div class="SECT2"><h2 class="SECT2"><a name="AEN775">Treating a Text File as a Database Array</a></h2><table border="0" bgcolor="#2F4F4F" width="100%"><tbody><tr><td><pre class="SCREEN"><font color="#f5deb3" size="+1"><span class="comment">//----------------------------------------------------------------------------------
+</span> <span class="comment">// We can write a category that allows the ArrayList class
+</span> <span class="comment">// to be persisted as required.
+</span> <span class="keyword">class</span> ArrayListCategory <span class="punctuation">{</span>
+     <span class="keyword">static</span> <span class="type">file</span> = <span class="keyword">new</span> <span class="type">File</span><span class="punctuation">(</span><span class="string">'/temp.txt'</span><span class="punctuation">)</span>
+     <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">void</span> save<span class="punctuation">(</span><span class="type">ArrayList</span> <span class="variable-name">self</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+         <span class="keyword">def</span> <span class="variable-name">LS</span> = System.getProperty<span class="punctuation">(</span><span class="string">'line.separator'</span><span class="punctuation">)</span>
+         file.withWriter<span class="punctuation">{</span> w -&gt;
+             self.each<span class="punctuation">{</span> w.write<span class="punctuation">(</span>it + LS<span class="punctuation">)</span>  <span class="punctuation">}</span>
+         <span class="punctuation">}</span>
+     <span class="punctuation">}</span>
+ <span class="punctuation">}</span>
+
+ lines = <span class="string">'''
+ zero
+ one
+ two
+ three
+ four
+ '''</span>.trim<span class="punctuation">()</span>.split<span class="punctuation">(</span><span class="string">'\n'</span><span class="punctuation">)</span> <span class="keyword">as</span> ArrayList
+
+ use<span class="punctuation">(</span>ArrayListCategory<span class="punctuation">)</span> <span class="punctuation">{</span>
+     println <span class="string">"ORIGINAL"</span>
+     <span class="keyword">for</span> <span class="punctuation">(</span>i <span class="keyword">in</span> <span class="number">0</span>..&lt;lines.size<span class="punctuation">())</span>
+         println <span class="string">"${i}: ${lines[i]}"</span>
+
+     a = lines<span class="punctuation">[</span><span class="number">-1</span><span class="punctuation">]</span>
+     lines<span class="punctuation">[</span><span class="number">-1</span><span class="punctuation">]</span> = <span class="string">"last"</span>
+     println <span class="string">"The last line was [$a]"</span>
+
+     a = lines<span class="punctuation">[</span><span class="number">0</span><span class="punctuation">]</span>
+     lines = <span class="punctuation">[</span><span class="string">"first"</span><span class="punctuation">]</span> + lines<span class="punctuation">[</span><span class="number">1</span>..<span class="number">-1</span><span class="punctuation">]</span>
+     println <span class="string">"The first line was [$a]"</span>
+
+     lines.add<span class="punctuation">(</span><span class="number">3</span>, <span class="string">'Newbie'</span><span class="punctuation">)</span>
+     lines.add<span class="punctuation">(</span><span class="number">1</span>, <span class="string">'New One'</span><span class="punctuation">)</span>
+
+     lines.remove<span class="punctuation">(</span><span class="number">3</span><span class="punctuation">)</span>
+
+     println <span class="string">"REVERSE"</span>
+     <span class="punctuation">(</span>lines.size<span class="punctuation">()</span> - <span class="number">1</span><span class="punctuation">)</span>.downto<span class="punctuation">(</span><span class="number">0</span><span class="punctuation">){</span> i -&gt;
+         println <span class="string">"${i}: ${lines[i]}"</span>
+     <span class="punctuation">}</span>
+     lines.save<span class="punctuation">()</span>
+ <span class="punctuation">}</span>
+ <span class="comment">// =&gt;
+</span> <span class="comment">// ORIGINAL
+</span> <span class="comment">// 0: zero
+</span> <span class="comment">// 1: one
+</span> <span class="comment">// 2: two
+</span> <span class="comment">// 3: three
+</span> <span class="comment">// 4: four
+</span> <span class="comment">// The last line was [four]
+</span> <span class="comment">// The first line was [zero]
+</span> <span class="comment">// REVERSE
+</span> <span class="comment">// 5: last
+</span> <span class="comment">// 4: three
+</span> <span class="comment">// 3: Newbie
+</span> <span class="comment">// 2: one
+</span> <span class="comment">// 1: New One
+</span> <span class="comment">// 0: first
+//----------------------------------------------------------------------------------
+</span></font></pre></td></tr></tbody></table></div><div class="SECT2"><h2 class="SECT2"><a name="AEN778">Storing Complex Data in a DBM File</a></h2><table border="0" bgcolor="#2F4F4F" width="100%"><tbody><tr><td><pre class="SCREEN"><font color="#f5deb3" size="+1"><span class="comment">//----------------------------------------------------------------------------------
+// example using pbeans
+</span><span class="keyword">import</span> <span class="constant">net</span>.<span class="constant">sourceforge</span>.<span class="constant">pbeans</span>.*
+<span class="keyword">def</span> ds = <span class="keyword">new</span> org.hsqldb.jdbc.<span class="type">jdbcDataSource</span><span class="punctuation">()</span>
+ds.database = <span class="string">'jdbc:hsqldb:hsql://localhost/mydb'</span>
+ds.user = <span class="string">'sa'</span>
+ds.password = <span class="string">''</span>
+store = <span class="keyword">new</span> <span class="type">Store</span><span class="punctuation">(</span>ds<span class="punctuation">)</span>
+
+<span class="keyword">class</span> Person <span class="keyword">implements</span> <span class="type">Persistent</span> <span class="punctuation">{</span>
+    <span class="type">String</span> <span class="type">name</span>
+    <span class="type">String</span> does
+    <span class="type">String</span> <span class="variable-name">email</span>
+<span class="punctuation">}</span>
+
+name1 = <span class="string">'Tom Christiansen'</span>
+name2 = <span class="string">'Tom Boutell'</span>
+
+store.insert<span class="punctuation">(</span><span class="keyword">new</span> <span class="type">Person</span><span class="punctuation">(</span>name:name1, does:<span class="string">'book author'</span>, email:<span class="string">'tchrist@perl.com'</span><span class="punctuation">))</span>
+store.insert<span class="punctuation">(</span><span class="keyword">new</span> <span class="type">Person</span><span class="punctuation">(</span>name:name2, does:<span class="string">'shareware author'</span>, email:<span class="string">'boutell@boutell.com'</span><span class="punctuation">))</span>
+
+tom1 = store.selectSingle<span class="punctuation">(</span>Person.<span class="keyword">class</span>, <span class="string">'name'</span>, name1<span class="punctuation">)</span>
+tom2 = store.selectSingle<span class="punctuation">(</span>Person.<span class="keyword">class</span>, <span class="string">'name'</span>, name2<span class="punctuation">)</span>
+
+println <span class="string">"Two Toming: $tom1 $tom2"</span>
+
+<span class="keyword">if</span> <span class="punctuation">(</span>tom1.name == tom2.name &amp;&amp; tom1.does == tom2.does &amp;&amp; tom1.email == tom2.email<span class="punctuation">)</span>
+    println <span class="string">"You're having runtime fun with one Tom made two."</span>
+<span class="keyword">else</span>
+    println <span class="string">"No two Toms are ever alike"</span>
+
+tom2.does = <span class="string">'Poet Programmer'</span>
+store.save<span class="punctuation">(</span>tom2<span class="punctuation">)</span>
+<span class="comment">// =&gt;
+// Two Toming: Person@12884e0 Person@8ab708
+// No two Toms are ever alike
+//----------------------------------------------------------------------------------
+</span></font></pre></td></tr></tbody></table></div><div class="SECT2"><h2 class="SECT2"><a name="AEN781">Persistent Data</a></h2><table border="0" bgcolor="#2F4F4F" width="100%"><tbody><tr><td><pre class="SCREEN"><font color="#f5deb3" size="+1"><span class="comment">//----------------------------------------------------------------------------------
+// Use one of the mechanisms mentioned in 14.1 to load variables at the start
+// of the script and save them at the end. You can save the binding, individual
+// variables, maps of variables or composite objects.
+//----------------------------------------------------------------------------------
+</span></font></pre></td></tr></tbody></table></div><div class="SECT2"><h2 class="SECT2"><a name="AEN784">Executing an SQL Command Using DBI and DBD</a></h2><table border="0" bgcolor="#2F4F4F" width="100%"><tbody><tr><td><pre class="SCREEN"><font color="#f5deb3" size="+1"><span class="comment">//----------------------------------------------------------------------------------
+</span><span class="keyword">import</span> <span class="constant">groovy</span>.<span class="constant">sql</span>.<span class="type">Sql</span>
+
+users = <span class="punctuation">[</span><span class="string">'20'</span>:<span class="string">'Joe Bloggs'</span>, <span class="string">'40'</span>:<span class="string">'Bill Clinton'</span>, <span class="string">'60'</span>:<span class="string">'Ben Franklin'</span><span class="punctuation">]</span>
+
+<span class="keyword">def</span> source = <span class="keyword">new</span> org.hsqldb.jdbc.<span class="type">jdbcDataSource</span><span class="punctuation">()</span>
+source.database = <span class="string">'jdbc:hsqldb:mem:PLEAC'</span>
+source.user = <span class="string">'sa'</span>
+source.password = <span class="string">''</span>
+db = <span class="keyword">new</span> <span class="type">Sql</span><span class="punctuation">(</span>source<span class="punctuation">)</span>
+
+db.execute <span class="string">'CREATE TABLE users ( uid INT, login CHAR(8) );'</span>
+users.each<span class="punctuation">{</span> uid, login -&gt;
+    db.execute <span class="string">"INSERT INTO users ( uid, login ) VALUES ($uid,$login);"</span>
+<span class="punctuation">}</span>
+db.eachRow<span class="punctuation">(</span><span class="string">'SELECT uid, login FROM users WHERE uid &lt; 50'</span><span class="punctuation">){</span>
+    println <span class="string">"$it.uid $it.login"</span>
+<span class="punctuation">}</span>
+db.execute <span class="string">'DROP TABLE users;'</span>
+<span class="comment">// =&gt;
+// 20 Joe Bloggs
+// 40 Bill Clinton
+//----------------------------------------------------------------------------------
+</span></font></pre></td></tr></tbody></table></div><div class="SECT2"><h2 class="SECT2"><a name="AEN787">Program: ggh - Grep Netscape Global History</a></h2><table border="0" bgcolor="#2F4F4F" width="100%"><tbody><tr><td><pre class="SCREEN"><font color="#f5deb3" size="+1"><span class="comment">//----------------------------------------------------------------------------------
+// variation to cookbook: uses Firefox instead of Netscape, always assumes
+// argument is a regex, has some others args, retains no args to list all
+</span>
+<span class="comment">// uses jmork mork dbm reading library:
+//     http://www.smartwerkz.com/projects/jmork/index.html
+</span><span class="keyword">import</span> <span class="constant">mork</span>.*
+<span class="keyword">def</span> cli = <span class="keyword">new</span> <span class="type">CliBuilder</span><span class="punctuation">()</span>
+cli.h<span class="punctuation">(</span>longOpt: <span class="string">'help'</span>, <span class="string">'print this message'</span><span class="punctuation">)</span>
+cli.e<span class="punctuation">(</span>longOpt: <span class="string">'exclude'</span>, <span class="string">'exclude hidden history entries (js, css, ads and images)'</span><span class="punctuation">)</span>
+cli.c<span class="punctuation">(</span>longOpt: <span class="string">'clean'</span>, <span class="string">'clean off url query string when reporting urls'</span><span class="punctuation">)</span>
+cli.v<span class="punctuation">(</span>longOpt: <span class="string">'verbose'</span>, <span class="string">'show referrer and first visit date'</span><span class="punctuation">)</span>
+<span class="keyword">def</span> options = cli.parse<span class="punctuation">(</span>args<span class="punctuation">)</span>
+<span class="keyword">if</span> <span class="punctuation">(</span>options.h<span class="punctuation">)</span> <span class="punctuation">{</span> cli.usage<span class="punctuation">();</span> System.exit<span class="punctuation">(</span><span class="number">0</span><span class="punctuation">)</span> <span class="punctuation">}</span>
+regex = options.arguments<span class="punctuation">()</span>
+<span class="keyword">if</span> <span class="punctuation">(</span>regex<span class="punctuation">)</span> regex = regex<span class="punctuation">[</span><span class="number">0</span><span class="punctuation">]</span>
+reader = <span class="keyword">new</span> <span class="type">FileReader</span><span class="punctuation">(</span><span class="string">'Pleac/data/history.dat'</span><span class="punctuation">)</span>
+morkDocument = <span class="keyword">new</span> <span class="type">MorkDocument</span><span class="punctuation">(</span>reader<span class="punctuation">)</span>
+tables = morkDocument.tables
+tables.each<span class="punctuation">{</span> table -&gt;
+    table.rows.each <span class="punctuation">{</span> row -&gt;
+        url = row.getValue<span class="punctuation">(</span><span class="string">'URL'</span><span class="punctuation">)</span>
+        <span class="keyword">if</span> <span class="punctuation">(</span>options.c<span class="punctuation">)</span> url = url.tokenize<span class="punctuation">(</span><span class="string">'?'</span><span class="punctuation">)[</span><span class="number">0</span><span class="punctuation">]</span>
+        <span class="keyword">if</span> <span class="punctuation">(</span><span class="negation-char">!</span>regex || url =~ regex<span class="punctuation">)</span> <span class="punctuation">{</span>
+            <span class="keyword">if</span> <span class="punctuation">(</span><span class="negation-char">!</span>options.e || row.getValue<span class="punctuation">(</span><span class="string">'Hidden'</span><span class="punctuation">)</span> != <span class="string">'1'</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+                println <span class="string">"$url\n    Last Visited: ${date(row,'LastVisitDate')}"</span>
+                <span class="keyword">if</span> <span class="punctuation">(</span>options.v<span class="punctuation">)</span> <span class="punctuation">{</span>
+                    println <span class="string">"    First Visited: ${date(row,'FirstVisitDate')}"</span>
+                    println <span class="string">"    Referrer: ${row.getValue('Referrer')}"</span>
+                <span class="punctuation">}</span>
+            <span class="punctuation">}</span>
+        <span class="punctuation">}</span>
+    <span class="punctuation">}</span>
+<span class="punctuation">}</span>
+<span class="keyword">def</span> <span class="variable-name">date</span><span class="punctuation">(</span><span class="type">row</span>, <span class="type">key</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+    <span class="keyword">return</span> <span class="keyword">new</span> <span class="type">Date</span><span class="punctuation">((</span><span class="type">long</span><span class="punctuation">)(</span>row.getValue<span class="punctuation">(</span>key<span class="punctuation">)</span>.toLong<span class="punctuation">()</span>/<span class="number">1000</span><span class="punctuation">))</span>
+<span class="punctuation">}</span>
+<span class="comment">// $ groovy gfh -ev oracle' =&gt;
+// http://www.oracle.com/technology/products/jdev/index.html
+//     Last Visited: Thu Feb 15 20:20:36 EST 2007
+//     First Visited: Thu Feb 15 20:20:36 EST 2007
+//     Referrer: http://docs.codehaus.org/display/GROOVY/Oracle+JDeveloper+Plugin
+//----------------------------------------------------------------------------------
+</span></font></pre></td></tr></tbody></table></div></div><div class="NAVFOOTER"><hr align="LEFT" width="100%"><table summary="Footer navigation table" width="100%" border="0" cellpadding="0" cellspacing="0"><tbody><tr><td width="33%" align="left" valign="top"><a href="http://pleac.sourceforge.net/pleac_groovy/classesetc.html" accesskey="P">Prev</a></td><td width="34%" align="center" valign="top"><a href="http://pleac.sourceforge.net/pleac_groovy/index.html" accesskey="H">Home</a></td><td width="33%" align="right" valign="top"><a href="http://pleac.sourceforge.net/pleac_groovy/userinterfaces.html" accesskey="N">Next</a></td></tr><tr><td width="33%" align="left" valign="top">Classes, Objects, and Ties</td><td width="34%" align="center" valign="top">&nbsp;</td><td width="33%" align="right" valign="top">User Interfaces</td></tr></tbody></table></div><div id="yieldsquare-ad" class="yieldsquare-enabled" style="display: none; clear: both;"><iframe id="yieldsquare-frame" frameborder="0" width="0" height="0" src="about:blank" style="margin: 0px; overflow: hidden; display: none !important; visibility: hidden !important; opacity: 0 !important; background-position: 0px 0px;"></iframe><div id="yieldsquare-about-ad">This ad is supporting your extension Smooth Gestures<a id="yieldsquare-disable-ad" href="http://pleac.sourceforge.net/pleac_groovy/undefined">Turn off these ads?</a></div></div></body></html>

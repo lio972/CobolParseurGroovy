@@ -1,0 +1,520 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0037)http://patrick.davalan.free.fr/graph/ -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="icon" type="image/png" href="http://patrick.davalan.free.fr/img/icon.png">
+    
+    <meta name="generator" content="Alma2xhtml, http://patrick.davalan.free.fr/alma2html/">
+    <meta name="author" content="Patrick Davalan">
+    <meta name="robots" content="all">
+    <meta name="keywords" content="Graphe, visualisation de graphes, dot, graphviz, représentation graphique, graphe orienté, digraph, directed graph, graph">
+    <title>Graph : Graphes.</title>
+    <link rel="stylesheet" type="text/css" href="./Graph   Graphes._files/dochtml.css">
+  <style type="text/css"></style><style type="text/css">#yieldsquare-ad {
+  margin:10px auto 20px;
+
+  width: 728px;
+}
+
+#yieldsquare-about a {
+  cursor: pointer;
+}
+
+.yieldsquare-enabled {
+  border-radius:0 0 5px 5px;
+  box-shadow: inset 0 0 75px 75px lightgray, 0 0 0 lightgray;
+  -webkit-transition:opacity 1s linear;
+}
+
+.yieldsquare-disabled-first {
+  -webkit-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.45);
+  -webkit-transition: opacity 1s linear;
+  background-image: url(http://s3.amazonaws.com/static.yieldsquare.com/ads-disabled/messagebed.gif);
+  height: 90px;
+  opacity: 1;
+  position: relative;
+  width: 728px;
+}
+
+.yieldsquare-disabled-second {
+  -webkit-transition: all 0.4s ease-in-out;
+  background-image: url(http://s3.amazonaws.com/static.yieldsquare.com/ads-disabled/messagebed.gif);
+  border-radius:0 0 5px 5px;
+  box-shadow: inset 0 0 35px 35px transparent, 0 0 75px 50px transparent;
+  height: 90px;
+  opacity: 0;
+  position: relative;
+  width: 728px;
+}
+
+#yieldsquare-about-ad {
+  font:11px arial !important;
+  color:#555;
+  padding: 4px;
+  text-align:center;
+}
+
+#yieldsquare-about-ad a {
+  cursor: pointer;
+  color: #333;
+}
+
+.yieldsquare-message-icon {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.yieldsquare-message-p {
+    font: 13px/17px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+    width: 542px;
+    height: 74px;
+    left: 123px;
+    position: absolute;
+    top: 0px;
+    color: #3d3d3d;
+    margin-top: 13px;
+    margin-bottom: 13px;
+}
+
+.yieldsquare-message-p span {
+    font: bold 16px/17px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+    color: #292929;
+}
+
+.yieldsquare-message-p a {
+    text-decoration: none;
+    color: #1d97cf;
+}
+
+.yieldsquare-message-p a:hover {
+    text-decoration: underline;
+}
+
+#yieldsquare-message-x {
+    position: absolute;
+    left: 715px;
+    top: 6px;
+}
+
+</style></head>
+
+  <body>
+    <a name="Top"></a>
+    <div class="doc">
+      <h1>Graph : Graphes.</h1>
+      <p>
+        Graph est un ensemble d'outils permettant de manipuler des graphes
+        et plus particulièrement de les visualiser.
+      </p>
+      <div class="contout">
+        <div class="cont"><a name="Content"></a>
+          <h2>Contenu.</h2>
+          <a class="ai2" href="http://patrick.davalan.free.fr/graph/#GD01">1 Graphdot01.</a><br>
+          <a class="ai3" href="http://patrick.davalan.free.fr/graph/#GD01-Intro">1.1 Introduction.</a><br>
+          <a class="ai3" href="http://patrick.davalan.free.fr/graph/#GD01-API">1.2 API.</a><br>
+          <a class="ai4" href="http://patrick.davalan.free.fr/graph/#GD01-Prog">1.2.1 Le programme graphdot01.rb.</a><br>
+          <a class="ai5" href="http://patrick.davalan.free.fr/graph/#GD01-in">1.2.1.1 Les fichiers en entrée.</a><br>
+          <a class="ai6" href="http://patrick.davalan.free.fr/graph/#GD01-nodes">1.2.1.1.1 Le fichier nodes.</a><br>
+          <a class="ai6" href="http://patrick.davalan.free.fr/graph/#GD01-nodes">1.2.1.1.2 Le fichier edges.</a><br>
+          <a class="ai5" href="http://patrick.davalan.free.fr/graph/#GD01-out">1.2.1.2 Le fichier en sortie.</a><br>
+          <a class="ai5" href="http://patrick.davalan.free.fr/graph/#GD01-Ex">1.2.1.3 Exemple.</a><br>
+          <a class="ai5" href="http://patrick.davalan.free.fr/graph/#GD01-inv">1.2.1.4 Invocation de graphdot01.rb.</a><br>
+          <a class="ai5" href="http://patrick.davalan.free.fr/graph/#GD01-conf">1.2.1.5 Configuration de graphdot01.rb.</a><br>
+          <a class="ai3" href="http://patrick.davalan.free.fr/graph/#GD01-lim">1.3 Limitations.</a><br>
+          <a class="ai2" href="http://patrick.davalan.free.fr/graph/#Legal">2 Informations légales.</a><br>
+          <a class="ai2" href="http://patrick.davalan.free.fr/graph/#Download">3 Download, install and use.</a><br>
+          <a class="ai2" href="http://patrick.davalan.free.fr/graph/#Bugs">4 Bugs and deficiencies.</a><br>
+        </div>
+        <div class="out">
+          <div class="banners">
+            <center>
+              <div class="rubytext">
+                <a href="http://www.ruby-lang.org/en/">RUBY</a>
+              </div>
+            </center>
+            <center>
+              <div class="rubytext">
+                <a href="http://www.ruby-doc.org/">RUBY DOC</a>
+              </div>
+            </center>
+            <center>
+              <div class="rubytext">
+                <a href="http://www.rubygarden.org/ruby">RUBY GARDEN</a>
+              </div>
+            </center>
+            <center>
+              <div class="banner">
+              </div>
+            </center>
+
+<!--
+<center>
+<div class="banner">
+<a href="http://patrick.davalan.free.fr/"><img src="/img/cube32.png" alt="Logo" height="32" width="32" border="0" align="left"/><b>&nbsp;Mon site en Français.</b></a>
+</div>
+</center>
+-->
+            <center>
+              <div class="banner">
+                <a href="http://www.gnu.org/"><img src="./Graph   Graphes._files/gnu.png" alt="GNU" height="81" width="86" border="0"></a>
+              </div>
+            </center>
+            <center>
+              <div class="banner">
+                <a href="http://www.noepatents.org/?lang=en"><img src="./Graph   Graphes._files/patent_button.png" alt="No Patent" height="36" width="88" border="0"></a>
+              </div>
+            </center>
+            <center>
+              <div class="banner">
+              </div>
+            </center>
+          </div>
+        </div>
+        <div class="spacer"><br>
+        </div>
+      </div>
+      <div class="doctext">
+        <a name="GD01"></a><a name="1"></a>
+        <h2>1 Graphdot01.</h2>
+        <a name="GD01-Intro"></a><a name="1.1"></a>
+        <h3>1.1 Introduction.</h3>
+        <p>
+          Graphdot01 est un outil très simple permettant d'obtenir une image
+          à partir d'une description d'un graphe orienté.
+          <br>
+          Il est constitué de classes Ruby et d'1 programme Ruby permettant
+          d'y accéder, il n'est pas nécessaire de connaître Ruby pour
+          utiliser ce programme.
+        </p>
+        <p>
+          A partir de fichiers définissant les sommets et les arcs du graphe,
+          graphdot01 construit un fichier au format .dot qui peut être
+          utilisé par
+          <a href="http://www.graphviz.org/"> Graphviz</a>
+          pour construire une image de ce graphe.
+        </p> <img src="./Graph   Graphes._files/gd01diag1.png" height="547" width="520" border="" alt="Graphdot01 control flow" align="middle">
+        <p>
+          Sur ce diagramme, les fichiers sont représentés par des ellipses et
+          les programmes par des rectangles.
+        </p>
+        <p>
+        </p>
+        <p>
+        </p>
+        <a name="GD01-API"></a><a name="1.2"></a>
+        <h3>1.2 API.</h3>
+        <p>
+          Seul l'utilisation du programme graphdot01.rb est documentée, l'API
+          des classes qu'il utilise étant destinée à changer.
+        </p>
+        <a name="GD01-Prog"></a><a name="1.2.1"></a>
+        <h4>1.2.1 Le programme graphdot01.rb.</h4>
+        <p>
+          Il construit un fichier .dot qui peut être exploité par un des
+          programmes de Graphviz comme le programme dot.
+          <br>
+          il permet de représenter des graphes comprenant des sous-graphes
+          encore appelés clusters.<br> Ces sous-graphes sont des regroupement
+          de sommets connexes ou non qui seront visualisés dans un même
+          ensemble.
+        </p>
+        <p>
+        </p>
+        <a name="GD01-in"></a><a name="1.2.1.1"></a>
+        <h5>1.2.1.1 Les fichiers en entrée.</h5>
+        <p>
+          Ce sont des fichiers texte dont chaque ligne est formée d'un nombre fixe
+          de champs séparés par des espaces.
+          <br>
+          Ce format a été choisi parce qu'il est facile à générer à partir
+          de scripts extrayant des informations de fichiers texte
+          ou de tables de SGBDR.
+        </p>
+        <a name="GD01-nodes"></a><a name="1.2.1.1.1"></a>
+        <h5>1.2.1.1.1 Le fichier nodes.</h5>
+        <p>
+          Il associe à chaque sous-graphe les sommets qu'il contient.<br>
+          Un sommet est identifié de manière unique par la concaténation
+          du nom du sous-graphe et du nom du sommet, 2 sommets de même nom dans
+          deux sous-graphes différents seront deux smmets différents, cela
+          signifie aussi que les sous-graphes sont disjoints.
+        </p>
+        <p>
+          Format d'une ligne définissant un couple (sous-graphe, sommet) :<br>
+          <span class="s_text">&lt;sous-graphe&gt; &lt;sommet&gt;</span><br>
+          où &lt;sous-graphe&gt; et &lt;sommet&gt; sont des noms séparés par des espaces.
+        </p>
+        <p>
+          Les lignes du fichier peuvent apparaître dans n'importe quel ordre,
+          cependant cet ordre peut dans certains cas avoir une incidence sur
+          la disposition des sommets dans un sous-graphe.
+        </p>
+        <a name="GD01-nodes"></a><a name="1.2.1.1.2"></a>
+        <h5>1.2.1.1.2 Le fichier edges.</h5>
+        <p>
+          Il définit un ensemble de relations
+          entre 2 couples (sous-graphe, sommet).
+          <br>
+        </p>
+        <p>
+          Format d'une ligne définissant cette relation :<br>
+          <span class="s_text">&lt;sous-graphe 1&gt; &lt;sommet 1&gt; &lt;sous-graphe 2&gt; &lt;sommet 2&gt;</span><br>
+          Elle correpond à 2 lignes jointes et séparées par des espaces du
+          fichier nodes. L'ordre dans lequel apparaissent ces 2 couples déterminera
+          l'emplacement de la pointe de la flêche dans l'arc qui relie 2 sommets.<br>
+          Par défaut, 1 --&gt; 2.
+        </p>
+        <p>
+          Les lignes du fichier peuvent apparaître dans n'importe quel ordre.
+        </p>
+        <a name="GD01-out"></a><a name="1.2.1.2"></a>
+        <h5>1.2.1.2 Le fichier en sortie.</h5>
+        <p>
+          Il s'agit d'un fichier au <a href="http://www.graphviz.org/Documentation.php">
+            format dot tel que défini dans la documentation de Graphviz</a>.
+        </p>
+        <p>
+          Ce fichier traité par un utilitaire de Graphviz tel que dot produit
+          une image. On peut choisir parmi un assez grand nombre le format
+          de cette imaage.
+          <br>
+        </p>
+        <a name="GD01-Ex"></a><a name="1.2.1.3"></a>
+        <h5>1.2.1.3 Exemple.</h5>
+        <p>
+          Il s'agit du graphe d'appel des fonctions d'un programme C plausible.
+          Voici en fin de chaîne le fichier .png produit par Graphviz :
+          <br>
+          <img src="./Graph   Graphes._files/graph02.png" height="577" width="567" border="" alt="Program control flow" align="middle"><br>
+          Les sous-graphes correspondent au sources .c et les sommets aux
+          fonctions déclarées dans ces sources.
+        </p>
+        <p>
+          On peut remarquer que le sous-graphe correspondant au source baz.c
+          est présenté un peu différemment, il est entouré de bleu. Il s'agit
+          du sous-graphe que l'on a indiqué à graphdot01.rb comme étant le
+          sous-graphe ayant le
+          <b>focus</b>.<br>
+          la fonction main, elle aussi présentée différemment, correspond au sommet
+          qui a le focus.
+        </p> Le <b>fichier nodes en entrée</b> se présente ainsi :
+        <div class="command">
+          <pre>baz.c main
+baz.c baz
+foobar.c bar
+foobar.c foo
+util.c xmalloc
+</pre>
+        </div>
+        et voici le <b>fichier edges en entrée</b> :
+        <div class="command">
+          <pre>baz.c main baz.c baz
+baz.c baz util.c xmalloc
+baz.c baz foobar.c foo
+baz.c baz foobar.c bar
+foobar.c foo foobar.c bar
+foobar.c foo foobar.c foo
+foobar.c bar util.c xmalloc
+</pre>
+        </div>
+        <p>
+        </p>
+        <a name="GD01-inv"></a><a name="1.2.1.4"></a>
+        <h5>1.2.1.4 Invocation de graphdot01.rb.</h5>
+        Voici le résultat de <span class="s_text">graphdot01.rb --help</span>
+        <div class="command">
+          <pre>Usage   : grfdot01.rb [--config [arg]] [--graph [arg]] 
+		[--fcluster arg] [--fnode arg] 
+		--nodefile arg --edgefile arg 
+		[--outfile [arg]] [--verbose [arg]] 
+		[--help] [--version] 
+Options :
+	--config -c [arg] (default &lt;rubrix/dot01conf.rb&gt;)
+		Optional: Configuration ruby file.
+	--graph -g [arg] (default &lt;&gt;)
+		Optional: Graph name.
+	--fcluster -f arg (default &lt;&gt;)
+		Optional: Focused cluster.
+	--fnode -j arg (default &lt;&gt;)
+		Optional: Focused node.
+	--nodefile -n arg (default &lt;&gt;)
+		Required: Nodes input file.
+	--edgefile -e arg (default &lt;&gt;)
+		Required: edges input file.
+	--outfile -o [arg] (default &lt;$stdout&gt;)
+		Optional: dot output file.
+	--verbose [arg] (default &lt;0&gt;)
+		Optional: Specify verbosity level (0..4)
+	[arg ...]
+		Arguments.
+	Or
+	--help -h 
+		Display these informations and exit successfully.
+	Or
+	--version -V 
+		Display program version and exit successfully.
+</pre>
+        </div>
+        <p>
+          Nous allons l'étudier en nous basant sur le script de l'exemple du chapitre
+          précédant :
+        </p>
+        <div class="command">
+          <pre>graphdot01.rb -g baz --fcluster baz.c --fnode main\
+        -n nodes02 -e edges02 -o graph02.dot
+dot -Tpng -o graph02.png graph02.dot
+</pre>
+        </div>
+        <p>
+          '--config' fait l'objet du paragraphe suivant.<br>
+          '-g baz' indique le nom du graphe tel qu'on veut le voir apparaitre
+          au bas de l'image.<br>
+          '-fcluster baz.c' et '--fnode main' indique le sous-graphe et le
+          sommet qui auront le focus.<br>
+          '-n' et '-e' indiquent les fichiers nodes et edges.<br>
+          '-o' indique le fichier en sortie en format dot.<br>
+        </p>
+        <p>
+          La dernière ligne est l'invocation du programme dot de graphviz.
+        </p>
+        <p>
+        </p>
+        <p>
+        </p>
+        <a name="GD01-conf"></a><a name="1.2.1.5"></a>
+        <h5>1.2.1.5 Configuration de graphdot01.rb.</h5>
+        <p>
+          il est possible que vous n'aimiez pas les couleurs du graphe ou
+          la forme des sommets et des flêches. Il est possible de configurer
+          tout cela ainsi que d'autres paramètres de présentation des graphes.
+        </p>
+        <p>
+          Le fichier de configuration est un peu rudimentaire, il s'agit
+          d'affectation de strings à des variables d'instance dans une fonction
+          d'un module.
+          <br>
+          La configuration par défaut est installée dans la lib ruby
+          sous rubrix/dot01conf.rb, vous pouvez facilement la copier et la modifier
+          et indiquer le fichier résultant à graphdot01.rb par l'argument
+          <span class="s_text">--config file</span>.<br>
+        </p>
+        <p>
+          Référez-vous à <a href="http://www.graphviz.org/Documentation.php">
+            la documentation de Graphviz</a> pour connaitre les différents attributs
+          que vous pouvez renseigner.<br>
+          Cependant, si vous ne modifiez que les couleurs, vous n'avez pas besoin
+          de vous y référer, la liste des couleurs disponibles sur un système
+          Unix doit se trouver ans /etc/X11/rgb.txt ou quelque chose comme ça.
+        </p>
+        <p>
+          En changeant quelques lignes de la configuration, voici ce à quoi
+          le graphe de l'exemple peut resembler :
+        </p> <img src="./Graph   Graphes._files/graph02-c.png" height="592" width="288" border="" alt="Program control flow" align="middle"><br>
+        <p>
+          Il est également possible d'utiliser d'autres utilitaires que dot,
+          le graphe suivant a été construit par fdp de Graphviz
+        </p> <img src="./Graph   Graphes._files/graph02-d.png" height="349" width="336" border="" alt="Program control flow" align="middle"><br>
+        <a name="GD01-lim"></a><a name="1.3"></a>
+        <h3>1.3 Limitations.</h3>
+        <p>
+          Le programme graphdot01.rb souffre de sérieuses limitations, il n'est
+          notamment pas possible de typer les sous-graphes, sommets et arcs
+          de manière à les faire apparaitre de manières différentes.
+          <br>
+          Sa configuration est également un peu frustre.
+        </p>
+        <p>
+          Il est cependant utilisable tel quel pour visualiser des graphes simples.
+          Il sera peu modifié, un autre programme sera écrit pour
+          permettre plus de souplesse dans la représentation de graphes.
+        </p>
+        <p>
+        </p>
+        <a name="Legal"></a><a name="2"></a>
+        <h2>2 Informations légales.</h2>
+        <p>
+          Graph is copyrighted : <b>Copyright (c) 2006 Patrick Davalan</b>.
+          All rights reserved.<br>
+          Graph is <b>free software</b>,
+          it may be used, modified and distributed under the same terms as Ruby.<br>
+          See the file COPYING in the Ruby distribution.
+        </p>
+        <p>
+          Graph is provided "as is" <b>without any expressed or implied warranty</b>,
+          including, but not limited to, any warranty you might dream of.
+        </p>
+        <p></p>
+        <a name="Download"></a><a name="3"></a>
+        <h2>3 Download, install and use.</h2>
+        <p>
+          Graph needs Ruby to install and to work and
+          <a href="http://harpo.free.fr/opthash/">Opthash</a> to run. It recommends
+          some tool like <a href="http://www.graphviz.org/">Graphviz</a> to
+          produce an image from a dot file.
+        </p>
+        <p>
+          Download the latest version in the <a href="http://patrick.davalan.free.fr/download/">Download page</a>
+        </p>
+        <p>
+          Unzip the tarball with <span class="s_text">tar xzvf graph-version.tar.gz</span>,
+          it ceates the graph-version directory, then read the README file
+          in that directory.
+        </p>
+        <p>
+          In order to not pollute your Ruby libraries directory , Graph as well as
+          some other projects of my own installs its libraries into the subdirectory
+          'rubrix'.
+        </p>
+        <a name="Bugs"></a><a name="4"></a>
+        <h2>4 Bugs and deficiencies.</h2>
+        <p>
+          Send bug reports to : almazz at wanadoo dot fr
+        </p>
+        <p>
+          Graph, its installation procedures and test suite are designed to work
+          on any platform where Ruby works, but they have only been
+          tested on a Debian GNU/Linux system.
+          <br>
+          Graph had been developped using Ruby 1.8, but it may work on
+          previous versions of Ruby.<br>
+        </p>
+        <div class="footer">
+          <a name="bot">Copyright © 2006 Patrick Davalan All rights reserved.<br>
+          Il est permis de copier et de distribuer cette page pour autant que le copyright accompagné de cette notice soit préservé.
+        </a></div><a name="bot">
+        <div class="xxsmall">keywords : Graphe, visualisation de graphes, dot, graphviz, représentation graphique, graphe orienté, digraph, directed graph, graph
+        </div>
+      </a></div><a name="bot">
+    </a></div><div id="yieldsquare-ad" class="yieldsquare-enabled" style="display: none; clear: both;"><iframe id="yieldsquare-frame" frameborder="0" width="0" height="0" src="about:blank" style="margin: 0px; overflow: hidden; display: none !important; visibility: hidden !important; opacity: 0 !important; background-position: 0px 0px;"></iframe><div id="yieldsquare-about-ad">This ad is supporting your extension Smooth Gestures<a id="yieldsquare-disable-ad" href="http://patrick.davalan.free.fr/graph/undefined">Turn off these ads?</a></div></div><a name="bot">
+    </a><div class="toc"><a name="bot">
+      </a><center><a name="bot">
+        </a><div class="itext"><a name="bot">
+          <span><span class="box"></span></span></a><a href="http://patrick.davalan.free.fr/"><span> </span></a>
+          <span class="itext1l"><span class="box"><a href="http://patrick.davalan.free.fr/">Accueil<span>Page d'accueil</span></a></span></span>
+          <span class="itext2l"><span class="box"><a href="http://patrick.davalan.free.fr/">&#8592;<span></span></a></span></span>
+          <span class="itext2m"><span class="box"><a href="http://patrick.davalan.free.fr/">&#8593;<span></span></a></span></span>
+          <span class="itext2r"><span class="box"><a href="http://patrick.davalan.free.fr/">&#8594;<span></span></a></span></span>
+          <span class="itext1r"><span class="box"><a href="http://patrick.davalan.free.fr/graph/#Top">Haut<span>Haut de la page</span></a></span></span>
+        </div>
+      </center>
+      <div class="itext">
+        <a class="ai2" href="http://patrick.davalan.free.fr/graph/#GD01">1 Graphdot01.</a><br>
+        <a class="ai3" href="http://patrick.davalan.free.fr/graph/#GD01-Intro">1.1 Introduction.</a><br>
+        <a class="ai3" href="http://patrick.davalan.free.fr/graph/#GD01-API">1.2 API.</a><br>
+        <a class="ai3" href="http://patrick.davalan.free.fr/graph/#GD01-lim">1.3 Limitations.</a><br>
+        <a class="ai2" href="http://patrick.davalan.free.fr/graph/#Legal">2 Informations légales.</a><br>
+        <a class="ai2" href="http://patrick.davalan.free.fr/graph/#Download">3 Download, install and use.</a><br>
+        <a class="ai2" href="http://patrick.davalan.free.fr/graph/#Bugs">4 Bugs and deficiencies.</a><br>
+      </div>
+      <center>
+        <div class="iicon">
+          <a href="http://validator.w3.org/check?uri=referer">
+            <img src="./Graph   Graphes._files/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional" height="31" width="88" border="0" align="middle"></a>
+          <a href="http://opensource.org/docs/certification_mark.php"><img src="./Graph   Graphes._files/osi-certified-90x75.png" alt="OSI Certified Open Source Software" height="75" width="90" border="0" align="middle"></a>
+        </div>
+      </center>
+    </div>
+  
+
+
+</body></html>

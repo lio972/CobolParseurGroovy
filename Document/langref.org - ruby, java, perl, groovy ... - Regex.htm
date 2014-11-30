@@ -1,0 +1,955 @@
+
+<!-- saved from url=(0049)http://langref.org/all-languages/pattern-matching -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+<script src="./langref.org - ruby, java, perl, groovy ... - Regex_files/application.js" type="text/javascript"></script><style type="text/css"></style>
+<link href="./langref.org - ruby, java, perl, groovy ... - Regex_files/style-languages.css" media="screen" rel="stylesheet" type="text/css">
+<link href="./langref.org - ruby, java, perl, groovy ... - Regex_files/style.css" media="screen" rel="stylesheet" type="text/css">
+<title>
+langref.org - ruby, java, perl, groovy ... - Regex</title>
+<style type="text/css">#yieldsquare-ad {
+  margin:10px auto 20px;
+
+  width: 728px;
+}
+
+#yieldsquare-about a {
+  cursor: pointer;
+}
+
+.yieldsquare-enabled {
+  border-radius:0 0 5px 5px;
+  box-shadow: inset 0 0 75px 75px lightgray, 0 0 0 lightgray;
+  -webkit-transition:opacity 1s linear;
+}
+
+.yieldsquare-disabled-first {
+  -webkit-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.45);
+  -webkit-transition: opacity 1s linear;
+  background-image: url(http://s3.amazonaws.com/static.yieldsquare.com/ads-disabled/messagebed.gif);
+  height: 90px;
+  opacity: 1;
+  position: relative;
+  width: 728px;
+}
+
+.yieldsquare-disabled-second {
+  -webkit-transition: all 0.4s ease-in-out;
+  background-image: url(http://s3.amazonaws.com/static.yieldsquare.com/ads-disabled/messagebed.gif);
+  border-radius:0 0 5px 5px;
+  box-shadow: inset 0 0 35px 35px transparent, 0 0 75px 50px transparent;
+  height: 90px;
+  opacity: 0;
+  position: relative;
+  width: 728px;
+}
+
+#yieldsquare-about-ad {
+  font:11px arial !important;
+  color:#555;
+  padding: 4px;
+  text-align:center;
+}
+
+#yieldsquare-about-ad a {
+  cursor: pointer;
+  color: #333;
+}
+
+.yieldsquare-message-icon {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.yieldsquare-message-p {
+    font: 13px/17px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+    width: 542px;
+    height: 74px;
+    left: 123px;
+    position: absolute;
+    top: 0px;
+    color: #3d3d3d;
+    margin-top: 13px;
+    margin-bottom: 13px;
+}
+
+.yieldsquare-message-p span {
+    font: bold 16px/17px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+    color: #292929;
+}
+
+.yieldsquare-message-p a {
+    text-decoration: none;
+    color: #1d97cf;
+}
+
+.yieldsquare-message-p a:hover {
+    text-decoration: underline;
+}
+
+#yieldsquare-message-x {
+    position: absolute;
+    left: 715px;
+    top: 6px;
+}
+
+</style></head> 
+<body>
+  <div id="header">
+      <div class="box">
+      <b class="rtop">
+        <b class="r1"></b> <b class="r2"></b> <b class="r3"></b> <b class="r4"></b>
+      </b>
+      <div class="content">
+
+    <div id="topright"> 
+      <span id="login_box">
+       
+      <a href="http://langref.org/login">Login</a> 
+      | 
+
+      <a href="http://langref.org/signup">Signup</a> 
+       
+</span>
+<span id="search">
+    <form action="http://langref.org/all-languages/search" method="get">
+      <input id="q" name="q" type="text" value="Search">
+      <input name="s" type="submit" value="go">
+    </form>
+  </span>
+    </div>
+  <a href="http://langref.org/">langref.org</a>
+  
+    - 
+    <a href="http://langref.org/ruby/pattern-matching">ruby</a>, <a href="http://langref.org/java/pattern-matching">java</a>, <a href="http://langref.org/perl/pattern-matching">perl</a>, <a href="http://langref.org/groovy/pattern-matching">groovy</a> ...
+    
+    
+  
+      </div>
+      <b class="rbottom">
+        <b class="r4"></b> <b class="r3"></b> <b class="r2"></b> <b class="r1"></b>
+      </b>
+    </div>
+
+</div>
+<div id="sidebar">
+    <div class="box">
+      <b class="rtop">
+        <b class="r1"></b> <b class="r2"></b> <b class="r3"></b> <b class="r4"></b>
+      </b>
+      <div class="content">
+
+  <ul>
+    <li><a href="http://langref.org/all-languages">Home</a></li>
+    <li><a href="http://langref.org/all-languages/all">All</a></li>
+    <li><a href="http://langref.org/all-languages/solved">Solved</a></li>
+    <li><a href="http://langref.org/all-languages/unsolved">Unsolved</a></li>
+    
+    <li><hr></li>   
+    
+    <li>
+        <a href="http://langref.org/all-languages/strings">Strings</a>
+    </li>
+  
+    <li>
+        <a href="http://langref.org/all-languages/numbers">Numbers</a>
+    </li>
+  
+    <li>
+        Regex
+    </li>
+  
+    <li>
+        <a href="http://langref.org/all-languages/lists">Lists</a>
+    </li>
+  
+    <li>
+        <a href="http://langref.org/all-languages/maps">Maps</a>
+    </li>
+  
+    <li>
+        <a href="http://langref.org/all-languages/program-structure">Structure</a>
+    </li>
+  
+    <li>
+        <a href="http://langref.org/all-languages/files">Files</a>
+    </li>
+  
+    <li>
+        <a href="http://langref.org/all-languages/dates">Dates</a>
+    </li>
+  
+    <li>
+        <a href="http://langref.org/all-languages/oop">OOP</a>
+    </li>
+  
+    <li>
+        <a href="http://langref.org/all-languages/networking">Networking</a>
+    </li>
+  
+    <li>
+        <a href="http://langref.org/all-languages/xml">XML</a>
+    </li>
+  
+    <li>
+        <a href="http://langref.org/all-languages/algorithms">Algorithms</a>
+    </li>
+  
+    <li>
+        <a href="http://langref.org/all-languages/misc">Misc</a>
+    </li>
+  
+    <li>
+        <a href="http://langref.org/all-languages/parallel">Parallel</a>
+    </li>
+  
+  </ul>
+      </div>
+      <b class="rbottom">
+        <b class="r4"></b> <b class="r3"></b> <b class="r2"></b> <b class="r1"></b>
+      </b>
+    </div>
+
+<br>
+<div class="google_adsense ad160x600">
+<script type="text/javascript">
+//<![CDATA[
+google_ad_client = 'pub-0165089109383292';
+google_ad_width = 160;
+google_ad_height = 600;
+google_ad_type = 'text';
+google_ad_format = '160x600_as';
+google_language = 'en';
+google_color_border = '666666';
+google_color_bg = 'DDDDDD';
+google_color_link = '0000FF';
+google_color_url = '008800';
+google_color_text = '000000';
+google_ui_features  = 'rc:6';
+//]]>
+</script>
+<script src="http://pagead2.googlesyndication.com/pagead/show_ads.js" type="text/javascript"></script>
+</div>
+
+</div>
+<div id="main">
+  
+  <div id="title-short">
+        <div class="box">
+      <b class="rtop">
+        <b class="r1"></b> <b class="r2"></b> <b class="r3"></b> <b class="r4"></b>
+      </b>
+      <div class="content">
+
+  View Category
+          </div>
+      <b class="rbottom">
+        <b class="r4"></b> <b class="r3"></b> <b class="r2"></b> <b class="r1"></b>
+      </b>
+    </div>
+
+  </div>
+  
+<div class="category">
+      <div class="box">
+      <b class="rtop">
+        <b class="r1"></b> <b class="r2"></b> <b class="r3"></b> <b class="r4"></b>
+      </b>
+      <div class="content">
+
+      <a href="./langref.org - ruby, java, perl, groovy ... - Regex_files/langref.org - ruby, java, perl, groovy ... - Regex.htm">Regex</a>
+        </div>
+      <b class="rbottom">
+        <b class="r4"></b> <b class="r3"></b> <b class="r2"></b> <b class="r1"></b>
+      </b>
+    </div>
+
+</div>
+<div id="category11">
+  <div class="subcategory">
+      <div class="box">
+      <b class="rtop">
+        <b class="r1"></b> <b class="r2"></b> <b class="r3"></b> <b class="r4"></b>
+      </b>
+      <div class="content">
+
+    <a href="http://langref.org/all-languages/pattern-matching/matching">Matching</a>
+        </div>
+      <b class="rbottom">
+        <b class="r4"></b> <b class="r3"></b> <b class="r2"></b> <b class="r1"></b>
+      </b>
+    </div>
+
+</div>
+<div style="clear:both">
+  <div id="subcategory15">
+    <div class="problem">
+  <h3><a href="http://langref.org/all-languages/pattern-matching/matching/check-if-a-string-matches-a-regular-expression">Check if a string matches a regular expression</a></h3>
+  <div class="solutions" id="problem42">
+    Display <code>"ok"</code> if <code>"Hello"</code> matches <code>/[A-Z][a-z]+/</code>
+    
+      
+        
+        
+          <div class="ruby"><div class="code"><span class="type">ruby</span><div class="body">puts "ok" if ("Hello"=~/^[A-Z][a-z]+$/)</div></div></div>
+        
+      
+        
+        
+          <div class="java"><div class="code"><span class="type">java</span><div class="body">if ("Hello".matches("[A-Z][a-z]+")) {<br>    System.out.println("ok");<br>}</div></div></div>
+        
+      
+        
+        
+          <div class="perl"><div class="code"><span class="type">perl</span><div class="body">print 'ok' if ('Hello' =~ /[A-Z][a-z]+/);</div></div></div>
+        
+      
+        
+        
+          <div class="groovy"><div class="code"><span class="type">groovy</span><div class="body">if ("Hello" =~ /[A-Z][a-z]+/) println 'ok'</div><div class="body-multiple">if ("Hello".find(/[A-Z][a-z]+/)) println 'ok'<br></div><div class="body-multiple">// with precompiled regex<br>def regex = ~/[A-Z][a-z]+/<br>if ("Hello".find(regex)) println 'ok'</div><div class="body-multiple">// with precompiled regex<br>def regex = ~/[A-Z][a-z]+/<br>if ("Hello".matches(regex)) println 'ok'</div><div class="body-multiple">if ("Hello".matches("[A-Z][a-z]+")) println 'ok'</div></div></div>
+        
+      
+        
+        
+          <div class="scala"><div class="code"><span class="type">scala</span><div class="body">if ("Hello".matches("[A-Z][a-z]+")) println("ok")</div></div></div>
+        
+      
+        
+        
+          <div class="python"><div class="code"><span class="type">python</span><div class="body">found = re.match(r'[A-Z][a-z]+', 'Hello')<br>if found:<br>    print 'ok'</div></div></div>
+        
+      
+        
+        
+          <div class="cpp"><div class="code"><span class="type">cpp</span><div class="body">if ((gcnew Regex("[A-Z][a-z]+"))-&gt;IsMatch("Hello")) Console::WriteLine("ok");</div><div class="body-multiple">if (Regex::IsMatch("Hello", "[A-Z][a-z]+")) Console::WriteLine("ok");</div><div class="body-multiple">Regex^ rx = gcnew Regex("[A-Z][a-z]+");<br>if (rx-&gt;IsMatch("Hello")) Console::WriteLine("ok");</div><div class="body-multiple">cmatch what;<br>if (regex_match("Hello", what, regex("[A-Z][a-z]+")))<br>    cout &lt;&lt; "ok" &lt;&lt; endl;    </div></div></div>
+        
+      
+        
+        
+          <div class="fsharp"><div class="code"><span class="type">fsharp</span><div class="body">if (Regex.IsMatch("Hello", "[A-Z][a-z]+")) then printfn "ok"</div></div></div>
+        
+      
+        
+        
+          <div class="erlang"><div class="code"><span class="type">erlang</span><div class="body">String = "Hello", Regexp = "[A-Z][a-z]+",<br>is_match(String, Regexp) andalso (begin io:format("ok~n"), true end).</div><div class="body-multiple">case re:run("Hello", "[A-Z][a-z]+") of {match, _} -&gt; ok end.</div></div></div>
+        
+      
+        
+        
+          <div class="ocaml"><div class="code"><span class="type">ocaml</span><div class="body">if Str.string_match (Str.regexp "[A-Z][a-z]+") "Hello" 0 <br>then print_string "ok";;</div></div></div>
+        
+      
+        
+        
+          <div class="csharp"><div class="code"><span class="type">csharp</span><div class="body">if (Regex.IsMatch("Hello", "[A-Z][a-z]+"))<br>{<br>  Console.WriteLine("ok");<br>}</div></div></div>
+        
+      
+        
+        
+          <div class="php"><div class="code"><span class="type">php</span><div class="body">if(ereg('[A-Za-z]+', 'Hello')) {<br>	echo "ok";<br>}</div><div class="body-multiple">if(preg_match('/[A-Za-z]+/', 'Hello')&gt;0) {<br>	echo "ok";<br>}</div></div></div>
+        
+      
+        
+        
+          <div class="haskell"><div class="code"><span class="type">haskell</span><div class="body">import Text.Regex.Posix<br>main = if "Hello" =~ "[A-Z][a-z]+" then putStrLn "OK" else return ()</div></div></div>
+        
+      
+        
+        
+          <div class="clojure"><div class="code"><span class="type">clojure</span><div class="body">(if (re-matches #"[A-Z][a-z]+" "Hello") <br>  (println "ok"))</div></div></div>
+        
+      
+        
+        
+          <div class="fantom"><div class="code"><span class="type">fantom</span><div class="body">if (Regex&lt;|[A-Z][a-z]+|&gt;.matches("Hello"))<br>  echo("ok")     </div></div></div>
+        
+      
+        
+        
+          <div class="go"><div class="code"><span class="type">go</span><div class="body">result, _ := regexp.MatchString("[A-Z][a-z]+", "Hello")<br>if result {<br>	fmt.Println("ok")<br>}</div></div></div>
+        
+      
+    
+  </div>
+</div><div class="problem">
+  <h3><a href="http://langref.org/all-languages/pattern-matching/matching/check-if-a-string-matches-with-groups">Check if a string matches with groups</a></h3>
+  <div class="solutions" id="problem43">
+    Display <code>"two"</code> if <code>"one&nbsp;two&nbsp;three"</code> matches <code>/one&nbsp;(.*)&nbsp;three/</code>
+    
+      
+        
+        
+          <div class="ruby"><div class="code"><span class="type">ruby</span><div class="body">puts $1 if "one two three"=~/^one (.*) three$/</div></div></div>
+        
+      
+        
+        
+          <div class="java"><div class="code"><span class="type">java</span><div class="body">Pattern pattern = Pattern.compile("one (.*) three");<br>Matcher matcher = pattern.matcher("one two three");<br>if (matcher.matches()) {<br>    System.out.println(matcher.group(1));<br>}</div></div></div>
+        
+      
+        
+        
+          <div class="perl"><div class="code"><span class="type">perl</span><div class="body">print $1 if "one two three"=~/^one (.*) three$/</div></div></div>
+        
+      
+        
+        
+          <div class="groovy"><div class="code"><span class="type">groovy</span><div class="body">matcher = ("one two three" =~ /one (.*) three/)<br>if (matcher) println matcher[0][1]<br></div><div class="body-multiple">match = "one two three".find("one (.*) three") { it[1] }<br>if (match) println match</div></div></div>
+        
+      
+        
+        
+          <div class="scala"><div class="code"><span class="type">scala</span><div class="body">val m = Pattern.compile("one (.*) three").matcher("one two three")<br>if (m.matches) println(m.group(1))</div></div></div>
+        
+      
+        
+        
+          <div class="python"><div class="code"><span class="type">python</span><div class="body">match = re.match(r'one (.*) three', 'one two three')<br>if match:<br>    print match.group(1)<br></div></div></div>
+        
+      
+        
+        
+          <div class="cpp"><div class="code"><span class="type">cpp</span><div class="body">Match^ match = Regex::Match("one two three", "one (.*) three");<br>if (match-&gt;Success) Console::WriteLine("{0}", match-&gt;Groups[1]-&gt;Captures[0]);</div><div class="body-multiple">cmatch what;<br>if (regex_match("one two three", what, regex("one (.*) three")))<br>    cout &lt;&lt; what[1] &lt;&lt; endl;</div></div></div>
+        
+      
+        
+        
+          <div class="fsharp"><div class="code"><span class="type">fsharp</span><div class="body">let regmatch = (Regex.Match("one two three", "one (.*) three"))<br>if regmatch.Success then (printfn "%s" (regmatch.Groups.[1].Captures.[0].ToString()))</div></div></div>
+        
+      
+        
+        
+          <div class="erlang"><div class="code"><span class="type">erlang</span><div class="body">case re:run("one two three", "one (.*) three", [{capture, [1], list}]) of {match, Res} -&gt; hd(Res) end.</div></div></div>
+        
+      
+        
+        
+          <div class="ocaml"><div class="code"><span class="type">ocaml</span><div class="body">#load "str.cma" ;;<br><br>let s = "one two three" in<br>if Str.string_match (Str.regexp "one \\(.*\\) three") s 0 then<br>  print_string (Str.matched_group 1 s)</div></div></div>
+        
+      
+        
+        
+          <div class="csharp"><div class="code"><span class="type">csharp</span><div class="body">using System;<br>using System.Text.RegularExpressions;<br><br>    public class RegexBackReference {<br>        public static void Main() {<br>            var oneTwoThree = "one two three";<br>            var pattern = "one (.*) three";<br><br>            Match match = Regex.Match(oneTwoThree, pattern);<br><br>            // group 0 is the entire match. 1 is the first backreference  <br>            Console.WriteLine(match.Groups[1]); <br>        }<br>    }<br></div></div></div>
+        
+      
+        
+        
+          <div class="php"><div class="code"><span class="type">php</span><div class="body">preg_match('/one (.*) three/', 'one two three', $matches);<br>echo $matches[1];</div><div class="body-multiple">ereg('one (.*) three', 'one two three', $regs);<br>echo $regs[1];</div></div></div>
+        
+      
+        
+        
+          <div class="haskell"><div class="code"><span class="type">haskell</span><div class="body">import Text.Regex<br>main = case matchRegex (mkRegex "one (.*) three") "one two three" of<br>  Nothing -&gt; return ()<br>  Just (x:_) -&gt; putStrLn x<br></div></div></div>
+        
+      
+        
+        
+          <div class="clojure"><div class="code"><span class="type">clojure</span><div class="body">(if-let [groups (re-matches #"one (.*) three" "one two three")] <br>  (println (second groups)))</div></div></div>
+        
+      
+        
+        
+          <div class="fantom"><div class="code"><span class="type">fantom</span><div class="body">m := Regex&lt;|one (.*) three|&gt;.matcher("one two three")<br>if (m.matches)<br>  echo("${m.group(1)}")        </div></div></div>
+        
+      
+        
+        
+          <div class="go"><div class="code"><span class="type">go</span><div class="body">re, _  := regexp.Compile("one (.*) three")<br>groups := re.FindStringSubmatch("one two three")<br>if len(groups) &gt; 0 {<br>	fmt.Println(groups[1])<br>}</div></div></div>
+        
+      
+    
+  </div>
+</div>
+  </div>
+<div class="subcategory">
+      <div class="box">
+      <b class="rtop">
+        <b class="r1"></b> <b class="r2"></b> <b class="r3"></b> <b class="r4"></b>
+      </b>
+      <div class="content">
+
+    <a href="http://langref.org/all-languages/pattern-matching/searching">Searching</a>
+        </div>
+      <b class="rbottom">
+        <b class="r4"></b> <b class="r3"></b> <b class="r2"></b> <b class="r1"></b>
+      </b>
+    </div>
+
+</div>
+<div style="clear:both">
+  <div id="subcategory24">
+    <div class="problem">
+  <h3><a href="http://langref.org/all-languages/pattern-matching/searching/check-if-a-string-contains-a-match-to-a-regular-expression">Check if a string contains a match to a regular expression</a></h3>
+  <div class="solutions" id="problem44">
+    Display <code>"ok"</code> if <code>"abc&nbsp;123&nbsp;@#$"</code> matches <code>/\d+/</code>
+    
+      
+        
+        
+          <div class="ruby"><div class="code"><span class="type">ruby</span><div class="body">puts "ok" if (text=~/\d+/)</div></div></div>
+        
+      
+        
+        
+          <div class="java"><div class="code"><span class="type">java</span><div class="body">Pattern pattern = Pattern.compile("\\d+");<br>Matcher matcher = pattern.matcher(text);<br>if (matcher.find()) {<br>    System.out.println("ok");<br>}</div></div></div>
+        
+      
+        
+        
+          <div class="perl"><div class="code"><span class="type">perl</span><div class="body">print "ok" if ("abc 123 @#\$" =~ m/\d+/)</div></div></div>
+        
+      
+        
+        
+          <div class="groovy"><div class="code"><span class="type">groovy</span><div class="body">if ('abc 123 @#$' =~ /\d+/) println 'ok'</div><div class="body-multiple">if ('abc 123 @#$'.find(/\d+/)) println 'ok'</div></div></div>
+        
+      
+        
+        
+          <div class="scala"><div class="code"><span class="type">scala</span><div class="body">if (Pattern.compile("\\d+").matcher("abc 123 @#$").find) println("ok")</div></div></div>
+        
+      
+        
+        
+          <div class="python"><div class="code"><span class="type">python</span><div class="body">found = re.search(r'\d+', 'abc 123 @#$')<br>if found:<br>    print 'ok'</div></div></div>
+        
+      
+        
+        
+          <div class="cpp"><div class="code"><span class="type">cpp</span><div class="body">if (Regex::IsMatch("abc 123 @#$", "\\d+")) Console::WriteLine("ok");</div></div></div>
+        
+      
+        
+        
+          <div class="fsharp"><div class="code"><span class="type">fsharp</span><div class="body">if (Regex.IsMatch("abc 123 @#$", "\\d+")) then printfn "ok"</div></div></div>
+        
+      
+        
+        
+          <div class="erlang"><div class="code"><span class="type">erlang</span><div class="body">% Erlang uses 'egrep'-compatible regular expressions, so shortcuts like '\d' not supported<br>String = "abc 123 @#$", Regexp = "[0-9]+",<br>is_match(String, Regexp) andalso (begin io:format("ok~n"), true end).</div><div class="body-multiple">case re:run("abc 123  @#$", "\\d+") of {match, _} -&gt; ok end.</div></div></div>
+        
+      
+        
+        
+          <div class="ocaml"><div class="code"><span class="type">ocaml</span><div class="body">#load "str.cma" ;;<br><br>let re = Str.regexp "[0-9]+" in<br>try let _ = Str.search_forward re "abc 123 @#$" 0 in<br>  print_string "ok"<br>with _ -&gt; ()<br></div></div></div>
+        
+      
+        
+        
+          <div class="csharp"><div class="code"><span class="type">csharp</span><div class="body">if(System.Text.RegularExpressions.Regex.IsMatch("abc 123 @#$",@"\d+")){<br>	Console.WriteLine("ok");<br>}<br>			</div></div></div>
+        
+      
+        
+        
+          <div class="php"><div class="code"><span class="type">php</span><div class="body">if (preg_match("/\d+/", "abc 123 @#$"))<br>    echo "ok";</div></div></div>
+        
+      
+        
+        
+          <div class="haskell"><div class="code"><span class="type">haskell</span><div class="body">import Text.Regex<br>main = case matchRegex (mkRegex "\d+") "abc 123 @#$" of<br>Nothing -&gt; putStrLn "not ok"<br>Just _ -&gt; putStrLn "ok"</div></div></div>
+        
+      
+        
+        
+          <div class="clojure"><div class="code"><span class="type">clojure</span><div class="body">(if (re-find #"\d+" "abc 123 @#$") <br>  (println "ok"))</div></div></div>
+        
+      
+        
+        
+          <div class="fantom"><div class="code"><span class="type">fantom</span><div class="body">m := Regex&lt;|\d+|&gt;.matcher("abc 123 @#\$")<br>if (m.find)<br>  echo("ok")        </div></div></div>
+        
+      
+        
+        
+      
+    
+  </div>
+</div><div class="problem">
+  <h3><a href="http://langref.org/all-languages/pattern-matching/searching/loop-through-a-string-matching-a-regex-and-performing-an-action-for-each-match">Loop through a string matching a regex and performing an action for each match</a></h3>
+  <div class="solutions" id="problem45">
+    Create a list <code>[fish1,cow3,boat4]</code> when matching <code>"(fish):1&nbsp;sausage&nbsp;(cow):3&nbsp;tree&nbsp;(boat):4"</code> with regex <code>/\((\w+)\):(\d+)/</code>
+    
+      
+        
+        
+          <div class="ruby"><div class="code"><span class="type">ruby</span><div class="body">list = text.scan(/\((\w+)\):(\d+)/).collect{|x| x.join}</div><div class="body-multiple">list=[]<br>text.scan(/\((\w+)\):(\d+)/) {<br>  list &lt;&lt; $1+$2<br>}</div></div></div>
+        
+      
+        
+        
+          <div class="java"><div class="code"><span class="type">java</span><div class="body">List list = new ArrayList();<br>Pattern pattern = Pattern.compile("\\((\\w+)\\):(\\d+)");<br>Matcher matcher = pattern.matcher(text);<br>while(matcher.find()) {<br>    list.add(matcher.group(1)+matcher.group(2));<br>}</div></div></div>
+        
+      
+        
+        
+          <div class="perl"><div class="code"><span class="type">perl</span><div class="body">while ($text =~ /\((\w+)\):(\d+)/g) {<br>    push @list, "$1$2"<br>}</div></div></div>
+        
+      
+        
+        
+          <div class="groovy"><div class="code"><span class="type">groovy</span><div class="body">list = (text =~ /\((\w+)\):(\d+)/).collect{ it[1] + it[2] }</div><div class="body-multiple">list = []<br>text.eachMatch(/\((\w+)\):(\d+)/){<br>  list &lt;&lt; it[1] + it[2]<br>}</div><div class="body-multiple">list = []<br>text.eachMatch(/\((\w+)\):(\d+)/){ m, name, number -&gt;<br>  list &lt;&lt; "$name$number"<br>}</div><div class="body-multiple">list = (text =~ /\((\w+)\):(\d+)/).collect{ all, name, num -&gt; "$name$num" }</div><div class="body-multiple">list = text.findAll(regex){ _, name, num -&gt; "$name$num" }</div><div class="body-multiple">list = text.findAll(regex){ it[1] + it[2] }</div></div></div>
+        
+      
+        
+        
+          <div class="scala"><div class="code"><span class="type">scala</span><div class="body">val m = Pattern.compile("\\((\\w+)\\):(\\d+)").matcher("(fish):1 sausage (cow):3 tree (boat):4")<br>var list : List[String] = Nil<br><br>while (m.find) list = (m.group(1) + m.group(2)) :: list ; list = list.reverse</div></div></div>
+        
+      
+        
+        
+          <div class="python"><div class="code"><span class="type">python</span><div class="body">map(''.join, re.findall(r"\((\w+)\):(\d+)", "(fish):1 sausage (cow):3 tree (boat):4"))<br>--------------------------------------------------------------------------<br>(''.join(m.groups()) for m in re.finditer(r"\((\w+)\):(\d+)", "(fish):1 sausage (cow):3 tree (boat):4"))</div></div></div>
+        
+      
+        
+        
+          <div class="cpp"><div class="code"><span class="type">cpp</span><div class="body">Match^ match = Regex::Match("(fish):1 sausage (cow):3 tree (boat):4", "\\((\\w+)\\):(\\d+)");<br><br>while (match-&gt;Success)<br>{<br>list-&gt;Add(match-&gt;Groups[1]-&gt;Captures[0]-&gt;ToString() + match-&gt;Groups[2]-&gt;Captures[0]-&gt;ToString());<br>match = match-&gt;NextMatch();<br>}</div></div></div>
+        
+      
+        
+        
+          <div class="fsharp"><div class="code"><span class="type">fsharp</span><div class="body">let list = new ResizeArray&lt;string&gt;()<br>let mutable regmatch = (Regex.Match("(fish):1 sausage (cow):3 tree (boat):4", "\\((\\w+)\\):(\\d+)"))<br><br>while regmatch.Success do<br>    list.Add(regmatch.Groups.[1].Captures.[0].ToString() ^ regmatch.Groups.[2].Captures.[0].ToString())<br>    regmatch &lt;- regmatch.NextMatch()<br>done<br><br>for word in list do printfn "%s" word done</div><div class="body-multiple">// A solution without mutation:<br>let results = <br>    Regex.Matches("(fish):1 sausage (cow):3 tree (boat):4", "\\((\\w+)\\):(\\d+)")<br>    |&gt; Seq.cast<br>    |&gt; Seq.map (fun (regmatch: Match) -&gt;<br>        regmatch.Groups.[1].Captures.[0].ToString() + regmatch.Groups.[2].Captures.[0].ToString()<br>    )<br>    |&gt; List.ofSeq</div></div></div>
+        
+      
+        
+        
+          <div class="erlang"><div class="code"><span class="type">erlang</span><div class="body">solve(S) -&gt;<br>  R = "\\((\\w+?)\\):(\\d+)",<br>  {match, M} = re:run(S,R, [global, {capture, all_but_first, list}]),<br>  [ A++N || [A, N] &lt;- M].<br></div></div></div>
+        
+      
+        
+        
+          <div class="ocaml"><div class="code"><span class="type">ocaml</span><div class="body">let result =<br>  let str = "(fish):1 sausage (cow):3 tree (boat):4" in<br>  let ms = Pcre.exec_all ~pat:"\\((\\w+)\\):(\\d+)" str in<br>  Array.to_list (<br>    Array.map (fun m -&gt;<br>      let s = Pcre.get_substrings m in<br>      Printf.sprintf "%s%s" s.(1) s.(2);<br>    ) ms<br>  )</div></div></div>
+        
+      
+        
+        
+          <div class="csharp"><div class="code"><span class="type">csharp</span><div class="body">using System;<br>using System.Collections.Generic;<br>using System.Text.RegularExpressions;<br><br>public static class extensions {<br>	public static IList&lt;string&gt; Map(this string me, string pattern, Func&lt;Match, string&gt; action){<br>		IList&lt;string&gt; matches = new List&lt;string&gt;();<br>		foreach (Match match in Regex.Matches(me,pattern)){<br>			matches.Add(action(match));	<br>		}<br>		return matches;<br>	}<br>}<br><br>class Test<br>{<br>    static void Main()<br>    {<br>IList&lt;string&gt; list = "(fish):1 sausage (cow):3 tree (boat):4".Map(@"\((\w+)\):(\d+)", (m) =&gt; {return m.Groups[1].Value + m.Groups[2].Value;});<br>    }<br>}<br></div></div></div>
+        
+      
+        
+        
+          <div class="php"><div class="code"><span class="type">php</span><div class="body">preg_match_all("/\((\w+)\):(\d+)/", "(fish):1 sausage (cow):3 tree (boat):4", $matches);<br>for ($i=0, $c=count($matches[0]); $i &lt; $c; $i++) {<br>	$list[] = $matches[1][$i].$matches[2][$i];<br>}</div></div></div>
+        
+      
+        
+        
+          <div class="haskell"><div class="code"><span class="type">haskell</span><div class="body">import Text.Regex<br><br>getParenNum s = case matchRegexAll re s of<br>  Nothing -&gt; []<br>  Just (_,_,after,[word,num]) -&gt; (word ++ num):getParenNum after where<br>    re = mkRegex "\\((\\w+)\\):([[:digit:]]+)"<br><br>main = putStrLn (show (getParenNum "(fish):1 sausage (cow):3 tree (boat):4"))<br></div></div></div>
+        
+      
+        
+        
+          <div class="clojure"><div class="code"><span class="type">clojure</span><div class="body">(let [matcher (re-matcher #"\((\w+)\):(\d+)" "(fish):1 sausage (cow):3 tree (boat):4")] <br>  (loop [match (re-find matcher) <br>         lst []]<br>    (if match <br>      (recur (re-find matcher) (conj lst (str (second match) (nth match 2))))<br>      lst)))</div></div></div>
+        
+      
+        
+        
+          <div class="fantom"><div class="code"><span class="type">fantom</span><div class="body">m := Regex&lt;|\((\w+)\):(\d+)|&gt;.matcher(s)<br>list := Str[,]<br>while (m.find) { list.add("${m.group(1)}${m.group(2)}") }        </div></div></div>
+        
+      
+        
+        
+      
+    
+  </div>
+</div>
+  </div>
+<div class="subcategory">
+      <div class="box">
+      <b class="rtop">
+        <b class="r1"></b> <b class="r2"></b> <b class="r3"></b> <b class="r4"></b>
+      </b>
+      <div class="content">
+
+    <a href="http://langref.org/all-languages/pattern-matching/replacing">Replacing</a>
+        </div>
+      <b class="rbottom">
+        <b class="r4"></b> <b class="r3"></b> <b class="r2"></b> <b class="r1"></b>
+      </b>
+    </div>
+
+</div>
+<div style="clear:both">
+  <div id="subcategory25">
+    <div class="problem">
+  <h3><a href="http://langref.org/all-languages/pattern-matching/replacing/replace-the-first-regex-match-in-a-string-with-a-static-string">Replace the first regex match in a string with a static string</a></h3>
+  <div class="solutions" id="problem47">
+    Transform <code>"Red&nbsp;Green&nbsp;Blue"</code> into <code>"R*d&nbsp;Green&nbsp;Blue"</code> by replacing <code>/e/</code> with <code>"*"</code>
+    
+      
+        
+        
+          <div class="ruby"><div class="code"><span class="type">ruby</span><div class="body">p "Red Green Blue".sub(/e/,'*')</div></div></div>
+        
+      
+        
+        
+          <div class="java"><div class="code"><span class="type">java</span><div class="body">String replaced = "Red Green Blue".replaceFirst("e", "*");</div></div></div>
+        
+      
+        
+        
+          <div class="perl"><div class="code"><span class="type">perl</span><div class="body">$text =~s/e/*/;</div></div></div>
+        
+      
+        
+        
+          <div class="groovy"><div class="code"><span class="type">groovy</span><div class="body">replaced = "Red Green Blue".replaceFirst("e", "*")</div></div></div>
+        
+      
+        
+        
+          <div class="scala"><div class="code"><span class="type">scala</span><div class="body">val replaced = "Red Green Blue".replaceFirst("e", "*")</div></div></div>
+        
+      
+        
+        
+          <div class="python"><div class="code"><span class="type">python</span><div class="body">print re.sub(r'e', '*', 'Red Green Blue', 1)</div></div></div>
+        
+      
+        
+        
+          <div class="cpp"><div class="code"><span class="type">cpp</span><div class="body">String^ Replaced = (gcnew Regex("e"))-&gt;Replace("Red Green Blue", "*", 1);</div></div></div>
+        
+      
+        
+        
+          <div class="fsharp"><div class="code"><span class="type">fsharp</span><div class="body">let replaced = ((new Regex("e")).Replace("Red Green Blue", "*", 1))<br>printfn "%s" replaced</div></div></div>
+        
+      
+        
+        
+          <div class="erlang"><div class="code"><span class="type">erlang</span><div class="body">{ok, Replaced, _} = regexp:sub("Red Green Blue", "e", "*"),</div><div class="body-multiple">re:replace("Red Green Blue", "e", "*", [{return, list}]).</div></div></div>
+        
+      
+        
+        
+          <div class="ocaml"><div class="code"><span class="type">ocaml</span><div class="body">let replaced = Str.replace_first (Str.regexp "e") "*" "Red Green Blue" in<br>print_endline replaced ;;</div></div></div>
+        
+      
+        
+        
+      
+        
+        
+          <div class="php"><div class="code"><span class="type">php</span><div class="body">echo preg_replace('/e/', '*', "Red Green Blue", 1);</div></div></div>
+        
+      
+        
+        
+      
+        
+        
+          <div class="clojure"><div class="code"><span class="type">clojure</span><div class="body">(.replaceFirst (re-matcher #"e" "Red Green Blue") "*")<br></div></div></div>
+        
+      
+        
+        
+          <div class="fantom"><div class="code"><span class="type">fantom</span><div class="body">replaced := Regex&lt;|e|&gt;.split("Red Green Blue",2).join("*")        </div></div></div>
+        
+      
+        
+        
+          <div class="go"><div class="code"><span class="type">go</span><div class="body">i := 0<br>f := func (in string) (out string) {<br>	i++<br>	if i == 1 {<br>		return "*"<br>	}<br>	return in<br>}<br><br>re, _ := regexp.Compile("e")<br>s := re.ReplaceAllStringFunc("Red Green Blue", f)<br>fmt.Println(s)</div></div></div>
+        
+      
+    
+  </div>
+</div><div class="problem">
+  <h3><a href="http://langref.org/all-languages/pattern-matching/replacing/replace-all-regex-matches-in-a-string-with-a-static-string">Replace all regex matches in a string with a static string</a></h3>
+  <div class="solutions" id="problem48">
+    Transform <code>"She&nbsp;sells&nbsp;sea&nbsp;shells"</code> into <code>"She&nbsp;X&nbsp;X&nbsp;shells"</code> by replacing <code>/se\w+/</code> with <code>"X"</code>
+    
+      
+        
+        
+          <div class="ruby"><div class="code"><span class="type">ruby</span><div class="body">replaced = text.gsub(/se\w+/,"X")</div></div></div>
+        
+      
+        
+        
+          <div class="java"><div class="code"><span class="type">java</span><div class="body">String replaced = text.replaceAll("se\\w+", "X");</div></div></div>
+        
+      
+        
+        
+          <div class="perl"><div class="code"><span class="type">perl</span><div class="body">$text = "She sells sea shells";<br>$text =~ s/se\w+/X/g;<br></div></div></div>
+        
+      
+        
+        
+          <div class="groovy"><div class="code"><span class="type">groovy</span><div class="body">replaced = text.replaceAll(/se\w+/,"X")</div></div></div>
+        
+      
+        
+        
+          <div class="scala"><div class="code"><span class="type">scala</span><div class="body">val replaced = "She sells sea shells".replaceAll("se\\w+", "X")</div></div></div>
+        
+      
+        
+        
+          <div class="python"><div class="code"><span class="type">python</span><div class="body">transformed = re.sub(r'se\w+', 'X', 'She sells sea shells')</div></div></div>
+        
+      
+        
+        
+          <div class="cpp"><div class="code"><span class="type">cpp</span><div class="body">String^ Replaced = (gcnew Regex("se\\w+"))-&gt;Replace("She sells sea shells", "X");</div><div class="body-multiple">String^ Replaced = Regex::Replace("She sells sea shells", "se\\w+", "X");</div></div></div>
+        
+      
+        
+        
+          <div class="fsharp"><div class="code"><span class="type">fsharp</span><div class="body">let replaced = ((new Regex("se\\w+")).Replace("She sells sea shells", "X"))<br>printfn "%s" replaced</div></div></div>
+        
+      
+        
+        
+          <div class="erlang"><div class="code"><span class="type">erlang</span><div class="body">% Erlang uses 'egrep'-compatible regular expressions, so shortcuts like '\w' not supported<br>{ok, Replaced, _} = regexp:gsub("She sells sea shells", "se[A-Za-z0-9_]+", "X"),</div><div class="body-multiple">re:replace("She sells sea shells", "se\\w+", "X", [global, {return, list}]).</div></div></div>
+        
+      
+        
+        
+          <div class="ocaml"><div class="code"><span class="type">ocaml</span><div class="body">let s = "She sells sea shells" in                      <br>  Str.global_replace (Str.regexp "se[^ \\t\\n]*") "X" s</div></div></div>
+        
+      
+        
+        
+          <div class="csharp"><div class="code"><span class="type">csharp</span><div class="body">using System.Text.RegularExpressions;<br><br>class SolutionXX<br>{<br>    static void Main()<br>    {<br>        string text = "She sells sea shells";<br>        string result = Regex.Replace(text, @"se\w+", "X");<br>    }<br>}<br></div></div></div>
+        
+      
+        
+        
+          <div class="php"><div class="code"><span class="type">php</span><div class="body">echo preg_replace('/se\w+/', 'X', 'She sells sea shells');</div></div></div>
+        
+      
+        
+        
+      
+        
+        
+          <div class="clojure"><div class="code"><span class="type">clojure</span><div class="body">(.replaceAll (re-matcher #"se\w+" "She sells sea shells") "X")<br></div></div></div>
+        
+      
+        
+        
+          <div class="fantom"><div class="code"><span class="type">fantom</span><div class="body">replaced := Regex&lt;|se\w+|&gt;.split("She sells sea shells").join("X")        </div></div></div>
+        
+      
+        
+        
+      
+    
+  </div>
+</div><div class="problem">
+  <h3><a href="http://langref.org/all-languages/pattern-matching/replacing/replace-all-regex-matches-in-a-string-with-a-dynamic-string">Replace all regex matches in a string with a dynamic string</a></h3>
+  <div class="solutions" id="problem62">
+    Transform <code>"The&nbsp;{Quick}&nbsp;Brown&nbsp;{Fox}"</code> into <code>"The&nbsp;kciuQ&nbsp;Brown&nbsp;xoF"</code> by reversing words in braces using the regex <code>/\{(\w+)\}/</code>.
+    
+      
+        
+        
+          <div class="ruby"><div class="code"><span class="type">ruby</span><div class="body">"The {Quick} Brown {Fox}".gsub(/\{(\w+)\}/) {|s| s[1..-2].reverse }</div></div></div>
+        
+      
+        
+        
+          <div class="java"><div class="code"><span class="type">java</span><div class="body">Matcher m = Pattern.compile("\\{(\\w+)\\}").matcher("The {Quick} Brown {Fox}");<br>StringBuffer sb = new StringBuffer(32), rsb = new StringBuffer(8);<br><br>while (m.find())<br>{<br>rsb.replace(0, rsb.length(), m.group(1)); rsb.reverse(); m.appendReplacement(sb, rsb.toString());<br>}<br>m.appendTail(sb);</div></div></div>
+        
+      
+        
+        
+          <div class="perl"><div class="code"><span class="type">perl</span><div class="body">$text = "The {Quick} Brown {Fox}";<br>$text =~ s/\{(\w+)\}/reverse($1)/ge;<br></div></div></div>
+        
+      
+        
+        
+          <div class="groovy"><div class="code"><span class="type">groovy</span><div class="body">replaced = "The {Quick} Brown {Fox}".replaceAll(/\{(\w+)\}/, { full, word -&gt; word.reverse() } )</div></div></div>
+        
+      
+        
+        
+          <div class="scala"><div class="code"><span class="type">scala</span><div class="body">val m = Pattern.compile("\\{(\\w+)\\}").matcher("The {Quick} Brown {Fox}")<br>val sb = new StringBuffer(32) ; val rsb = new StringBuffer(8)<br><br>while (m.find) { rsb.replace(0, rsb.length, m.group(1)) ; m.appendReplacement(sb, rsb.reverse.toString) }<br>m.appendTail(sb)</div></div></div>
+        
+      
+        
+        
+          <div class="python"><div class="code"><span class="type">python</span><div class="body">transformed = re.sub(r'\{(\w+)\}', <br>			lambda match: match.group(1)[::-1], <br>			'The {Quick} Brown {Fox}')<br></div></div></div>
+        
+      
+        
+        
+          <div class="cpp"><div class="code"><span class="type">cpp</span><div class="body">String^ Replaced = (gcnew Regex("{(\\w+)}"))-&gt;Replace("The {Quick} Brown {Fox}", gcnew MatchEvaluator(&amp;RegRep::RepGroup));</div><div class="body-multiple">String^ Replaced = Regex::Replace("The {Quick} Brown {Fox}", "{(\\w+)}", gcnew MatchEvaluator(&amp;RegRep::RepGroup));</div></div></div>
+        
+      
+        
+        
+          <div class="fsharp"><div class="code"><span class="type">fsharp</span><div class="body">open System<br>open System.Text.RegularExpressions<br>let reverseMatch (m:Match) =<br>    String(m.Groups.[1].Value.ToCharArray() |&gt; Array.rev)<br>let output = Regex.Replace("The {Quick} Brown {Fox}", @"\{(\w+)\}", reverseMatch)</div></div></div>
+        
+      
+        
+        
+          <div class="erlang"><div class="code"><span class="type">erlang</span><div class="body">% Erlang regular expressions lack both group capture and backreferences, thus this problem is not directly<br>% solvable. Presented solution is close, but not on-spec<br><br>String = "The {Quick} Brown {Fox}",<br>{match, FieldList} = regexp:matches(String, "\{([A-Za-z0-9_]+)\}"),<br><br>NewString = lists:foldl(fun ({Start, Length}, S) -&gt; replstr(S, lists:reverse(string:substr(S, Start, Length)), Start) end, String, FieldList),</div></div></div>
+        
+      
+        
+        
+          <div class="ocaml"><div class="code"><span class="type">ocaml</span><div class="body">let s = "The {Quick} Brown {Fox}" in<br>let r = Str.regexp "{\\([^ \\t\\n]*\\)}" in<br>Str.global_substitute r (fun m -&gt; string_rev (Str.matched_group 1 m)) s</div></div></div>
+        
+      
+        
+        
+      
+        
+        
+          <div class="php"><div class="code"><span class="type">php</span><div class="body">// We have to use the e-modifier<br>preg_replace("/\{(\w+)\}/e", "''.strrev('\\1').''", "The {Quick} Brown {Fox}");</div></div></div>
+        
+      
+        
+        
+      
+        
+        
+          <div class="clojure"><div class="code"><span class="type">clojure</span><div class="body">(def *string* "The {Quick} Brown {Fox}")<br>(def *regex* (re-pattern #"\{(\w+)\}"))<br><br>(println<br> (loop [result ""<br>        src *string*<br>        replace-strs (re-seq *regex* *string*)]<br>   (if (empty? src)<br>     result<br>     (let [[match replacement] (first replace-strs)]<br>       (if (= (first src) (first match))<br>         ; At the beginning of a sequence that should be replaced.<br>         ; Do replacement of a single match<br>         (recur (str result (apply str (reverse replacement)))<br>                (drop (count match) src)<br>                (rest replace-strs))<br>         ; else, just copy one char from the source to the result<br>         (recur (str result (first src))<br>                (rest src)<br>                replace-strs))))))<br></div><div class="body-multiple">(clojure.string/replace "The {Quick} Brown {Fox}"<br>                        #"\{(\w+)\}"<br>                        (fn [[_ word]] (apply str (reverse word))))</div></div></div>
+        
+      
+        
+        
+          <div class="fantom"><div class="code"><span class="type">fantom</span><div class="body">s := "The {Quick} Brown {Fox}"<br>m := Regex&lt;|\{(\w+)\}|&gt;.matcher(s)<br>buf := StrBuf(s.size)<br>last := 0<br>while (m.find) <br>{ <br>  buf.add(s[last..m.start-1]).add(m.group(1).reverse)<br>  last = m.end<br>}<br>buf.add(s[last..-1])<br>replaced := buf.toStr        </div></div></div>
+        
+      
+        
+        
+      
+    
+  </div>
+</div>
+  </div>
+
+</div>
+
+
+  <div id="footer">
+        <div class="box">
+      <b class="rtop">
+        <b class="r1"></b> <b class="r2"></b> <b class="r3"></b> <b class="r4"></b>
+      </b>
+      <div class="content">
+
+      <a href="http://langref.org/submit/pattern-matching">submit problem</a> | 
+      <a href="mailto:rob@langref.org">contact</a> | 
+      
+      sponsored by <a href="http://refactor.com.au/"><img alt="Refactor-small" border="0" src="./langref.org - ruby, java, perl, groovy ... - Regex_files/refactor-small.png" style="vertical-align:middle; padding-bottom:5px"></a>
+          </div>
+      <b class="rbottom">
+        <b class="r4"></b> <b class="r3"></b> <b class="r2"></b> <b class="r1"></b>
+      </b>
+    </div>
+
+  </div> 
+</div>
+      <script src="./langref.org - ruby, java, perl, groovy ... - Regex_files/urchin.js" type="text/javascript">
+      </script>
+      <script type="text/javascript">
+      _uacct = "UA-4264032-1";
+      _udn = "langref.org";
+      urchinTracker();
+      </script>
+ 
+</div></div></div><div id="yieldsquare-ad" class="yieldsquare-enabled" style="display: none; clear: both;"><iframe id="yieldsquare-frame" frameborder="0" width="0" height="0" src="about:blank" style="margin: 0px; overflow: hidden; display: none !important; visibility: hidden !important; opacity: 0 !important; background-position: 0px 0px;"></iframe><div id="yieldsquare-about-ad">This ad is supporting your extension Smooth Gestures<a id="yieldsquare-disable-ad" href="http://langref.org/all-languages/undefined">Turn off these ads?</a></div></div></body></html>

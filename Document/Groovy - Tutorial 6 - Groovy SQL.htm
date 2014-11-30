@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<!-- saved from url=(0050)http://groovy.codehaus.org/Tutorial+6+-+Groovy+SQL -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    
+    <meta name="description" content="Groovy Wiki">
+    <meta name="keywords" content="Groovy, Groovy Programming, Dynamic Language, Scripting language, Closure, Java, Domain-Specific Languages, JVM, Java platform, static typing, static type checking, invoke dynamic, JDK">
+    <meta name="author" content="Codehaus Groovy Community">
+
+    <link href="./Groovy - Tutorial 6 - Groovy SQL_files/bootstrap-1.2.0.min.css" type="text/css" rel="stylesheet">
+    <link href="./Groovy - Tutorial 6 - Groovy SQL_files/BreadCrumb.css" type="text/css" rel="stylesheet">
+    <link href="./Groovy - Tutorial 6 - Groovy SQL_files/custom.css" type="text/css" rel="stylesheet">
+    <link href="./Groovy - Tutorial 6 - Groovy SQL_files/idea.css" type="text/css" rel="stylesheet">
+
+    <link href="http://groovy.codehaus.org/favicon.ico" type="image/x-ico" rel="icon">
+    
+    <link href="https://plus.google.com/101432359761228268146/" rel="publisher">
+
+    <link rel="alternate" type="application/rss+xml" title="Site updates" href="http://docs.codehaus.org/spaces/rss.action?key=GROOVY&newPages=false">
+    <link rel="alternate" type="application/rss+xml" title="News feed" href="http://docs.codehaus.org/spaces/blogrss.action?key=GROOVY">
+
+    <title>Groovy - Tutorial 6 - Groovy SQL</title>
+
+    <!--
+    <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js'></script>
+    -->
+    <script async="" src="./Groovy - Tutorial 6 - Groovy SQL_files/analytics.js"></script><script type="text/javascript" async="" src="./Groovy - Tutorial 6 - Groovy SQL_files/ga.js"></script><script type="text/javascript" async="" src="./Groovy - Tutorial 6 - Groovy SQL_files/groovy.codehaus.org"></script><script type="text/javascript" src="./Groovy - Tutorial 6 - Groovy SQL_files/jquery-1.7.2.min.js"></script><style type="text/css"></style>
+
+    <script type="text/javascript" src="./Groovy - Tutorial 6 - Groovy SQL_files/jquery.jBreadCrumb.1.1.js"></script>
+
+    <script type="text/javascript" src="./Groovy - Tutorial 6 - Groovy SQL_files/keymaster.min.js"></script>
+    <script type="text/javascript" src="./Groovy - Tutorial 6 - Groovy SQL_files/pageLookup.js"></script>
+
+    <script type="text/javascript" src="./Groovy - Tutorial 6 - Groovy SQL_files/highlight.js"></script>
+    <script type="text/javascript" src="./Groovy - Tutorial 6 - Groovy SQL_files/groovy.js"></script>
+
+    <script src="./Groovy - Tutorial 6 - Groovy SQL_files/jsapi" type="text/javascript"></script>
+    <script type="text/javascript">
+        google.load('search', '1');
+        google.setOnLoadCallback(
+                function() {
+                    var customSearchControl = new google.search.CustomSearchControl('013939896723962546743:tjolwat4pbq');
+                    customSearchControl.enableAds('5267633279208525');
+                    customSearchControl.setSearchStartingCallback(this, function() {
+                        document.getElementById('initial-page-content').style.display = 'none';
+                        document.getElementById('search-area').style.display = 'block';
+                    });
+                    google.search.Csedr.addOverride("mysite_");
+                    var drawOptions = new google.search.DrawOptions();
+                    drawOptions.setInput(document.getElementById('search-input-field'));
+                    customSearchControl.draw('cse', drawOptions);
+                },
+                true);
+    </script><script src="./Groovy - Tutorial 6 - Groovy SQL_files/saved_resource" type="text/javascript"></script><link href="./Groovy - Tutorial 6 - Groovy SQL_files/default+fr.css" type="text/css" rel="stylesheet"><script src="./Groovy - Tutorial 6 - Groovy SQL_files/default+fr.I.js" type="text/javascript"></script>
+    <link href="./Groovy - Tutorial 6 - Groovy SQL_files/search.css" type="text/css" rel="stylesheet">
+<style> /* groovy.codehaus.org Training Classes */  .S2UniGeoipBanner {     letter-spacing: 0px;     line-height: 1.2;     text-align: left;     text-indent: 0;     text-transform: none;     word-spacing: 0px; cursor: pointer; width: 160px; padding: 15px 10px; border: 5px solid #bebebe; -webkit-border-radius: 5px; -moz-border-radius: 5px; -ms-border-radius: 5px; -o-border-radius: 5px; border-radius: 5px; background: url('http://s3.amazonaws.com/assets.spring.io/drupal/files/SpringOne/2013/training-bg-image.png') top right no-repeat; margin: 15px 0; background-color: #ede7de; font-family: Arial;      color: #0A96C5;     text-shadow: 0 1px 0 #FFFFFF; }  .S2UniGeoipBanner .S2GPcourse_name { font-size: 14px; font-weight: bold; font-family: Arial; text-transform: uppercase; display: block; }  .S2UniGeoipBanner .S2GPcity { font-size: 14px; color: #333; }  .S2UniGeoipBanner .S2GPstart_date { font-size: 14px; color: #333; }  .learn-more-button { background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #cdcdcd)); background-image: -webkit-linear-gradient(#ffffff,#cdcdcd); background-image: -moz-linear-gradient(#ffffff,#cdcdcd); background-image: -o-linear-gradient(#ffffff,#cdcdcd); background-image: linear-gradient(#ffffff,#cdcdcd); text-shadow: none; color: #0094d4; font-size: 12px; line-height: 16px; padding: 2px 9px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -ms-border-radius: 4px; -o-border-radius: 4px; border-radius: 4px; text-align: center; border: 1px solid #b8b8b8; margin-top: 5px; display: block; width: 65px;</style><script type="text/javascript" src="http://www.google.com/uds/?file=ads&v=3&packages=search&async=2"></script><style type="text/css">#yieldsquare-ad {
+  margin:10px auto 20px;
+
+  width: 728px;
+}
+
+#yieldsquare-about a {
+  cursor: pointer;
+}
+
+.yieldsquare-enabled {
+  border-radius:0 0 5px 5px;
+  box-shadow: inset 0 0 75px 75px lightgray, 0 0 0 lightgray;
+  -webkit-transition:opacity 1s linear;
+}
+
+.yieldsquare-disabled-first {
+  -webkit-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.45);
+  -webkit-transition: opacity 1s linear;
+  background-image: url(http://s3.amazonaws.com/static.yieldsquare.com/ads-disabled/messagebed.gif);
+  height: 90px;
+  opacity: 1;
+  position: relative;
+  width: 728px;
+}
+
+.yieldsquare-disabled-second {
+  -webkit-transition: all 0.4s ease-in-out;
+  background-image: url(http://s3.amazonaws.com/static.yieldsquare.com/ads-disabled/messagebed.gif);
+  border-radius:0 0 5px 5px;
+  box-shadow: inset 0 0 35px 35px transparent, 0 0 75px 50px transparent;
+  height: 90px;
+  opacity: 0;
+  position: relative;
+  width: 728px;
+}
+
+#yieldsquare-about-ad {
+  font:11px arial !important;
+  color:#555;
+  padding: 4px;
+  text-align:center;
+}
+
+#yieldsquare-about-ad a {
+  cursor: pointer;
+  color: #333;
+}
+
+.yieldsquare-message-icon {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.yieldsquare-message-p {
+    font: 13px/17px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+    width: 542px;
+    height: 74px;
+    left: 123px;
+    position: absolute;
+    top: 0px;
+    color: #3d3d3d;
+    margin-top: 13px;
+    margin-bottom: 13px;
+}
+
+.yieldsquare-message-p span {
+    font: bold 16px/17px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+    color: #292929;
+}
+
+.yieldsquare-message-p a {
+    text-decoration: none;
+    color: #1d97cf;
+}
+
+.yieldsquare-message-p a:hover {
+    text-decoration: underline;
+}
+
+#yieldsquare-message-x {
+    position: absolute;
+    left: 715px;
+    top: 6px;
+}
+
+</style></head>
+
+<body id="Tutorial 6 - Groovy SQL">
+
+<div id="page">
+
+<div id="pageLookup" class="modal">
+    <div class="modal-header">
+        <h3>Quick page lookup</h3>
+        <a href="javascript:void(0)" class="close">×</a>
+    </div>
+    <div class="modal-body">
+        <input class="xlarge" id="quickSearch" name="quickSearch" size="40" type="text">
+
+        <div id="searchResults">
+            <ul>
+            </ul>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="javascript:void(0)" id="okButton" class="btn primary">Go!</a>
+    </div>
+</div>
+
+
+<div class="container">
+
+    <div class="row topbar">
+        <div class="fill">
+            <div class="container">
+                <h3><a href="http://groovy.codehaus.org/">★ Groovy</a></h3>
+                <ul class="nav">
+                    <li class="dropdown">
+                        <a href="http://groovy.codehaus.org/Tutorial+6+-+Groovy+SQL#" class="dropdown-toggle">Documentation</a>
+                        <ul class="dropdown-menu">
+                            <li class=""><a href="http://groovy.codehaus.org/Documentation">Documentation
+                                Portal</a></li>
+                            <li class="divider"></li>
+                            <li><a href="http://beta.groovy-lang.org/docs/groovy-2.3.1/html/documentation">New Documentation</a></li>
+                            <li class=""><a href="http://groovy.codehaus.org/Installing+Groovy">Installing Groovy</a></li>
+                            <li class=""><a href="http://groovy.codehaus.org/Getting+Started+Guide">Getting Started</a></li>
+                            <li class="divider"></li>
+                            <li class=""><a href="http://groovy.codehaus.org/User+Guide">User Guide</a></li>
+                            <li class=""><a href="http://groovy.codehaus.org/Testing+Guide">Testing Guide</a></li>
+                            <li class=""><a href="http://groovy.codehaus.org/Advanced+Usage+Guide">Advanced Usage Guide</a></li>
+                            <li class=""><a href="http://groovy.codehaus.org/Developer+Guide">Developer Guide</a></li>
+                            <li class="divider"></li>
+                            <li class=""><a href="http://groovy.codehaus.org/Cookbook+Examples">Cookbook Examples</a></li>
+                            <li class="divider"></li>
+                            <li><a href="http://groovy.codehaus.org/gapi/">Groovy APIs</a></li>
+                            <li><a href="http://groovy.codehaus.org/groovy-jdk/">Groovy Development Kit</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="http://groovy.codehaus.org/Tutorial+6+-+Groovy+SQL#" class="dropdown-toggle">Community &amp; Support</a>
+                        <ul class="dropdown-menu">
+                            <li class=""><a href="http://groovy.codehaus.org/Community+and+Support">Welcome!</a></li>
+                            <li class="divider"></li>
+                            <li class=""><a href="http://groovy.codehaus.org/Git">Groovy Sources</a></li>
+                            <li class=""><a href="http://groovy.codehaus.org/Mailing+Lists">Mailing Lists</a></li>
+                            <li><a href="http://jira.codehaus.org/secure/BrowseProject.jspa?id=10242">Bug Tracker</a></li>
+                            <li><a href="http://docs.codehaus.org/display/GROOVY/Home">Wiki</a></li>
+                            <li class="divider"></li>
+                            <li class=""><a href="http://groovy.codehaus.org/Contributing">Contributing</a></li>
+                            <li class="divider"></li>
+                            <li class=""><a href="http://groovy.codehaus.org/Related+Projects">Related Projects</a></li>
+                            <li class=""><a href="http://groovy.codehaus.org/Modules">Modules</a></li>
+                            <li class="divider"></li>
+                            <li class=""><a href="http://groovy.codehaus.org/User+Groups">User Groups</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="http://groovy.codehaus.org/Tutorial+6+-+Groovy+SQL#" class="dropdown-toggle">IDE Support</a>
+                        <ul class="dropdown-menu">
+                            <li class=""><a href="http://groovy.codehaus.org/Eclipse+Plugin">Eclipse Plugin</a></li>
+                            <li class=""><a href="http://groovy.codehaus.org/IntelliJ+IDEA+Plugin+by+JetBrains">IntelliJ IDEA Plugin</a></li>
+                            <li class="divider"></li>
+                            <li class=""><a href="http://groovy.codehaus.org/IDE+Support">Other IDE plugins</a></li>
+                        </ul>
+                    </li>
+                    <li class=""><a href="http://groovy.codehaus.org/Download">Download</a></li>
+                    <li class=""><a href="http://groovy.codehaus.org/Project+Information">About</a></li>
+                    <li>
+                        <div class="nav secondary-nav" style="top: 5px; left: 101px">
+                            <input type="text" id="search-input-field" style="width: 198px;" placeholder="Search">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+
+        <div class="span12 columns">
+
+            <div id="initial-page-content">
+
+                                <div id="breadCrumbLinks" class="breadCrumb module">
+                    <div style="overflow:hidden; position:relative;  width: 700px;"><div><ul style="width: 5000px;">
+                        <li class="first"><a href="http://groovy.codehaus.org/">Home</a></li>
+                                                                                                                        <li><a href="http://groovy.codehaus.org/Documentation">Documentation</a></li>
+                                                                                                <li style="background: none;"><span style="width: 5px;"><a href="http://groovy.codehaus.org/Getting+Started+Guide" style="width: 127px;">Getting Started Guide</a></span><div class="chevronOverlay" style="display: block;"></div></li>
+                                                                                                <li><a href="http://groovy.codehaus.org/Beginners+Tutorial">Beginners Tutorial</a></li>
+                                                                                                <li class="last" style="background: none;"><a href="./Groovy - Tutorial 6 - Groovy SQL_files/Groovy - Tutorial 6 - Groovy SQL.htm">Tutorial 6 - Groovy SQL</a></li>
+                                                                    </ul></div></div>
+                </div>
+                
+                <h1 class="mainPageTitle">
+                    Tutorial 6 - Groovy SQL
+
+                <span style="float: right">
+                    <a title="Add comment to Wiki" href="http://docs.codehaus.org/display/GROOVY/Tutorial+6+-+Groovy+SQL?showComments=true%20showCommentArea=true#addcomment"><img src="./Groovy - Tutorial 6 - Groovy SQL_files/discuss.jpg" class="print" alt="Add comment to Wiki"></a>
+                    <a title="View in Wiki" href="http://docs.codehaus.org/display/GROOVY/Tutorial+6+-+Groovy+SQL"><img src="./Groovy - Tutorial 6 - Groovy SQL_files/view.jpg" class="print" alt="View in Wiki"></a>
+                    <a title="Edit Wiki page" href="http://docs.codehaus.org/pages/editpage.action?spaceKey=GROOVY&title=Tutorial+6+-+Groovy+SQL"><img src="./Groovy - Tutorial 6 - Groovy SQL_files/edit.jpg" class="print" alt="Edit Wiki page"></a>
+                    <a title="Printable Version" href="http://groovy.codehaus.org/Tutorial+6+-+Groovy+SQL?print=1"><img src="./Groovy - Tutorial 6 - Groovy SQL_files/print.jpg" class="print" alt="Printable Version"></a>
+                </span>
+                </h1>
+
+                                <div class="ads">
+                    <script type="text/javascript"><!--
+                    google_ad_client = "pub-5267633279208525";
+                    google_ad_width = 468;
+                    google_ad_height = 60;
+                    google_ad_format = "468x60_as";
+                    //google_ad_channel = "7321085054"; //unity-top
+                    google_color_border = "3483A1";
+                    google_color_bg = "FFFFFF";
+                    google_color_link = "3483A1";
+                    google_color_url = "3483A1";
+                    google_color_text = "000000";
+                    //--></script>
+                    <script type="text/javascript" src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+                    </script>
+                </div>
+                
+                <div>
+                    <div class="section_1"><h1 id="Tutorial6-GroovySQL-GroovySQL">Groovy SQL</h1><p>This section borrows some content from this <a href="http://www-106.ibm.com/developerworks/java/library/j-pg01115.html?ca=dgr-lnxw07" class="external-link">GroovySQL article</a>, by Andrew Glover. If some of the references to JDBC don't make sense, don't worry. There is one new language construct that is used below, which is the inclusion of variables in string definitions. For example try the following:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script type="syntaxhighlighter" class="theme: Confluence; brush: java; gutter: false"><![CDATA[piEstimate = 3
+println(&quot;Pi is about ${piEstimate}&quot;)
+println(&quot;Pi is closer to ${22/7}&quot;)
+]]></script>
+<pre><code class="" data-result="[object Object]">piEstimate = 3
+println("Pi is about ${piEstimate}")
+println("Pi is closer to ${22/7}")
+</code></pre></div></div><p>As you can see, in a string literal, Groovy interprets anything inside ${} as a groovy expression.</p><p>This feature is used extensively below.</p><div class="section_2"><h2 id="Tutorial6-GroovySQL-Performingasimplequery">Performing a simple query</h2><p>Your first Groovy SQL code consists of three lines.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script type="syntaxhighlighter" class="theme: Confluence; brush: java; gutter: false"><![CDATA[import groovy.sql.Sql
+sql = Sql.newInstance( &#39;jdbc:jtds:sqlserver://serverName/dbName-CLASS;domain=domainName&#39;, &#39;username&#39;, &#39;password&#39;, &#39;net.sourceforge.jtds.jdbc.Driver&#39; )
+sql.eachRow( &#39;select * from tableName&#39; ) { println &quot;$it.id -- ${it.firstName} --&quot; }
+]]></script>
+<pre><code class="groovy" data-result="[object Object]"><span class="keyword">import</span> groovy.sql.Sql
+sql = Sql.newInstance( <span class="string">'jdbc:jtds:sqlserver://serverName/dbName-CLASS;domain=domainName'</span>, <span class="string">'username'</span>, <span class="string">'password'</span>, <span class="string">'net.sourceforge.jtds.jdbc.Driver'</span> )
+sql.eachRow( <span class="string">'select * from tableName'</span> ) { println <span class="string">"$it.id -- ${it.firstName} --"</span> }
+</code></pre></div></div><p>The first line is a Java import. It simply tells Groovy the full name of the Sql object. The second line creates a new connection to the SQL database, and stores the connection in the variable sql.</p><p>This code is written for a jTDS connection to a MS SQL Server database. You will need to adjust all the parameters to newInstance to connect to your database, especially <strong>username</strong> and <strong>password</strong>.</p><p>Finally the third line calls the eachRow method of sql, passing in two arguments, the first being the query string, the second being a closure to print out some values.</p><p>Notice that in the closure the fields of "it" are accessed in two different ways. The first is as a simple field reference, accessing the id field of it. The second is the included Groovy expression mentioned above.</p><p>So the output from a row might look like:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script type="syntaxhighlighter" class="theme: Confluence; brush: sql; gutter: false"><![CDATA[001 -- Lane --
+]]></script>
+<pre><code class="" data-result="[object Object]">001 -- Lane --
+</code></pre></div></div><div class="section_3"><h3 id="Tutorial6-GroovySQL-RetrievingasinglevaluefromDB">Retrieving a single value from DB</h3><p>If all you need is a value of one or a few columns of a single row in the DB, you could do this</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script type="syntaxhighlighter" class="theme: Confluence; brush: java; gutter: false"><![CDATA[row = sql.firstRow(&#39;select columnA, columnB from tableName&#39;)
+println &quot;Row: columnA = ${row.columnA} and columnB = ${row.columnB}&quot;
+]]></script>
+<pre><code class="" data-result="[object Object]">row = sql.firstRow('select columnA, columnB from tableName')
+println "Row: columnA = ${row.columnA} and columnB = ${row.columnB}"
+</code></pre></div></div></div></div><div class="section_2"><h2 id="Tutorial6-GroovySQL-Doingmorecomplexqueries">Doing more complex queries</h2><p>The previous examples are fairly simple, but GroovySql is just as solid when it comes to more complex data manipulation queries such as insert, update, and delete queries. For these, you wouldn't necessarily want to use closures, so Groovy's Sql object provides the execute and executeUpdate methods instead. These methods are reminiscent of the normal JDBC statement class, which has an execute and an executeUpdate method as well.</p><p>Here you see a simple insert that uses variable substitution again with the ${} syntax. This code simply inserts a new row into the people table.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script type="syntaxhighlighter" class="theme: Confluence; brush: java; gutter: false"><![CDATA[firstName = &#39;yue&#39;
+lastName = &quot;O&#39;shea&quot;
+sql.execute(&quot;insert into people (firstName, lastName) values (${firstName}, ${lastName})&quot;)
+]]></script>
+<pre><code class="" data-result="[object Object]">firstName = 'yue'
+lastName = "O'shea"
+sql.execute("insert into people (firstName, lastName) values (${firstName}, ${lastName})")
+</code></pre></div></div><p>Because the sql statement is expressed in a GString, the values firstName and lastName are provided as parameters and so the quote mark in lastName will not be seen as part of the statement.</p><p>Another way to do the same thing is to use prepared statements as follows:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script type="syntaxhighlighter" class="theme: Confluence; brush: java; gutter: false"><![CDATA[firstName = &#39;yue&#39;
+lastName = &#39;wu&#39;
+sql.execute(&#39;insert into people (firstName, lastName) values (?,?)&#39;, [firstName, lastName])
+]]></script>
+<pre><code class="" data-result="[object Object]">firstName = 'yue'
+lastName = 'wu'
+sql.execute('insert into people (firstName, lastName) values (?,?)', [firstName, lastName])
+</code></pre></div></div><p>The data that you want to insert is replaced with "?" in the insert statement, and then the values are passed in as an array of data items. Updates are much the same in that they utilize the executeUpdate method. Notice, too, that in Listing 8 the executeUpdate method takes a list of values that will be matched to the corresponding ? elements in the query.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script type="syntaxhighlighter" class="theme: Confluence; brush: java; gutter: false"><![CDATA[comment = &#39;Lazy bum&#39;
+sql.executeUpdate(&#39;update people set comment = ? where id=002&#39;, [comment])
+]]></script>
+<pre><code class="" data-result="[object Object]">comment = 'Lazy bum'
+sql.executeUpdate('update people set comment = ? where id=002', [comment])
+</code></pre></div></div><p>Deletes are essentially the same as inserts, except, of course, that the query's syntax is different.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script type="syntaxhighlighter" class="theme: Confluence; brush: java; gutter: false"><![CDATA[sql.execute(&#39;delete from word where word_id = ?&#39; , [5])
+]]></script>
+<pre><code class="" data-result="[object Object]">sql.execute('delete from word where word_id = ?' , [5])
+</code></pre></div></div></div><div class="section_2"><h2 id="Tutorial6-GroovySQL-OtherTips">Other Tips</h2><p>If you are content with using your resulting database columns in your business logic, it's nice and easy to just return a collection of GroovyRowResult objects which you can use directly:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script type="syntaxhighlighter" class="theme: Confluence; brush: java; gutter: false"><![CDATA[def getPersons() {
+    def persons = []
+    sql.eachRow(&#39;Select * from Person&#39;) {
+        persons &lt;&lt; it.toRowResult()
+    }
+    persons
+}
+]]></script>
+<pre><code class="groovy" data-result="[object Object]"><span class="keyword">def</span> getPersons() {
+    <span class="keyword">def</span> persons = []
+    sql.eachRow(<span class="string">'Select * from Person'</span>) {
+        persons &lt;&lt; it.toRowResult()
+    }
+    persons
+}
+</code></pre></div></div><p>If you prefer to use a defined type instead of a GroovyRowResult, as long as your type has all the fields returned from your query you can just do:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script type="syntaxhighlighter" class="theme: Confluence; brush: java; gutter: false"><![CDATA[Person p = new Person( it.toRowResult() )
+]]></script>
+<pre><code class="groovy" data-result="[object Object]">Person p = <span class="keyword">new</span> Person( it.toRowResult() )
+</code></pre></div></div></div></div>
+                </div>
+
+                <div class="ads">
+                    <p>&nbsp;</p>
+                    <script type="text/javascript"><!--
+                    google_ad_client = "pub-5267633279208525";
+                    google_ad_width = 468;
+                    google_ad_height = 60;
+                    google_ad_format = "468x60_as";
+                    //google_ad_channel = "7321085054"; //unity-top
+                    google_color_border = "3483A1";
+                    google_color_bg = "FFFFFF";
+                    google_color_link = "3483A1";
+                    google_color_url = "3483A1";
+                    google_color_text = "000000";
+                    //--></script>
+                    <script type="text/javascript" src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+                    </script>
+                </div>
+
+            </div>
+
+            <div id="search-area">
+
+                    <div id="breadCrumbLinksSearch" class="breadCrumb module">
+                        <div style="overflow:hidden; position:relative;  width: 100%;"><div><ul style="width: 5000px;">
+                            <li class="first"><a href="http://groovy.codehaus.org/">Home</a></li>
+                            <li class="last"><a href="http://groovy.codehaus.org/search.html">Search</a></li>
+                        </ul></div></div>
+                    </div>
+
+                    <h1 class="mainPageTitle">Search</h1>
+
+                    <p>
+                        Results of your search request can come from various sources: the Groovy website itself,
+                        the JIRA issues, the API documentation, as well as a few other interesting Groovy-related blogs.
+                    </p>
+
+                    <div style="display:none">
+                        <div id="mysite_thumbnail">
+                            <div data-attr="0" data-vars="{tn:Vars.thumbnail &amp;&amp; thumbnail.src ? thumbnail : {src:Vars.document &amp;&amp; document.thumbnailUrl}}">
+                                <div data-if="tn.src" class="gs-image-box gs-web-image-box">
+                                    <a class="gs-image" data-attr="{href:url,target:google.search.Search.LINK_TARGET_SELF}">
+                                        <img class="gs-image" src="" data-attr="{src:tn.src, width:48, height: 48}">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="mysite_webResult">
+                            <div class="gs-webResult gs-result" data-vars="{longUrl:function() { var i = unescapedUrl.indexOf(visibleUrl); return i &lt; 1 ? visibleUrl : unescapedUrl.substring(i);}}">
+                                <table>
+                                    <tbody><tr>
+                                        <td valign="top">
+                                            <div data-if="Vars.richSnippet" data-attr="0" data-body="render(&#39;thumbnail&#39;,richSnippet,{url:unescapedUrl,target:google.search.Search.LINK_TARGET_SELF})"></div>
+                                        </td>
+                                        <td valign="top">
+                                            <div class="gs-title">
+                                                <a class="gs-title" data-attr="{href:unescapedUrl,target:google.search.Search.LINK_TARGET_SELF}" data-body="html(title)"></a>
+                                            </div>
+                                            <div class="gs-snippet" data-body="html(content)"></div>
+                                            <div class="gs-visibleUrl gs-visibleUrl-short" data-body="longUrl()"></div>
+                                            <div style="color:#676767" data-if="Vars.richSnippet &amp;&amp; Vars.richSnippet.document">
+                                                <img data-attr="{src:Vars.richSnippet.document.filetypeImage}">&nbsp;
+                                                By <span data-body="html(Vars.richSnippet.document.author)"></span>
+                                                &nbsp;-&nbsp;<span data-body="html(Vars.richSnippet.document.pageCount)"></span> pages
+                                                &nbsp;-&nbsp;<span data-body="html(Vars.richSnippet.document.viewCount)"></span> views
+                                                &nbsp;-&nbsp;last modified&nbsp;<span data-body="html(Vars.richSnippet.document.timeAgo)"></span>
+                                            </div>
+
+                                            <div data-if="Vars.richSnippet &amp;&amp; Vars.richSnippet.action" class="gs-actions" data-body="render(&#39;action&#39;,richSnippet,{url:unescapedUrl,target:google.search.Search.LINK_TARGET_SELF})"></div>
+                                        </td>
+                                    </tr>
+                                </tbody></table>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="cse"><div class="gsc-control-cse gsc-control-cse-fr"><div class="gsc-control-wrapper-cse" dir="ltr"><div class="gsc-results-wrapper-nooverlay"><div class="gsc-tabsAreaInvisible"><div class="gsc-tabHeader gsc-inline-block gsc-tabhActive">Recherche personnalisée</div><span class="gs-spacer"> </span></div><div class="gsc-tabsAreaInvisible"></div><div class="gsc-above-wrapper-area-invisible"><table cellspacing="0" cellpadding="0" class="gsc-above-wrapper-area-container"><tbody><tr><td class="gsc-result-info-container"><div class="gsc-result-info-invisible"></div></td></tr></tbody></table></div><div class="gsc-adBlockInvisible"></div><div class="gsc-wrapper"><div class="gsc-adBlockInvisible"></div><div class="gsc-resultsbox-invisible"><div class="gsc-resultsRoot gsc-tabData gsc-tabdActive"><table cellspacing="0" cellpadding="0" class="gsc-resultsHeader"><tbody><tr><td class="gsc-twiddleRegionCell"><div class="gsc-twiddle"><div class="gsc-title">Web</div></div><div class="gsc-stats"></div><div class="gsc-results-selector gsc-all-results-active"><div class="gsc-result-selector gsc-one-result" title="afficher un résultat">&nbsp;</div><div class="gsc-result-selector gsc-more-results" title="afficher plus de résultats">&nbsp;</div><div class="gsc-result-selector gsc-all-results" title="afficher tous les résultats">&nbsp;</div></div></td><td class="gsc-configLabelCell"></td></tr></tbody></table><div><div class="gsc-expansionArea"></div></div></div></div></div></div></div></div></div>
+
+                </div>
+
+        </div>
+
+        <div class="span4 columns">
+            <div id="sidebar">
+                                <img src="./Groovy - Tutorial 6 - Groovy SQL_files/groovy-logo-medium.png" height="100" alt="">
+                
+                <div class="navigation">
+                    <br>
+                        The Groovy programming language is supported by <a href="http://www.gopivotal.com/" class="external-link">Pivotal</a> and the Groovy Community
+                    <a href="http://www.gopivotal.com/" class="external-link">
+                        <img class="confluence-embedded-image image-center" src="./Groovy - Tutorial 6 - Groovy SQL_files/pivotal155px.png">
+                    </a> 
+
+                    <div class="section_1">
+                        <h1 id="Navigation-TrainingEvents">Training Events <a href="http://groovy.codehaus.org/Training+Events">...</a></h1>
+                        <script type="text/javascript"> (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) })(window,document,'script','//www.google-analytics.com/analytics.js','gaPiAd'); gaPiAd('create', 'UA-42481901-1', 'none'); gaPiAd('send', 'event', 'Impression', 'Groovy and Grails [V2.0] - 22 Sep 2014 - Paris', location.href); var gaPiAdClick_53ac3586e5de882892000001 = function() { gaPiAd('send', 'event', 'Click', 'Groovy and Grails [V2.0] - 22 Sep 2014 - Paris', location.href) }; </script><div class="PivotalAdBannerDiv"> <style> /* custom banner style placeholder */ /* #gaPiAdDivId_53ac3586e5de882892000001 { } */ </style> <a style="text-decoration:none;" onclick="gaPiAdClick_53ac3586e5de882892000001();" href="http://mylearn.vmware.com/gateway/?credits=0&course=177394" target="_new"> <div id="gaPiAdDivId_53ac3586e5de882892000001" class="S2UniGeoipBanner">   <span class="S2GPcourse_name">Groovy and Grails [V2.0]</span>   <span class="S2GPcity">Paris, </span>   <span class="S2GPstart_date">22 Sep 2014</span>   <span class="learn-more-button">Learn More</span> </div></a> </div>
+                        <script>
+                            (function() {
+                            var s = document.createElement('script');
+                            s.type = 'text/javascript';
+                            s.async = true;
+                            s.src = 'http://bserv.cfapps.io/gb/groovy.codehaus.org';
+                            var x = document.getElementsByTagName('script')[0];
+                            x.parentNode.insertBefore(s, x);
+                            })();
+                        </script>
+                    </div>
+
+                    <div class="section_1"><h1 id="Navigation-Information">Information</h1><ul class="alternate"><li><a href="http://groovy.codehaus.org/News">News</a></li><li><a href="http://groovy.codehaus.org/FAQ">FAQ</a></li><li><a href="http://groovy.codehaus.org/Roadmap">Roadmap</a></li><li><a href="http://groovy.codehaus.org/Eclipse+Plugin">Eclipse plugin</a></li></ul></div><div class="section_1"><h1 id="Navigation-Books...">Books&nbsp;<a href="http://groovy.codehaus.org/Books">...</a></h1><p><a href="http://www.manning.com/koenig2/" class="external-link"><img class="confluence-embedded-image" src="./Groovy - Tutorial 6 - Groovy SQL_files/gina_cover.jpg" data-image-src="/download/attachments/1871/gina_cover.jpg?version=2&amp;modificationDate=1315509019302&amp;api=v2"></a><br><br> <a href="http://www.amazon.com/gp/product/1932394842?ie=UTF8&tag=httpgroovycan-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=1932394842" class="external-link">buy at Amazon</a></p><p><a href="http://www.amazon.com/gp/product/1932394842?ie=UTF8&tag=httpgroovycan-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=1932394842" class="external-link"></a><a href="http://www.packtpub.com/groovy-2-cookbook/book" class="external-link"><img class="confluence-embedded-image confluence-thumbnail" width="126" src="./Groovy - Tutorial 6 - Groovy SQL_files/9366OS_Cover.png" data-image-src="/download/attachments/1871/9366OS_Cover.png?version=1&amp;modificationDate=1384940664040&amp;api=v2"></a></p><p><a href="http://www.amazon.com/Groovy-2-Cookbook-Andrey-Adamovich/dp/1849519366/ref=sr_1_1?ie=UTF8&qid=1384940751&sr=8-1&keywords=groovy+2+cookbook" class="external-link">buy at Amazon</a></p><p><a href="https://www.packtpub.com/groovy-for-domain-specific-languages-dsl/book" style="font-size: 14.0px;line-height: 1.4285715;" class="external-link"><img class="confluence-embedded-image confluence-external-resource" src="./Groovy - Tutorial 6 - Groovy SQL_files/6903_Groovy for Domain-Specific Languages_Front cover.jpg" data-image-src="https://www.packtpub.com/sites/default/files/imagecache/productview/6903_Groovy%20for%20Domain-Specific%20Languages_Front%20cover.jpg"></a>&nbsp;</p><p><a href="http://www.amazon.com/Groovy-Domain-Specific-Languages-Fergal-Dearle/dp/184719690X/" class="external-link">buy at Amazon</a></p></div><div class="section_1"><h1 id="Navigation-International">International</h1><ul class="alternate"><li><a href="http://groovy.codehaus.org/Chinese+Home">Chinese Home</a></li><li><a href="http://groovy.codehaus.org/Korean+Home">Korean Home</a></li><li><a href="http://groovy.codehaus.org/Portuguese+Home">Portuguese Home</a></li><li><a href="http://groovy.codehaus.org/Japanese+Home">Japanese Home</a></li></ul></div>
+
+                    <h1 class="headerstyle">Feeds</h1>
+                    <ul>
+                        <li><a class="rss" href="http://docs.codehaus.org/spaces/rss.action?key=GROOVY&newPages=false">Site</a>
+                        </li>
+                        <li><a class="rss" href="http://docs.codehaus.org/spaces/blogrss.action?key=GROOVY">News</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+</div><div id="yieldsquare-ad" class="yieldsquare-enabled" style="display: none; clear: both;"><iframe id="yieldsquare-frame" frameborder="0" width="0" height="0" src="about:blank" style="margin: 0px; overflow: hidden; display: none !important; visibility: hidden !important; opacity: 0 !important; background-position: 0px 0px;"></iframe><div id="yieldsquare-about-ad">This ad is supporting your extension Smooth Gestures<a id="yieldsquare-disable-ad" href="http://groovy.codehaus.org/undefined">Turn off these ads?</a></div></div>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-257558-3']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+</body></html>

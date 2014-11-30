@@ -1,0 +1,2767 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0033)http://cobol-dde.sourceforge.net/ -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="generator" content="Docutils 0.6: http://docutils.sourceforge.net/">
+<title>COBOL Data Definition Entry Processing</title>
+<style type="text/css">
+
+/*
+:Author: S. Lott
+:Contact: s_lott@yahoo.com
+:Copyright: This stylesheet has been placed in the public domain.
+
+Stylesheet for use with Docutils. 
+*/
+
+@import url(html4css1.css);
+
+div.document { width: 6in; }
+</style>
+<style type="text/css"></style></head>
+<body>
+<div class="document" id="cobol-data-definition-entry-processing">
+<h1 class="title">COBOL Data Definition Entry Processing</h1>
+
+<p>Use a COBOL Record Layout to Process an EBCDIC File</p>
+<p>Steven F. Lott</p>
+<!-- This data file has been placed in the public domain. -->
+<!-- Derived from the Unicode character mappings available from
+<http://www.w3.org/2003/entities/xml/>.
+Processed by unicode2rstsubs.py, part of Docutils:
+<http://docutils.sourceforge.net>. -->
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#introduction" id="id75">Introduction</a><ul>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#applications" id="id76">Applications</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#requirements" id="id77">Requirements</a><ul>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#analyze-a-file" id="id78">Analyze a File</a></li>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#extract-data" id="id79">Extract Data</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#design-overview" id="id80">Design Overview</a><ul>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#dde-structure" id="id81">DDE Structure</a></li>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#dde-parser" id="id82">DDE Parser</a></li>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#field-values" id="id83">Field Values</a></li>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#sample-data-profile-application" id="id84">Sample Data Profile Application</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#future-directions" id="id85">Future Directions</a></li>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#implementation" id="id86">Implementation</a><ul>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#cobol-dde" id="id87">cobol_dde</a><ul>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#overheads" id="id88">Overheads</a></li>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#exception-definitions" id="id89">Exception Definitions</a></li>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#base-class-definitions" id="id90">Base Class Definitions</a></li>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#visitor-class" id="id91">Visitor Class</a></li>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#usage-strategy-hierarchy" id="id92">Usage Strategy Hierarchy</a></li>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#redefines-strategy-pattern" id="id93">Redefines Strategy Pattern</a></li>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#dde-class" id="id94">DDE Class</a></li>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#common-visitors" id="id95">Common Visitors</a></li>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#lexical-scanning" id="id96">Lexical Scanning</a></li>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#parsing" id="id97">Parsing</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#cobol-dde-unit-test" id="id98">cobol_dde Unit Test</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#data-profile-application" id="id99">data_profile Application</a><ul>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#design" id="id100">Design</a></li>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#id39" id="id101">Implementation</a><ul>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#doc-string" id="id102">DOC string</a></li>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#imports" id="id103">Imports</a></li>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#other-overheads" id="id104">Other Overheads</a></li>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#utility-functions" id="id105">Utility Functions</a></li>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#id46" id="id106">Base Class Definitions</a></li>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#hexdump-class" id="id107">HexDump Class</a></li>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#fieldvalue-class-hierarchy" id="id108">FieldValue Class Hierarchy</a></li>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#field-and-record-scanning" id="id109">Field and Record Scanning</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#data-profiling-unit-test" id="id110">Data Profiling Unit Test</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#complete-test-suite" id="id111">Complete Test Suite</a></li>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#demonstration-main-programs" id="id112">Demonstration Main Programs</a><ul>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#id55" id="id113">Design</a></li>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#id56" id="id114">Implementation</a><ul>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#id58" id="id115">Overheads</a></li>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#id60" id="id116">Imports</a></li>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#id62" id="id117">Other Overheads</a></li>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#demo-subclasses" id="id118">Demo Subclasses</a></li>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#demo-functions" id="id119">Demo Functions</a></li>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#demo-main" id="id120">Demo Main</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#packaging" id="id121">Packaging</a></li>
+<li><a class="reference internal" href="http://cobol-dde.sourceforge.net/#indices" id="id122">Indices</a></li>
+</ul>
+</div>
+<div class="section" id="introduction">
+<h1><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id75">Introduction</a></h1>
+<p>When dealing with "Flat Files" from legacy COBOL problems, there are several
+problems that need to be solved.</p>
+<ol class="arabic simple">
+<li>The files have a fixed field layout, without delimiters.
+This means that the offset of each field must be used to
+decompose the record into it's individual elements.</li>
+<li>Developing the offsets to each field is tedious and
+error-prone work.  Accounting for signs, alignment,
+and redefines makes this difficult.  It's necessary to
+parse the "Copy Book", which has the original COBOL source
+definition for the file.</li>
+<li>Numeric fields can have an implied decimal point, making
+if difficult to determine the value of a string of digits.
+The "Copy Book" is essential for parsing the file contents.</li>
+<li>COBOL can make use of numeric data represented in a variety
+of "Computational" forms.  The "Computational-3" ("COMP-3")
+form is particularly complex because decimal digits are
+packed two per byte and the trailing half-byte encodes
+sign information.</li>
+<li>The string data may be encoded in EBCDIC.</li>
+<li>COBOL encourages the use of data aliases (or "unions") via the <tt class="docutils literal">REDEFINES</tt> clause.
+Without the entire suite of COBOL programs, the handling of <tt class="docutils literal">REDEFINES</tt>
+can become an insoluable problem.</li>
+</ol>
+<p>Generally, COBOL files are defined by a "Data Definition Entry" (DDE)
+that provides the record layout.</p>
+<p>This library helps parse DDE's to determine the offset, size, and
+encoding of each field.  This information can be used by Python
+programs to process files that originate from COBOL systems.</p>
+<div class="section" id="applications">
+<h2><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id76">Applications</a></h2>
+<p>There are two common applications for a Python-based analysis of
+COBOL data.</p>
+<ul class="simple">
+<li>Extract, Transform and Load (ETL).</li>
+<li>Data Profiling.</li>
+</ul>
+<p><strong>ETL</strong>.
+Extract Transform and Load (ETL) processing is a common pipeline between
+legacy COBOL ("Flat File") applications and relational database (or
+Object Database) applications.  A Python application can be used to
+Extract data from COBOL flat files and either load a database or create
+a file in a more usable notation (e.g., XML, JSON or CSV).</p>
+<p>The cobol_dde module helps to create an ETL application.</p>
+<ol class="arabic simple">
+<li>It parses the COBOL "Copy Book" source to permit interpretation of the file.</li>
+<li>Given a block of bytes, it can extract fields as byte strings or
+as interpreted values.  It will produce <tt class="docutils literal">int</tt> or <tt class="docutils literal">Decimal</tt> values.
+(Currently,  floating-point "Comp-2" fields are not supported.)</li>
+<li>Python application logic can be used to disentangle the various record
+types encoded via <tt class="docutils literal">REDEFINES</tt> clauses.</li>
+<li>With the copy book and the DDE module, a Python program can then
+rewrite a COBOL file.</li>
+</ol>
+<p><strong>Profiling</strong>.
+Data Warehouse processing requires
+complete understanding of source application data domains.  This complete
+understanding of a domain is part of analyzing data quality.  Data domains, when
+not formalized by a programming language or database design, tend to grow
+in sometimes obscure ways, including bad data, special-purpose data and
+undocumented data.</p>
+<p>Bad data are simply invalid values used in application files.  These can
+be tolerated either because of programming bugs or dependencies that
+permit invalid data under certain circumstances.  Typically, the latter case indicates
+a normalization issue.  The domain values are illegal.</p>
+<p>Special-purpose data is often a "patch" or "hack" to work around a
+problem.  It may be documented, but rarely used, and unexpected by ETL programmers.
+Sometimes the special-purpose data represents an operational hack to work around
+a problem without changing the programming.  Irrespective of the origin of
+the hack, the domain values are legal, but unexpected and uncommon.</p>
+<p>Undocumented data is ordinary operational values that are actually widely
+used by unexpected because they are undocumented.  Often this is because of
+data that is not part of the essential use cases for an application, but is
+additional data with an obscure final destination.  The domain values are
+legal, unexpected but common.</p>
+<p>Flat files processed by COBOL programs are very common and often suffer from
+the above data quality problems.  The language imposes few rules on data domains.
+Programs can be easily modified to extend a domain.  Processing rules can be
+quite obscure, making it necessary to analyze actual data rather than program
+source.</p>
+</div>
+</div>
+<div class="section" id="requirements">
+<h1><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id77">Requirements</a></h1>
+<p>This application produces simple reports on the range of values found for
+particular fields in a file.  This information is used to understand data quality,
+the actual values in a domain, and support reverse engineering software.</p>
+<p>The primary use case is described below.</p>
+<div class="section" id="analyze-a-file">
+<h2><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id78">Analyze a File</a></h2>
+<p>The user is given a file and the associated record definition (also known as a "Copy Book").</p>
+<p>The user creates an application program based on <tt class="docutils literal">data_profile</tt>
+to name the fields of interest.  The user may
+also include programming for the following: (1) to separate occurances or variant
+record types when the file is not in first normal form, (2) to conditionally
+process fields when the file is not in second or third normal form.</p>
+<p>The user runs the profiler with the file, driver and copybook.</p>
+<p>The application produces a summary report showing each of the named fields, their complete
+domain of values, and the occurance count for each value.</p>
+</div>
+<div class="section" id="extract-data">
+<h2><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id79">Extract Data</a></h2>
+<p>The user is given a file and the associated record definition (also known as a "Copy Book").</p>
+<p>The user creates an application program based on <tt class="docutils literal">cobol_dde</tt>
+to extract the fields of interest.  The user may
+also include programming for the following: (1) to separate occurances or variant
+record types when the file is not in first normal form, (2) to conditionally process fields when
+the file is not in second or third normal form.  The application loads
+a database or writes an output file in a more usable format (e.g., JSON).</p>
+<p>The user installs the application for operational use.</p>
+</div>
+</div>
+<div class="section" id="design-overview">
+<h1><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id80">Design Overview</a></h1>
+<p>The <tt class="docutils literal">cobol_dde</tt> module has two distinct phases of operation.  The
+first phase parses a COBOL Data Description Entry (DDE) to understand
+the record layout of the file.  The second phase uses the parsed DDE
+to extract fields from a record.</p>
+<p>The <tt class="docutils literal">data_profile</tt> module is a framework for building data profiling
+applications based on the <cite>cobol_dde</cite> module.  The data profiler
+uses COBOL Data Description Entry (DDE) to understand
+the record layout of the file.  The profiling then uses
+uses the DDE object to examine selected fields of the file.</p>
+<div class="section" id="dde-structure">
+<h2><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id81">DDE Structure</a></h2>
+<p>The DDE class is a recursive definition of a COBOL group-level DDE.
+There are two basic species of COBOL DDE's: elemetary items, which have a picture clause,
+and group-level items, which contain lower-level items.  There are everal optional
+features of every DDE, including an occurs clause and a redefines clause.
+In additional a picture clause, elementary items can also have and optional usage clause,
+and optional sign clause.</p>
+<p>The <strong>picture</strong> clause specifies how to interpret a sequence of bytes.  The picture
+clause interacts with the optional <strong>usage</strong> clause, <strong>sign</strong> clause and <strong>synchronized</strong> clause
+to fully define the bytes.  The picture clause uses a complex format of code characters
+to define either individual character bytes (when the usage is display) or dual decimal digit bytes
+(when the usage is computational).</p>
+<p>The <strong>occurs</strong> clause specifies an array of elements.  If the occurs clause appears
+on a group level item, the sub-record is repeated.  If the occurs clause appears
+on an elementary item, that item is repeated.</p>
+<p>The <strong>redefines</strong> clause defines an alias for input bytes.  When field R redefines
+a previously defined field F, the storage bytes are used for both R and F.
+The record structure does not provide a way to disambiguate the interpretation of the bytes.
+Program logic must be examined to determine which interpretation is valid.</p>
+<p><strong>DDE Class</strong>.
+The parent class, <tt class="docutils literal">DDE</tt>, defines the features of a group-level item.  It supports
+the occurs and redefines features.  It can contain a number of DDE items.
+The leaves of the tree, <tt class="docutils literal">DDEElement</tt>, define the features of an elementary item.
+It adds support for the picture clause, but removes support for lower-level items.</p>
+<p>The optional clauses are handled using a variety of design patterns.
+The usage information, for instance, is used to create a <strong>Strategy</strong> object
+that is used to extract a field from a record's bytes.</p>
+<p>The redefines information is used to create a <strong>Strategy</strong> object that
+computes the offset to a field.  There are two variant strategies: locate the basis
+field and use that field's offset or use the end of the previous element as
+the offset.</p>
+<p>The <strong>Visitor</strong> pattern is used to traverse a DDE structure to write
+reports on the structure.  The <tt class="docutils literal">data_profile</tt> module uses a Visitor
+to write a detailed dump of a given record.</p>
+</div>
+<div class="section" id="dde-parser">
+<h2><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id82">DDE Parser</a></h2>
+<p>The <tt class="docutils literal">RecordFactory</tt> object reads a file of text and either creates a
+DDE or raises an exception. If the text is a valid COBOL record
+definition, a DDE is created.  If there are syntax errors, an exception
+is raised.</p>
+<p>The <tt class="docutils literal">RecordFactory</tt> depends on a <tt class="docutils literal">Lexer</tt> instance to do lexical scanning of
+COBOL source. The lexical scanner can be subclassed to pre-process COBOL
+source.  This is necessary because of the variety of source formats that
+are permitted.  Shop standards may include or exclude features like
+program identification, line numbers, format control and other
+decoration of the input.</p>
+<p>The <tt class="docutils literal">makeRecord()</tt> method of the <tt class="docutils literal">RecordFactory</tt> class does the parsing of
+the record definition. Each individual DDE statement is parsed.  The
+level number information is used to define the correct grouping of
+elements.  When the structure is parsed, it is decorated with size and
+offset information for each element.</p>
+</div>
+<div class="section" id="field-values">
+<h2><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id83">Field Values</a></h2>
+<p>There are two broad types of character interpretation:</p>
+<ul class="simple">
+<li>Character ("usage is display").</li>
+<li>Numeric ("usage is computational"). There are several subtypes
+of computational.  The most common computational form
+is "COMP-3", which is a binary-encoded decimal format.</li>
+</ul>
+<p>These require different
+strategies for decoding the input bytes.  Note that the COBOL languages, and IBM's extensions,
+provide for a number of usage options.  In this application, three basic types
+of usage strategies are supported: display, comp and comp-3.</p>
+<ul class="simple">
+<li>Display.  These are bytes, one per character, described by the picture clause.
+They can be EBCDIC or ASCII.  Python offers a <tt class="docutils literal">codecs</tt> module to
+convert EBCDIC characters to Unicode for further processing.</li>
+<li>COMP.  These are binary fields of 2, 4 or 8 bytes, with the size implied by the picture clause.</li>
+<li>COMP-3.  These are packed decimal fields, with the size derived from the picture clause;
+there are two digits packed into each byte, with an extra half-byte for a sign.</li>
+</ul>
+</div>
+<div class="section" id="sample-data-profile-application">
+<h2><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id84">Sample Data Profile Application</a></h2>
+<p>A typical data profiling application program has the following general form.</p>
+<pre class="literal-block">import cobol_dde
+import data_profile
+
+rf= cobol_dde.RecordFactory()
+dde= rf.makeRecord( CleanupLexer(file(aDef,"r").read()) )
+
+# Create a FieldScan for the three fields we care about
+fieldList= data_profile.FieldScan( [ data_profile.NumFieldValue( dde, 'MCUDBI-DATA-ITEM' ),
+    data_profile.NumFieldValue( dde, 'MCUDBI-YR' ),
+    data_profile.NumFieldValue( dde, 'MCUDBI-VALUE-LENGTH' )
+] )
+
+# Create a FileScan for the file, using the given FieldScan list of fields
+fs= data_profile.FileScan( dde, fieldList, aFileName )
+
+# Process through the given ending record
+fs.process( end )
+</pre>
+</div>
+</div>
+<div class="section" id="future-directions">
+<h1><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id85">Future Directions</a></h1>
+<p>Is EBCDIC-&gt;ASCII conversion a feature of DDE? May need subclass or
+strategy for conversion.</p>
+<p>Consider combining PIC, USAGE, and SIGN information into a single data
+type specification.</p>
+<p>Add capability to search using a path string instead of individual <tt class="docutils literal">get()</tt>
+calls in DDE</p>
+<p>Create subclass of DDE for non-group-level items that adds PICTURE and
+USAGE features and removes the container.</p>
+</div>
+<div class="section" id="implementation">
+<h1><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id86">Implementation</a></h1>
+<p>We'll define the <tt class="docutils literal">cobol_dde</tt> module and a <tt class="docutils literal">test_dde</tt> unit test for
+this module.</p>
+<p>We'll reuly on
+the <tt class="docutils literal">decimal</tt> module is used to do fixed-precision decimal arithmetic.</p>
+<div class="note">
+<p class="first admonition-title">Note</p>
+<p class="last">The legacy implementation was the <tt class="docutils literal">FixedPoint</tt> module.  While the
+<tt class="docutils literal">FixedPoint</tt> module is handy, it is not as robust as the <tt class="docutils literal">decimal</tt> module.</p>
+</div>
+<p>The <tt class="docutils literal">cobol_dde</tt> module provides the DDE record definition and Lexical scanning
+capability.</p>
+<p>Separately, we'll look at the <tt class="docutils literal">data_profile</tt> module.
+This defines the scanning and analyzing features.</p>
+<div class="section" id="cobol-dde">
+<h2><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id87">cobol_dde</a></h2>
+<p>The <tt class="docutils literal">cobol_dde</tt> module has the following structure.</p>
+<p class="rubric" id="id1">cobol_dde.py (1)</p>
+<pre class="literal-block">→ DDE Overheads - Shell Escape, Doc String, Imports, CVS Cruft (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id2">2</a>)    → (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id3">3</a>)    → (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id4">4</a>)    → (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id5">5</a>)    → (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id6">6</a>)
+→ DDE Exception Definitions (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id7">7</a>)
+
+# 1. Basic class definitions
+→ DDE Visitor base class - to analyze a complete DDE tree structure (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id8">8</a>)
+→ DDE Usage Strategy class hierarchy - to extract data from input buffers (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id9">9</a>)
+→ DDE Redefines Strategy class hierarchy - to define offsets to DDE elements (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id10">10</a>)
+
+# 2. DDE class definition
+→ DDE Class Hierarchy - defines group and elementary data descriptions elements (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id11">11</a>)
+
+# 3. Some utility classes for reporting
+→ DDE Common Visitors for reporting on a DDE structure (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id15">15</a>)
+
+# 4. The Lexical Scanning and Parsing of an input record layout
+→ DDE Lexical Scanner base class provides the default lexical scanner implementation (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id16">16</a>)
+→ DDE RecordFactory parses a record clause to create a DDE instance (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id17">17</a>)
+</pre>
+<div class="section" id="overheads">
+<h3><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id88">Overheads</a></h3>
+<p>Overheads includes the following: the shell escape, the doc string, imports and
+any CVS cruft.</p>
+<p>The shell escape line allows this module to be run as a stand-alone application.</p>
+<p class="rubric" id="id2">DDE Overheads - Shell Escape, Doc String, Imports, CVS Cruft (2)</p>
+<pre class="literal-block">#!/usr/bin/env python
+</pre>
+<p>Used by: cobol_dde.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id1">1</a>)</p>
+<p>The doc string provides documentation embedded within this module.</p>
+<p class="rubric" id="id3">DDE Overheads - Shell Escape, Doc String, Imports, CVS Cruft (3)</p>
+<pre class="literal-block">"""COBOL Data Description Entries (a/k/a Record-Layout Objects)
+
+A COBOL Record is a collection of data description entries.
+Each entry is either a simple field (with a PICTURE) or a group of fields.
+Each field has an optional occurs clause, or redefines clause.
+Each field has a usage (DISPLAY or COMP or COMP-3).
+Each field is assigned an offset, size and data type (numeric or alpha).
+
+This module includes the following class definitions:
+
+DDE
+    Defines a COBOL record layout object.
+    Each record layout object has operations to locate individual
+    fields or occurance instances.
+
+Usage
+UsageDisplay
+UsageComp
+UsageComp3
+    Various USAGE clauses; these classes provide a valueOf() method
+    which decodes record bytes to a proper value.
+
+Redefines
+NonRedefines
+    Two strategies for computing a field's offset - either it is after
+    the previous field in memory, or it redefines another field's location
+    in memory.
+
+RecordFactory
+    Parses a COBOL copybook to
+    create the DDE structure used to parse a character string into record fields.
+
+Lexer
+    A COBOL lexical scanner.  If necessary, this can be
+    subclassed to handle unusual file formats or other
+    record definition copy book problems.
+
+Visitor
+Source
+Report
+Dump
+    A Visitor can traverse the DDE hierarchy.
+    Each DDE has a visit() method that applies the visitor to
+    the parent and each child in order.
+    Source displays canonical source from the original input.
+    Report displays the fields including size and offset information.
+    Dump is used by visitOccurance() to dump each occurance
+    of each field of a record.
+
+SyntaxError
+    Raised for a COBOL syntax error.
+UnsupportedError
+    Raised for a COBOL feature that is not supported by this module.
+UsageError
+    Raised for a DDE that is not used properly;
+    e.g., occurs-clause out of range.
+"""
+</pre>
+<p>Used by: cobol_dde.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id1">1</a>)</p>
+<p>The following imports are used by this module.</p>
+<p class="rubric" id="id4">DDE Overheads - Shell Escape, Doc String, Imports, CVS Cruft (4)</p>
+<pre class="literal-block">import re
+import struct
+import string
+import decimal
+</pre>
+<p>Used by: cobol_dde.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id1">1</a>)</p>
+<p>The CVS cruft provides a place for CVS or other version control
+tool to place the revision number information within this module.</p>
+<p class="rubric" id="id5">DDE Overheads - Shell Escape, Doc String, Imports, CVS Cruft (5)</p>
+<pre class="literal-block">__version__ = """$Revision$"""
+</pre>
+<p>Used by: cobol_dde.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id1">1</a>)</p>
+<p>We also place a pyweb warning in the overheads.  This reminds anyone
+reading the .py file that it is generated from a pyweb .w
+source.</p>
+<p class="rubric" id="id6">DDE Overheads - Shell Escape, Doc String, Imports, CVS Cruft (6)</p>
+<pre class="literal-block">### DO NOT EDIT THIS FILE!
+### It was created by /Users/slott/Documents/Projects/pyWeb-2.1/pyweb/pyweb.py, __version__='$Revision$'.
+### From source DDE.w modified Sun Mar 14 10:46:18 2010.
+### In working directory '/Users/slott/Documents/Projects/COBOL_DDE-1.2'.
+</pre>
+<p>Used by: cobol_dde.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id1">1</a>)</p>
+</div>
+<div class="section" id="exception-definitions">
+<h3><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id89">Exception Definitions</a></h3>
+<p>The <tt class="docutils literal">SyntaxError</tt> exception is raised during parsing for a few egregious COBOL
+syntax problems.  One presumption underlying this program is that all copybooks are
+from production source programs, and have no syntax errors.</p>
+<p>The <tt class="docutils literal">UnsupportedError</tt> exception is raised during parsing for features of
+COBOL DDE's that are not supported by this program.  These includes features like the
+<tt class="docutils literal">OCCURS a TO b</tt> variation on the occurs clause, the <tt class="docutils literal">OCCURS DEPEND ON</tt> clause,
+the <tt class="docutils literal">RENAMES</tt> clause, the <tt class="docutils literal">SIGN</tt> clause, the <tt class="docutils literal">SYNCHRONIZED</tt> clause.</p>
+<p>The <tt class="docutils literal">UsageError</tt> exception is raised during analysis of a field when something
+invalid has happened during field extract.</p>
+<p class="rubric" id="id7">DDE Exception Definitions (7)</p>
+<pre class="literal-block">class SyntaxError( Exception ):
+    """COBOL syntax error."""
+    pass
+class UnsupportedError( Exception ):
+    """A COBOL DDE has features not supported by this module."""
+    pass
+class UsageError( Exception ):
+    """A COBOL DDE is not used properly, e.g., occurs-clause out of range."""
+    pass
+</pre>
+<p>Used by: cobol_dde.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id1">1</a>)</p>
+</div>
+<div class="section" id="base-class-definitions">
+<h3><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id90">Base Class Definitions</a></h3>
+<p>The Base Class definitions can be separated into four high-level subject areas:
+(1) some basic definitions, (2) the DDE class hierarchy, (3) utility classes
+for reporting, and (4) the lexical scanning and parsing classes.</p>
+<p>The basic definitions include the Visitor base class, the Usage strategy class hierarchy
+and the Redefines strategy class hierarch.</p>
+<p>The DDE class hierarchy is the DDE class and the DDEElement class.</p>
+<p>The utility classes include a number of common Visitor subclasses.
+These incldue Source, Report and Dump.  Source produces a canonical report
+on the COBOL source. Report produces an analysis of the fields, their sizes and
+offsets.  Dump can be used to dump all fields of a record.</p>
+<p>The lexical scanning and parsing classes are <tt class="docutils literal">Lexer</tt> and <tt class="docutils literal">RecordFactory</tt>.</p>
+</div>
+<div class="section" id="visitor-class">
+<h3><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id91">Visitor Class</a></h3>
+<p>The <strong>Visitor</strong> design pattern is used to simplify recursive-descent depth-first in-order traversal
+of the parse tree.  An instance of this class must provide a <tt class="docutils literal">dde()</tt> method
+definition.  Each individual element is passed to this method from the top of
+the DDE structure down each branch in depth-first order.</p>
+<p>An instance of visitor may provide an <tt class="docutils literal">__init__()</tt> method that can be used
+to initialize any internal data structures.  An instance may also provide a finish()
+method that can be called at the end of a traversal to write a summary of the structure.</p>
+<p class="rubric" id="id8">DDE Visitor base class - to analyze a complete DDE tree structure (8)</p>
+<pre class="literal-block">class Visitor( object ):
+    """Visits each node of a DDE, doing a depth-first traversal of the structure."""
+    def __init__( self ):
+        self.indent= 0
+    def enterSub( self ):
+        self.indent += 1
+    def exitSub( self ):
+        self.indent -= 1
+    def dde( self, aDDE ):
+        """Given a DDE, perform the requested process."""
+        pass
+    def finish( self ):
+        """Any summary information at the end of the visit."""
+        pass
+</pre>
+<p>Used by: cobol_dde.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id1">1</a>)</p>
+</div>
+<div class="section" id="usage-strategy-hierarchy">
+<h3><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id92">Usage Strategy Hierarchy</a></h3>
+<p>Usage is used to combine information in the picture, usage, sign and synchronized clauses.</p>
+<p>The <strong>Strategy</strong> design pattern allows a DDE element to delegate the <tt class="docutils literal">size()</tt> and
+<tt class="docutils literal">valueOf()</tt> operations to this class.</p>
+<p>The <tt class="docutils literal">size()</tt> method returns the number
+of bytes used by the data element.  For usage display, the size can be computed
+from the picture clause.  For usage computational, the size is 2, 4 or 8 bytes.
+For usage computational-3, the picture clause digits are packed two per byte with
+an extra half-byte for sign information.</p>
+<p>The <tt class="docutils literal">valueOf()</tt> method returns a usable Python value extracted from
+the record's bytes.  The UsageDisplay subclass does numeric conversion for numeric
+pictures, otherwise the data is left as a string.  The <tt class="docutils literal">UsageComp</tt> subclass does
+numeric conversion for binary coded data.  This handles the mainframe endian conversion.
+The <tt class="docutils literal">UsageComp3</tt> subclass unpacks the digits into a character string and then does
+character-to-numeric conversion.</p>
+<p class="rubric" id="id9">DDE Usage Strategy class hierarchy - to extract data from input buffers (9)</p>
+<pre class="literal-block">class Usage( object ):
+    """Covert numeric data based on Usage clause."""
+    def __init__( self, name_ ):
+        self.myName= name_
+        self.numeric= None
+        self.originalSize= None
+        self.scale= None
+        self.precision= None
+        self.signed= None
+    def setTypeInfo( self, **typeInfo ):
+        """After parsing a PICTURE clause, provide additional usage information."""
+        self.numeric = typeInfo['numeric']
+        self.originalSize = typeInfo['length']
+        self.scale = typeInfo['scale']
+        self.precision = typeInfo['precision']
+        self.signed = typeInfo['signed']
+        self.decimal = typeInfo['decimal']
+    def valueOf( self, buffer ):
+        """Convert this data to a decimal number."""
+        return None
+    def size( self, picture ):
+        """Return the actual size of this data, based on PICTURE and SIGN."""
+        return len(picture)
+
+class UsageDisplay( Usage ):
+    """Convert from ordinary character data to numeric."""
+    # NOTE: EBCDIC-&gt;ASCII conversion handled by the DDE as a whole.
+    def __init__( self ):
+        Usage.__init__( self, "DISPLAY" )
+    def valueOf( self, buffer ):
+        if self.numeric and self.precision != 0:
+            if self.decimal == '.':
+                return decimal.Decimal( buffer )
+            # Insert the implied decimal point.
+            return decimal.Decimal( buffer[:-self.precision]+"."+buffer[-self.precision:] )
+        elif self.numeric and self.precision == 0:
+            return int(buffer)
+        return buffer
+
+class UsageComp( Usage ):
+    """Convert from COMP data to numeric.
+
+    This may need to be overridden to handle little-endian data."""
+    def __init__( self ):
+        Usage.__init__( self, "COMP" )
+    def valueOf( self, buffer ):
+        n= struct.unpack( self.sc, buffer )
+        return decimal.Decimal( n[0] )
+    def size( self, picture ):
+        if len(picture) &lt;= 4:
+            self.sc= '&gt;h'
+            return 2
+        elif len(picture) &lt;= 9:
+            self.sc= '&gt;i'
+            return 4
+        else:
+            self.sc= '&gt;q'
+            return 8
+
+class UsageComp3( Usage ):
+    """Convert from COMP-3 data to numeric."""
+    def __init__( self ):
+        Usage.__init__( self, "COMP-3" )
+    def valueOf( self, buffer ):
+        display= []
+        for c in buffer:
+            n= struct.unpack( "B", c )
+            display.append( str(n[0]/16) )
+            display.append( str(n[0]%16) )
+        #print repr(buffer), repr(display)
+        #Last position has sign information: 'd' is &lt;0, 'f' is unsigned, and 'c' &gt;=0
+        f= decimal.Decimal( "".join(display[:-1]) )
+        if display[-1]==13: return -f
+        return f
+    def size( self, picture ):
+        return int((len(picture)+2)/2)
+</pre>
+<p>Used by: cobol_dde.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id1">1</a>)</p>
+</div>
+<div class="section" id="redefines-strategy-pattern">
+<h3><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id93">Redefines Strategy Pattern</a></h3>
+<p>Redefines is used to reset the offset to a specific group or elementary item.
+There are only two cases, modeled by two subclasses: <tt class="docutils literal">Redefines</tt> and <tt class="docutils literal">NonRedefines</tt>.
+An element can redefine another element; in this case the two elements have the same offset;
+this is handled by the Redefines class.  An element can be independent; in this case
+it begins after the end of the lexically preceeding element; in this case the
+offset is computed from the previous element's offset + size.</p>
+<p>The <strong>Strategy</strong> design pattern allows an element to delegate the <tt class="docutils literal">offset()</tt>,
+<tt class="docutils literal">indexedOffset()</tt> and <tt class="docutils literal">size()</tt> methods.  The <tt class="docutils literal">Redefines</tt> subclass uses
+the redefines name to look up the offset and size information.  The <tt class="docutils literal">NonRedefines</tt>
+subclass uses the offset and size information currently being computed during
+the visit loop.</p>
+<p class="rubric" id="id10">DDE Redefines Strategy class hierarchy - to define offsets to DDE elements (10)</p>
+<pre class="literal-block">class Redefines( object ):
+    """Lookup size and offset from the field we rename."""
+    def __init__( self, name_=None ):
+        self.myName= name_
+    def offset( self, offset, aDDE ):
+        return aDDE.top.get( self.myName ).offset
+    def indexedOffset( self, offset, aDDE ):
+        return aDDE.top.get( self.myName ).indexedOffset
+    def size( self, aDDE ):
+        return 0
+
+class NonRedefines( Redefines ):
+    """More typical case is that we have our own size and offset."""
+    def offset( self, offset, aDDE ):
+        return offset
+    def indexedOffset( self, offset, aDDE ):
+        return offset + aDDE.occurSize*aDDE.currentIndex
+    def size( self, aDDE ):
+        return aDDE.size
+</pre>
+<p>Used by: cobol_dde.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id1">1</a>)</p>
+</div>
+<div class="section" id="dde-class">
+<h3><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id94">DDE Class</a></h3>
+<p>The <tt class="docutils literal">DDE</tt> class itself defines a single element (group or elementary) of a
+record.  There are several broad areas of functionality for a DDE:
+(1) construction, (2) reporting, (3) record scanning.</p>
+<p>The class definition includes the attributes determined at
+parse time, attributes added during decoration time and
+attributes used during decoration processing.</p>
+<p>Note that Group-level vs. item-level can be separate subclasses of DDE.
+And item-level definition has a picture clause; group level does not.
+A simple Visitor, then, can accumulate all item-level fields.</p>
+<p class="rubric" id="id11">DDE Class Hierarchy - defines group and elementary data descriptions elements (11)</p>
+<pre class="literal-block">class DDE( object ):
+    """A Data Description Entry.
+
+    This is either a group-level item, which contains DDE's, or
+    it is a lowest-level DDE, defined by a PICTURE clause.
+    All higher-level DDE's are effectively string-type data.
+    A lowest-level DDE with a numeric PICTURE is numeric-type data.
+    Occurs and Redefines can occur at any level.  Almost anything
+    can be combined with anything else.
+
+    Each entry is defined by the following attributes
+        level       COBOL level number 01 to 49, 66 or 88.
+        myName      COBOL variable name
+        occurs      the number of occurances (default is 1)
+        picture     the exploded picture clause, with ()'s expanded
+        initValue   any initial value provided
+        offset      offset to this field from start of record
+        size        overall size of this item, including all occurances
+        occurSize   the size of an individual occurance
+        sizeScalePrecision  ( numeric, size, scale (# of P's), precision)
+        redefines   an instance of Redefines used to compute the offset
+        usage       an instance of Usage used to do data conversions
+        contains    the list of contained fields
+        parent      the immediate parent DDE
+        top         the overall record definition DDE
+        currentIndex    the current index values used for locating data
+        indexedOffset   the current offset based on current index values
+
+    The primary interface is get(), setIndex(), of() and valOf().
+    get('dataname') returns the DDE for the given dataname
+    setIndex(x,...) sets the current indexes for the various occurs clauses
+    of(record) locates this DDE's bytes within the given record
+    valOf(record) locates this DDE's bytes and interprets them as a number
+    """
+    def __init__( self, level, name_, usage=None, pic=None, occurs=None, redefines=None, ssp=(None,None,None,None), initValue=None ):
+        self.level= level
+        self.myName= name_
+        self.offset= 0
+        self.size= 0
+        self.occurs= occurs
+        self.occurSize= None
+        self.picture= pic
+        self.sizeScalePrecision= ssp
+        self.redefines= redefines
+        self.usage= usage
+        self.initValue= initValue
+        self.contains= []
+        self.parent= None
+        self.top= None
+        self.currentIndex= 0
+        self.indexedOffset= None
+    def __repr__( self ):
+        return "%s %s %s" % ( self.level, self.myName, map(str,self.contains) )
+    def __str__( self ):
+        oc= ""
+        pc= ""
+        rc= ""
+        if self.occurs &gt; 1: oc= " OCCURS %s" % self.occurs
+        if self.picture: pc= " PIC %s USAGE %s" % ( self.picture, self.usage.myName )
+        if self.redefines.myName: rc= " REDEFINES %s" % ( self.redefines.myName )
+        return "%-2s %-20s%s%s%s." % ( self.level, self.myName, rc, oc, pc )
+        → DDE Class Construction methods (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id12">12</a>)
+        → DDE Class Reporting methods (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id13">13</a>)
+        → DDE Class Record Scanning methods (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id14">14</a>)
+</pre>
+<p>Used by: cobol_dde.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id1">1</a>)</p>
+<p>Construction occurs in three general steps: (1) the DDE is created,
+(2) source attributes are set, (3) the DDE is decorated with size, offset
+and other details.</p>
+<p class="rubric" id="id12">DDE Class Construction methods (12)</p>
+<pre class="literal-block">def append( self, aDDE ):
+    """Add a substructure to this DDE.
+
+    This is used by RecordFactory to assemble the DDE."""
+    self.contains.append( aDDE )
+    aDDE.parent= self
+def setTop( self, topDDE ):
+    """Set the immediate parentage and top-level record for this DDE.
+
+    Used by RecordFactory to assemble the DDE.
+    Required before setSizeAndOffset()."""
+    self.top= topDDE
+    for f in self.contains:
+        f.parent= self
+        f.setTop( topDDE )
+def setSizeAndOffset( self, offset=0 ):
+    """Compute the size and offset for each field of this DDE.
+
+    Used by RecordFactory to assemble the DDE.
+    Requires setTop be done first.
+
+    Note: 88-level items inherit attributes from their parent.
+    """
+    # Wire in a single occurance, it simplifies the math, below.
+    if not self.occurs: self.occurs= 1
+    # If this is a redefines, get a different offset, otherwise use this offset
+    self.offset= self.redefines.offset( offset, self )
+    # Set the default indexedOffset
+    self.indexedOffset= self.offset
+    # PICTURE - elementary item; otherwise group-level item
+    if self.picture:
+        # Get the correct size based on USAGE
+        self.occurSize= self.usage.size(self.picture)
+        self.size= self.occurSize * self.occurs
+        # Any contained items?  These would be 88-level items.
+        for f in self.contains:
+            assert '88' == f.level, "Unexpected Level {0!r}".format(f.level)
+            f.setSizeAndOffset(self.offset)
+    elif self.level == '88':
+        self.occurSize= self.parent.occurSize
+        self.size = self.parent.size
+        self.usage= self.parent.usage
+    else:
+        # Get the correct size based on each element of the group
+        s= 0 # Was self.offset???? Wasn't That Funny?
+        for f in self.contains:
+            # Element size and offset
+            f.setSizeAndOffset(s)
+            # non-redefines add to the size; redefines add 0 to the size
+            s += f.redefines.size( f )
+        self.occurSize= s
+        # Multiply by the number of occurances to get the total size
+        self.size= self.occurSize * self.occurs
+</pre>
+<p>Used by: DDE Class Hierarchy - defines group and elementary data descriptions elements (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id11">11</a>); cobol_dde.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id1">1</a>)</p>
+<p>The <strong>Visitor</strong> design pattern requires that each DDE have a method
+that is used to implement the visitor traversal.  The <tt class="docutils literal">visit()</tt>
+method visits each element.  The <tt class="docutils literal">visitOccurance()</tt> method
+visits each occurance of each element.</p>
+<p class="rubric" id="id13">DDE Class Reporting methods (13)</p>
+<pre class="literal-block">def visit( self, visitor ):
+    """Visit this DDE and each element."""
+    visitor.dde( self )
+    if self.contains:
+        visitor.enterSub()
+        for f in self.contains:
+            f.visit( visitor )
+        visitor.exitSub()
+def visitOccurance( self, visitor ):
+    """Visit each occurance of this DDE
+    and each occurance of each element."""
+    if not self.occurs: return
+    for self.currentIndex in range(0,self.occurs):
+        self.top.setIndexedOffset(0)    # compute offsets for this new index value
+        visitor.dde( self )
+        if self.contains:
+            visitor.enterSub()
+            for f in self.contains:
+                f.visitOccurance( visitor )
+            visitor.exitSub()
+</pre>
+<p>Used by: DDE Class Hierarchy - defines group and elementary data descriptions elements (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id11">11</a>); cobol_dde.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id1">1</a>)</p>
+<p>The process of scanning a record involves methods to locate a specific field,
+set the occurance index of a field, and pick bytes of a record input buffer.</p>
+<p class="rubric" id="id14">DDE Class Record Scanning methods (14)</p>
+<pre class="literal-block">def pathTo( self ):
+    """Return the complete path to this DDE."""
+    if self.parent: return self.parent.pathTo() + "." + self.myName
+    return self.myName
+def get( self, name_ ):
+    """Find the named field, and return the substructure.
+
+    If necessary, search down through levels."""
+    for c in self.contains:
+        if c.myName == name_:
+            return c
+    for c in self.contains:
+        try:
+            f= c.get(name_)
+            if f: return f
+        except UsageError, e:
+            pass
+    raise UsageError( "Field %s unknown in this record" % name_ )
+def setIndex( self, *occurance ):
+    """Set the index values for locating specific data bytes."""
+    # Handles multi-dimensional short-cut syntax.
+    # Work up through parentage to locate occurs clauses and pop off indexes
+    if self.occurs &gt; 1:
+        if self.occurs &lt; occurance[-1] or occurance[-1] &lt;= 0:
+            raise UsageError( "Occurs value %r out of bounds %r" % ( occurance, self ) )
+        self.currentIndex= occurance[-1]-1
+        #print self.myName, 'occurs', self.occurs, 'index', self.currentIndex+1
+        # Recursive call to setIndex for all remaining index values.
+        if occurance[:-1]:
+            self.parent.setIndex( *occurance[:-1] )
+    else:
+        #print self.myName, 'search upward',repr(occurance)
+        self.parent.setIndex( *occurance )
+    # Compute offsets for these new index values
+    self.top.setIndexedOffset(0)
+    return self
+def setIndexedOffset( self, offset=0 ):
+    """Given index values, compute the indexed offsets into occurs clauses.
+
+    Used by setIndex to compute indexed offsets."""
+    # TODO: may be able to eliminate this if-statement!
+    if self.occurSize:
+        # Redefines will use an offset from another field, otherwise use the offset provided
+        self.indexedOffset= self.redefines.indexedOffset( offset, self )
+        s= self.indexedOffset
+        for f in self.contains:
+            # Update elements within this group
+            f.setIndexedOffset( s )
+            # Redefines add zero to the size, otherwise increment offset with the size
+            s += f.redefines.size( f )
+def of( self, aString ):
+    """Pick the data bytes out of an input string.
+
+    TODO: May require EBCDIC-&gt;ASCII conversion.
+
+    Requires setIndexedOffset() call if indexes were changed without calling setIndex()
+    Use valOf to handle packed decimal data (USAGE COMP-3).
+    """
+    b= self.indexedOffset
+    return aString[b:b+self.occurSize]
+def valOf( self, aString ):
+    """Pick the data bytes out of an input string and interpret as a number."""
+    bytes= self.of( aString )
+    return self.usage.valueOf( bytes )
+</pre>
+<p>Used by: DDE Class Hierarchy - defines group and elementary data descriptions elements (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id11">11</a>); cobol_dde.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id1">1</a>)</p>
+</div>
+<div class="section" id="common-visitors">
+<h3><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id95">Common Visitors</a></h3>
+<p>Two common visitor needs are: (1) visit all elements, producing a listing that
+is a canonical version of the original source; (2) visit all elements producing
+additional details (e.g., size, offset, data type).
+Additionally, when examining actual data values, it is necessary to visit
+each element displaying the current value of that element.  This traversal needs
+to visit each occurance, also.  This depends on the <tt class="docutils literal">visitOccurance()</tt>
+method of a DDE.</p>
+<p class="rubric" id="id15">DDE Common Visitors for reporting on a DDE structure (15)</p>
+<pre class="literal-block">class Source( Visitor ):
+    """Display canonical source from copybook parsing."""
+    def dde( self, aDDE ):
+        print self.indent*'  ', aDDE
+
+class Report( Visitor ):
+    """Report on copybook structure."""
+    def dde( self, aDDE ):
+        numeric,size,scale,precision= aDDE.sizeScalePrecision
+        if numeric:
+            nSpec= '%d.%d' % ( size, precision )
+        else:
+            nSpec= ""
+        print "%-65s %3d %3d %5s" % (self.indent*'  '+str(aDDE), aDDE.offset, aDDE.size, nSpec)
+
+class Dump( Visitor ):
+    """Dump the data values of this structure."""
+    def __init__( self, data ):
+        Visitor.__init__( self )
+        self.data= data
+    def dde( self, aDDE ):
+        db= aDDE.of(self.data)
+        dstr= []
+        for c in db:
+            dstr.append( "%2s"%hex( ord(c) )[2:] )
+        r= " ".join(dstr) # or r=db
+        if aDDE.occurs &gt; 1:
+            print "%-65s %3d %3d %3d '%s'" % (self.indent*'  '+str(aDDE), aDDE.indexedOffset, aDDE.size, aDDE.currentIndex+1, r)
+        elif aDDE.picture and aDDE.myName != "FILLER":
+            print "%-65s %3d %3d '%s'" % (self.indent*'  '+str(aDDE), aDDE.indexedOffset, aDDE.size, r)
+        else:
+            print "%-65s %3d %3d" % (self.indent*'  '+str(aDDE), aDDE.indexedOffset, aDDE.size)
+</pre>
+<p>Used by: cobol_dde.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id1">1</a>)</p>
+</div>
+<div class="section" id="lexical-scanning">
+<h3><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id96">Lexical Scanning</a></h3>
+<p>The lexical scanner can be subclassed to extend its capability.  The default
+lexical scanner provides a <tt class="docutils literal">lineClean()</tt> function that simply removes comments.
+This may need to be overridden to remove line numbers (from positions 72-80),
+module identification (from positions 1-5), and format control directives.</p>
+<p class="rubric" id="id16">DDE Lexical Scanner base class provides the default lexical scanner implementation (16)</p>
+<pre class="literal-block">class Lexer( object ):
+    """Lexical scanner for COBOL.
+
+    Given a block of text, this scanner will remove comment lines.
+    next() will step through the tokens
+    unget(token) will back up a token
+    """
+    def __init__( self, text ):
+        """Initialize the scanner by cleaning the text."""
+        self.lines= self.lineClean( text )
+        self.backup= []
+        self.separator= re.compile( r'[.,;]?s' )
+        self.quote1= re.compile( r"'[^']*'" )
+        self.quote2= re.compile( r'"[^"]*"' )
+    def lineClean( self, text ):
+        """Default cleaner skips comments."""
+        return [ l[6:]+' ' for l in text.split('n') if len(l) &gt; 6 and l[6] not in ('*','/') ]
+    def next( self ):
+        """Locate the next token in the input stream."""
+        if self.backup:
+            return self.backup.pop()
+        #print "self.lines=", self.lines
+        if not self.lines[0]:
+            self.lines.pop(0)
+        if not self.lines:
+            print "EOF"
+            return None
+        while self.lines and self.lines[0] and self.lines[0][0] in string.whitespace:
+            self.lines[0]= self.lines[0].lstrip()
+            if not self.lines[0]:
+                self.lines.pop(0)
+            if not self.lines:
+                return None
+        if self.lines[0][0] == "'":
+            # quoted string, break on balancing quote
+            match= self.quote1.match( self.lines[0] )
+            space= match.end()
+        elif self.lines[0][0] == '"':
+            # quoted string, break on balancing quote
+            match= self.quote2.match( self.lines[0] )
+            space= match.end()
+        else:
+            match= self.separator.search( self.lines[0] )
+            space= match.start()
+            if space == 0: # starts with separator
+                space= match.end()-1
+        token, self.lines[0] = self.lines[0][:space], self.lines[0][space:]
+        #print token
+        return token
+    def unget( self, token ):
+        """Push one token back into the input stream."""
+        self.backup.append( token )
+</pre>
+<p>Used by: cobol_dde.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id1">1</a>)</p>
+</div>
+<div class="section" id="parsing">
+<h3><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id97">Parsing</a></h3>
+<p>The <tt class="docutils literal">RecordFactory</tt> class is the parser for record definitions.  The parser has
+three basic sets of methods: (1) clause parsing methods, (2) element parsing methods and
+(3) Complete record layout parsing.</p>
+<p>Parsing a record layout involves parsing a sequence of elements and
+assembling them into a proper structure.  Each element consists of a sequence of individual
+clauses.</p>
+<p class="rubric" id="id17">DDE RecordFactory parses a record clause to create a DDE instance (17)</p>
+<pre class="literal-block">class RecordFactory( object ):
+    """Parse a copybook, creating a DDE structure."""
+    def __init__( self ):
+        self.lex= None
+        self.token= None
+        self.context= []
+        self.noisewords= ("WHEN","IS","TIMES")
+        self.keywords= ("BLANK","ZERO","ZEROS","ZEROES",
+            "DATE","FORMAT","EXTERNAL","GLOBAL",
+            "JUST","JUSTIFIED","LEFT","RIGHT"
+            "OCCURS",
+            "PIC","PICTURE",
+            "REDEFINES","RENAMES",
+            "SIGN","LEADING","TRAILING","SEPARATE","CHARACTER",
+            "SYNCH","SYNCHRONIZED",
+            "USAGE","DISPLAY","COMP-3",
+            "VALUE",".")
+        → DDE Picture Clause Parsing (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id18">18</a>)
+        → DDE Blank When Zero Clause Parsing (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id19">19</a>)
+        → DDE Justified Clause Parsing (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id20">20</a>)
+        → DDE Occurs Clause Parsing (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id21">21</a>)
+        → DDE Redefines Clause Parsing (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id22">22</a>)
+        → DDE Renames Clause Parsing (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id23">23</a>)
+        → DDE Sign Clause Parsing (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id24">24</a>)
+        → DDE Synchronized Clause Parsing (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id25">25</a>)
+        → DDE Usage Clause Parsing (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id26">26</a>)
+        → DDE Value Clause Parsing (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id27">27</a>)
+
+        → DDE Element Parsing (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id28">28</a>)
+        → DDE Record Parsing (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id29">29</a>)
+</pre>
+<p>Used by: cobol_dde.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id1">1</a>)</p>
+<p class="rubric" id="id18">DDE Picture Clause Parsing (18)</p>
+<pre class="literal-block">def picParse( self, pic ):
+    """Rewrite a picture clause to eliminate ()'s, S's, V's, P's, etc.
+
+    Returns expanded, normalized picture and (type,length,scale,precision,signed) information."""
+    out= []
+    scale, precision, signed, decimal = 0, 0, False, None
+    while pic:
+        c= pic[:1]
+        if c in ('A','B','X','Z','9','0','/',',','+','-','*','$'):
+            out.append( c )
+            if decimal: precision += 1
+            pic= pic[1:]
+        elif pic[:2] in ('DB','CR'):
+            out.append( pic[:2] )
+            pic= pic[2:]
+        elif c == '(':
+            irpt= 0
+            pic= pic[1:]
+            # A regular expression may be quicker and simpler!
+            try:
+                while pic and pic[:1].isdigit():
+                    irpt = 10*irpt+int( pic[:1] )
+                    pic= pic[1:]
+            except ValueError, t:
+                raise SyntaxError( "picture error in %r"%pic )
+            out.append( (irpt-1)*out[-1] )
+            assert pic[0] == ')', SyntaxError( "picture error in %r"%pic )
+            pic= pic[1:]
+        elif c == 'S':
+            # silently drop an "S".
+            # Note that 'S' plus a SIGN SEPARATE option increases the size of the picture!
+            signed= True
+            pic= pic[1:]
+        elif c  == 'P':
+            # silently drop a "P", since it just sets scale and isn't represented.
+            scale += 1
+            pic= pic[1:]
+        elif c  == "V":
+            decimal= "V"
+            pic= pic[1:]
+        elif c  == ".":
+            decimal= "."
+            out.append( "." )
+            pic= pic[1:]
+        else:
+            raise SyntaxError( "picture error in %s"%pic )
+
+    final= "".join( out )
+    alpha= ('A' in final) or ('X' in final) or ('/' in final)
+    #print pic, final, alpha, scale, precision
+    # Note: Actual size depends on len(final) and usage!
+    return dict(
+        final=final, alpha=alpha, numeric=not alpha,
+        length=len(final), scale=scale,
+        precision= precision, signed=signed,
+        decimal=decimal)
+def picture( self ):
+    """Parse a PICTURE clause."""
+    if self.token == "IS":
+        self.token= self.lex.next()
+    pic= self.lex.next()
+    self.token= self.lex.next()
+    return self.picParse(pic)
+</pre>
+<p>Used by: DDE RecordFactory parses a record clause to create a DDE instance (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id17">17</a>); cobol_dde.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id1">1</a>)</p>
+<p class="rubric" id="id19">DDE Blank When Zero Clause Parsing (19)</p>
+<pre class="literal-block">def blankWhenZero( self ):
+    """Gracefully skip over a BLANK WHEN ZERO clause."""
+    self.token= self.lex.next()
+    if self.token == "WHEN":
+        self.token= self.lex.next()
+    if self.token in ("ZERO","ZEROES","ZEROS"):
+        self.token= self.lex.next()
+</pre>
+<p>Used by: DDE RecordFactory parses a record clause to create a DDE instance (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id17">17</a>); cobol_dde.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id1">1</a>)</p>
+<p class="rubric" id="id20">DDE Justified Clause Parsing (20)</p>
+<pre class="literal-block">def justified( self ):
+    """Gracefully skip over a JUSTIFIED clause."""
+    self.token= self.lex.next()
+    if self.token == "RIGHT":
+        self.token= self.lex.next()
+</pre>
+<p>Used by: DDE RecordFactory parses a record clause to create a DDE instance (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id17">17</a>); cobol_dde.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id1">1</a>)</p>
+<p class="rubric" id="id21">DDE Occurs Clause Parsing (21)</p>
+<pre class="literal-block">def occurs( self ):
+    """Parse an OCCURS clause."""
+    occurs= self.lex.next()
+    if occurs == "TO":
+        # format 2 - occurs depending on with assumed 1 for the lower limit
+        # TODO - parse the Occurs Depending On clause
+        raise UnsupportedError( "Occurs depending on" )
+    self.token= self.lex.next()
+    if self.token == "TO":
+        # format 2 - occurs depending on
+        # TODO - parse the Occurs Depending On clause
+        raise UnsupportedError( "Occurs depending on" )
+    else:
+        # format 1 - fixed-length
+        if self.token == "TIMES":
+            self.token= self.lex.next()
+        if self.token in ("ASCENDING","DESCENDING"):
+            self.token= self.lex.next()
+        if self.token == "KEY":
+            self.token= self.lex.next()
+        if self.token == "IS":
+            self.token= self.lex.next()
+        # get key data names
+        while self.token not in self.keywords:
+            self.token= self.lex.next()
+        if self.token == "INDEXED":
+            self.token= self.lex.next()
+        if self.token == "BY":
+            self.token= self.lex.next()
+        # get indexed data names
+        while self.token not in self.keywords:
+            self.token= self.lex.next()
+        return int(occurs)
+</pre>
+<p>Used by: DDE RecordFactory parses a record clause to create a DDE instance (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id17">17</a>); cobol_dde.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id1">1</a>)</p>
+<p class="rubric" id="id22">DDE Redefines Clause Parsing (22)</p>
+<pre class="literal-block">def redefines( self ):
+    """Parse a REDEFINES clause."""
+    redef= self.lex.next()
+    self.token= self.lex.next()
+    return Redefines(redef)
+</pre>
+<p>Used by: DDE RecordFactory parses a record clause to create a DDE instance (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id17">17</a>); cobol_dde.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id1">1</a>)</p>
+<p class="rubric" id="id23">DDE Renames Clause Parsing (23)</p>
+<pre class="literal-block">def renames( self ):
+    """Raise an exception on a RENAMES clause."""
+    ren1= self.lex.next()
+    self.token= self.lex.next()
+    if self.token in ("THRU","THROUGH"):
+        ren2= self.lext.next()
+        self.token= self.lex.next()
+    raise UnsupportedError( "Renames clause" )
+</pre>
+<p>Used by: DDE RecordFactory parses a record clause to create a DDE instance (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id17">17</a>); cobol_dde.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id1">1</a>)</p>
+<p>There are two variations on the SIGN clause syntax.</p>
+<p class="rubric" id="id24">DDE Sign Clause Parsing (24)</p>
+<pre class="literal-block">def sign1( self ):
+    """Raise an exception on a SIGN clause."""
+    self.token= self.lex.next()
+    if self.token == "IS":
+        self.token= self.lex.next()
+    if self.token in ("LEADING","TRAILING"):
+        self.sign2()
+    # TODO: this may change the size to add a sign byte
+    raise UnsupportedError( "Sign clause" )
+def sign2( self ):
+    """Raise an exception on a SIGN clause."""
+    self.token= self.lex.next()
+    if self.token == "SEPARATE":
+        self.token= self.lex.next()
+    if self.token == "CHARACTER":
+        self.token= self.lex.next()
+    raise UnsupportedError( "Sign clause" )
+</pre>
+<p>Used by: DDE RecordFactory parses a record clause to create a DDE instance (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id17">17</a>); cobol_dde.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id1">1</a>)</p>
+<p class="rubric" id="id25">DDE Synchronized Clause Parsing (25)</p>
+<pre class="literal-block">def synchronized( self ):
+    """Raise an exception on a SYNCHRONIZED clause."""
+    self.token= self.lex.next()
+    if self.token == "LEFT":
+        self.token= self.lex.next()
+    if self.token == "RIGHT":
+        self.token= self.lex.next()
+    raise UnsupportedError( "Synchronized clause" )
+</pre>
+<p>Used by: DDE RecordFactory parses a record clause to create a DDE instance (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id17">17</a>); cobol_dde.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id1">1</a>)</p>
+<p>There are two variations on the USAGE clause syntax.</p>
+<p class="rubric" id="id26">DDE Usage Clause Parsing (26)</p>
+<pre class="literal-block">def usage( self ):
+    """Parse a USAGE clause."""
+    self.token= self.lex.next()
+    if self.token == "IS":
+        self.token= self.lex.next()
+    use= self.token
+    self.token= self.lex.next()
+    return self.usage2( use )
+def usage2( self, use ):
+    """Create a correct Usage instance based on the USAGE clause."""
+    if use == "DISPLAY": return UsageDisplay()
+    elif use == "COMPUTATIONAL": return UsageComp()
+    elif use == "COMP": return UsageComp()
+    elif use == "COMPUTATIONAL-3": return UsageComp3()
+    elif use == "COMP-3": return UsageComp3()
+    else: raise SyntaxError( "Unknown usage clause %r" % use )
+</pre>
+<p>Used by: DDE RecordFactory parses a record clause to create a DDE instance (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id17">17</a>); cobol_dde.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id1">1</a>)</p>
+<p class="rubric" id="id27">DDE Value Clause Parsing (27)</p>
+<pre class="literal-block">def value( self ):
+    """Parse a VALUE clause."""
+    if self.token == "IS":
+        self.token= self.lex.next()
+    lit= self.lex.next()
+    self.token= self.lex.next()
+    return lit
+</pre>
+<p>Used by: DDE RecordFactory parses a record clause to create a DDE instance (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id17">17</a>); cobol_dde.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id1">1</a>)</p>
+<p class="rubric" id="id28">DDE Element Parsing (28)</p>
+<pre class="literal-block">def makeDDE( self ):
+    """Create a single DDE from an entry of clauses."""
+    # Pick off the level
+    level= self.token
+    # Pick off a name, if present
+    name_= self.lex.next()
+    if name_ in self.keywords:
+        self.lex.unget( name_ )
+        name_= "FILLER"
+    # Accumulate the relevant clauses, dropping noise words and irrelevant clauses.
+    usage= UsageDisplay()
+    pic, typeInfo= None, None
+    occurs= None
+    redefines= NonRedefines()
+    self.token= self.lex.next()
+    while self.token and self.token != '.':
+        if self.token == "BLANK":
+            self.blankWhenZero()
+        elif self.token in ("EXTERNAL","GLOBAL"):
+            self.token= self.lex.next()
+        elif self.token in ("JUST","JUSTIFIED"):
+            self.justified()
+        elif self.token == "OCCURS":
+            occurs= self.occurs()
+        elif self.token in ("PIC","PICTURE"):
+            self.typeInfo= self.picture()
+            pic= self.typeInfo['final']
+        elif self.token == "REDEFINES":
+            redefines= self.redefines()
+        elif self.token == "RENAMES":
+            self.renames()
+        elif self.token == "SIGN":
+            self.sign1()
+        elif self.token in ("LEADING","TRAILING"):
+            self.sign2()
+        elif self.token == "SYNCHRONIZED":
+            self.synchronized()
+        elif self.token == "USAGE":
+            usage= self.usage()
+        elif self.token == "VALUE":
+            self.value()
+        else:
+            try:
+                # Keyword USAGE is optional
+                usage= self.usage2( self.token )
+                self.token= self.lex.next()
+            except SyntaxError, e:
+                raise SyntaxError( "%s unrecognized" % self.token )
+    # Create the DDE and return it
+    # TODO: Add a subclass for elementary items different from group-level items
+    if pic:
+        usage.setTypeInfo(**self.typeInfo)
+        return DDE( level, name_, pic=pic, usage=usage, occurs=occurs, redefines=redefines )
+    else:
+        return DDE( level, name_, occurs=occurs, redefines=redefines )
+</pre>
+<p>Used by: DDE RecordFactory parses a record clause to create a DDE instance (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id17">17</a>); cobol_dde.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id1">1</a>)</p>
+<p class="rubric" id="id29">DDE Record Parsing (29)</p>
+<pre class="literal-block">def makeRecord( self, lex ):
+    """Parse an entire copybook block of text."""
+    self.lex= lex
+    self.token= self.lex.next()
+    # Parse the first DDE and establish the context stack.
+    self.context= [ self.makeDDE() ]
+    self.token= self.lex.next()
+    while self.token:
+        # Parse the next DDE
+        dde= self.makeDDE()
+        #print dde, ":", self.context[-1]
+        # If a lower level # or same level #, pop context
+        while dde.level &lt;= self.context[-1].level:
+            self.context.pop()
+        # Make this DDE part of the parent DDE at the top of the context stack
+        self.context[-1].append( dde )
+        # Push this DDE onto the context stack
+        self.context.append( dde )
+        # Get the first token of the next DDE or find the end of the file
+        self.token= self.lex.next()
+    # Decorate the parse tree with parentage and basic size/offset information
+    rec= self.context[0]
+    rec.setTop( rec )
+    rec.setSizeAndOffset(0)
+    return rec
+</pre>
+<p>Used by: DDE RecordFactory parses a record clause to create a DDE instance (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id17">17</a>); cobol_dde.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id1">1</a>)</p>
+</div>
+</div>
+<div class="section" id="cobol-dde-unit-test">
+<h2><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id98">cobol_dde Unit Test</a></h2>
+<p>The unit tests are not exhaustive.  They test a number of key
+features, however.</p>
+<p class="rubric" id="id30">test_dde.py (30)</p>
+<pre class="literal-block">#!/usr/bin/env python
+import unittest
+from cobol_dde import *
+
+class DDE_Test( unittest.TestCase ):
+    def setUp( self ):
+        # Create a Report() visitor to write a report on a structure
+        self.rpt= Report()
+
+        # Create a RecordFactory() to create DDE record definitions
+        self.rf= RecordFactory()
+
+→ DDE Test copybook 1 with basic features (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id31">31</a>)
+→ DDE Test copybook 2 with 88-level item (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id32">32</a>)
+→ DDE Test copybook 3 with nested occurs level (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id33">33</a>)
+→ DDE Test copybook from page 174 with nested occurs level (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id34">34</a>)
+→ DDE Test copybook from page 195 with simple redefines (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id35">35</a>)
+→ DDE Test copybook from page 197 with another redefines (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id36">36</a>)
+→ DDE Test copybook from page 198, example a (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id37">37</a>)
+→ DDE Test copybook from page 198, example b (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id38">38</a>)
+
+if __name__ == "__main__":
+    unittest.main()
+</pre>
+<p class="rubric" id="id31">DDE Test copybook 1 with basic features (31)</p>
+<pre class="literal-block">copy1= """
+      * COPY1.COB
+       01  DETAIL-LINE.
+           05                              PIC X(7).
+           05  QUESTION                    PIC ZZ.
+           05                              PIC X(6).
+           05  PRINT-YES                   PIC ZZ.
+           05                              PIC X(3).
+           05  PRINT-NO                    PIC ZZ.
+           05                              PIC X(6).
+           05  NOT-SURE                    PIC ZZ.
+           05                              PIC X(7).
+"""
+class Test_Copybook_1( DDE_Test ):
+    def setUp( self ):
+        super( Test_Copybook_1, self ).setUp()
+    def test_should_parse( self ):
+        dde1 = self.rf.makeRecord( Lexer(copy1) )
+        #dde1.visit( self.rpt )
+        self.assertEquals( 7, dde1.get( "QUESTION" ).offset )
+        self.assertEquals( 2, dde1.get( "QUESTION" ).size )
+        self.assertEquals( "ZZ", dde1.get( "QUESTION" ).picture )
+        self.assertEquals( "DISPLAY", dde1.get( "QUESTION" ).usage.myName )
+        self.assertEquals( 15, dde1.get( "PRINT-YES" ).offset )
+        self.assertEquals( 2, dde1.get( "PRINT-YES" ).size )
+        self.assertEquals( "ZZ", dde1.get( "PRINT-YES" ).picture )
+        self.assertEquals( 20, dde1.get( "PRINT-NO" ).offset )
+        self.assertEquals( 2, dde1.get( "PRINT-NO" ).size )
+        self.assertEquals( "ZZ", dde1.get( "PRINT-NO" ).picture )
+        self.assertEquals( 28, dde1.get( "NOT-SURE" ).offset )
+        self.assertEquals( 2, dde1.get( "NOT-SURE" ).size )
+        self.assertEquals( "ZZ", dde1.get( "NOT-SURE" ).picture )
+        data= "ABCDEFG01HIJKLM02OPQ03RSTUVW04YZabcde"
+        #d= Dump( data )
+        #dde1.visitOccurance( d )
+        self.assertEquals( "01", dde1.get('QUESTION').of(data) )
+        self.assertEquals( "02", dde1.get('PRINT-YES').of(data) )
+        self.assertEquals( "03", dde1.get('PRINT-NO').of(data) )
+        self.assertEquals( "04", dde1.get('NOT-SURE').of(data) )
+</pre>
+<p>Used by: test_dde.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id30">30</a>)</p>
+<p>Future Expansion: we need to use the default value provided
+with an 88-level item to create a boolean function.</p>
+<p class="rubric" id="id32">DDE Test copybook 2 with 88-level item (32)</p>
+<pre class="literal-block">copy2= """
+      * COPY2.COB
+       01  WORK-AREAS.
+           05  ARE-THERE-MORE-RECORDS      PIC X(3)    VALUE 'YES'.
+               88  NO-MORE-RECORDS                     VALUE 'NO '.
+           05  ANSWER-SUB                  PIC 99.
+           05  QUESTION-SUB                PIC 99.
+"""
+class Test_Copybook_2( DDE_Test ):
+    def setUp( self ):
+        super( Test_Copybook_2, self ).setUp()
+    def test_should_parse( self ):
+        dde2= self.rf.makeRecord( Lexer(copy2) )
+        #dde2.visit( self.rpt )
+        self.assertEquals( 0, dde2.get("ARE-THERE-MORE-RECORDS").offset )
+        self.assertEquals( 3, dde2.get("ARE-THERE-MORE-RECORDS").size )
+        self.assertEquals( "XXX", dde2.get("ARE-THERE-MORE-RECORDS").picture )
+        self.assertEquals( 0, dde2.get("NO-MORE-RECORDS").offset )
+        self.assertEquals( 3, dde2.get("NO-MORE-RECORDS").size )
+        self.assertEquals( 3, dde2.get("ANSWER-SUB").offset )
+        self.assertEquals( 5, dde2.get("QUESTION-SUB").offset )
+        data= "NO 4567"
+        d= Dump( data )
+        #print dde2.visitOccurance( d )
+        self.assertEquals( "NO ", dde2.get("ARE-THERE-MORE-RECORDS").of(data) )
+        self.assertEquals( "NO ", dde2.get("NO-MORE-RECORDS").valOf(data) )
+</pre>
+<p>Used by: test_dde.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id30">30</a>)</p>
+<p class="rubric" id="id33">DDE Test copybook 3 with nested occurs level (33)</p>
+<pre class="literal-block">copy3= """
+      * COPY3.COB
+       01  SURVEY-RESPONSES.
+           05  QUESTION-NUMBER         OCCURS 10 TIMES.
+               10  RESPONSE-CATEGORY     OCCURS 3 TIMES.
+                   15  ANSWER                          PIC 99.
+"""
+class Test_Copybook_3( DDE_Test ):
+    def setUp( self ):
+        super( Test_Copybook_3, self ).setUp()
+    def test_should_parse( self ):
+        dde3= self.rf.makeRecord( Lexer(copy3) )
+        #dde3.visit( self.rpt )
+        data = "111213212223313233414243515253616263717273818283919293010203"
+        d= Dump(data)
+        #dde3.visitOccurance( d )
+        self.assertEquals( 12, dde3.get('ANSWER').setIndex(1,2).valOf(data) )
+        self.assertEquals( 21, dde3.get('ANSWER').setIndex(2,1).valOf(data) )
+        try:
+            self.assertEquals( 21, dde3.get('ANSWER').setIndex(1,4).valOf(data) )
+            self.fail()
+        except UsageError, e:
+            pass
+</pre>
+<p>Used by: test_dde.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id30">30</a>)</p>
+<p>From IBM COBOL Language Reference Manual, fourth edition: SC26-9046-03.</p>
+<p class="rubric" id="id34">DDE Test copybook from page 174 with nested occurs level (34)</p>
+<pre class="literal-block">page174= """
+       01 TABLE-RECORD.
+          05 EMPLOYEE-TABLE OCCURS 10 TIMES
+                ASCENDING KEY IS WAGE-RATE EMPLOYEE-NO
+                INDEXED BY A, B.
+             10 EMPLOYEE-NAME PIC X(20).
+             10 EMPLOYEE-NO PIC 9(6).
+             10 WAGE-RATE PIC 9999V99.
+             10 WEEK-RECORD OCCURS 52 TIMES
+                   ASCENDING KEY IS WEEK-NO INDEXED BY C.
+                15 WEEK-NO PIC 99.
+                15 AUTHORIZED-ABSENCES PIC 9.
+                15 UNAUTHORIZED-ABSENCES PIC 9.
+                15 LATE-ARRIVALS PIC 9.
+"""
+class Test_Copybook_4( DDE_Test ):
+    def setUp( self ):
+        super( Test_Copybook_4, self ).setUp()
+    def test_should_parse( self ):
+        dde4= self.rf.makeRecord( Lexer(page174) )
+        #dde4.visit( self.rpt )
+        self.assertEquals( 2920, dde4.size )
+        self.assertEquals( 0, dde4.offset )
+        self.assertEquals( 10, dde4.get("EMPLOYEE-TABLE" ).occurs )
+        self.assertEquals( 52, dde4.get("WEEK-RECORD" ).occurs )
+        self.assertEquals( 5, dde4.get("WEEK-RECORD" ).occurSize )
+        self.assertEquals( "999999", dde4.get("EMPLOYEE-NO").picture )
+        self.assertEquals( 36,
+            dde4.get("LATE-ARRIVALS" ).setIndex(1,1).indexedOffset )
+        self.assertEquals( 41,
+            dde4.get("EMPLOYEE-TABLE").setIndex(1).get("LATE-ARRIVALS" ).setIndex(2).indexedOffset )
+</pre>
+<p>Used by: test_dde.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id30">30</a>)</p>
+<p class="rubric" id="id35">DDE Test copybook from page 195 with simple redefines (35)</p>
+<pre class="literal-block">page195= """
+       01  REDEFINES-RECORD.
+           05  A PICTURE X(6).
+           05  B REDEFINES A.
+               10  B-1 PICTURE X(2).
+               10  B-2 PICTURE 9(4).
+           05  C PICTURE 99V99.
+"""
+class Test_Copybook_5( DDE_Test ):
+    def setUp( self ):
+        super( Test_Copybook_5, self ).setUp()
+    def test_should_parse( self ):
+        dde5= self.rf.makeRecord( Lexer(page195) )
+        #dde5.visit( self.rpt )
+        self.assertEquals( 10, dde5.size )
+        self.assertEquals( 6, dde5.get("A").size )
+        self.assertEquals( 0, dde5.get("A").offset )
+        self.assertEquals( 6, dde5.get("B").size )
+        self.assertEquals( 0, dde5.get("B").offset )
+        self.assertEquals( 2, dde5.get("B-1").size )
+        self.assertEquals( 0, dde5.get("B-1").offset )
+        self.assertEquals( 4, dde5.get("B-2").size )
+        self.assertEquals( 2, dde5.get("B-2").offset )
+        self.assertEquals( "9999", dde5.get("B-2").picture )
+        self.assertEquals( 4, dde5.get("C").size )
+        self.assertEquals( 6, dde5.get("C").offset )
+        data = "AB12345678"
+        d= Dump(data)
+        #dde5.visitOccurance( d )
+        self.assertEquals( "AB1234", dde5.get("A").of(data) )
+        self.assertEquals( "AB1234", dde5.get("B").of(data) )
+        self.assertEquals( "AB", dde5.get("B-1").of(data) )
+        self.assertEquals( "1234", dde5.get("B-2").of(data) )
+        self.assertEquals( "5678", dde5.get("C").of(data) )
+</pre>
+<p>Used by: test_dde.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id30">30</a>)</p>
+<p class="rubric" id="id36">DDE Test copybook from page 197 with another redefines (36)</p>
+<pre class="literal-block">page197= """
+       01  REDEFINES-RECORD.
+           05 NAME-2.
+              10 SALARY PICTURE XXX.
+              10 SO-SEC-NO PICTURE X(9).
+              10 MONTH PICTURE XX.
+           05 NAME-1 REDEFINES NAME-2.
+              10 WAGE PICTURE 999V999.
+              10 EMP-NO PICTURE X(6).
+              10 YEAR PICTURE XX.
+"""
+class Test_Copybook_6( DDE_Test ):
+    def setUp( self ):
+        super( Test_Copybook_6, self ).setUp()
+    def test_should_parse( self ):
+        dde6= self.rf.makeRecord( Lexer(page197) )
+        #dde6.visit( self.rpt )
+        self.assertEquals( 3, dde6.get("SALARY").size )
+        self.assertEquals( 0, dde6.get("SALARY").offset )
+        self.assertEquals( 9, dde6.get("SO-SEC-NO").size )
+        self.assertEquals( 3, dde6.get("SO-SEC-NO").offset )
+        self.assertEquals( 2, dde6.get("MONTH").size )
+        self.assertEquals( 12, dde6.get("MONTH").offset )
+        self.assertEquals( 6, dde6.get("WAGE").size )
+        self.assertEquals( 0, dde6.get("WAGE").offset )
+        self.assertEquals( "999999", dde6.get("WAGE").picture )
+        self.assertEquals( 3, dde6.get("WAGE").usage.precision )
+        self.assertEquals( 6, dde6.get("EMP-NO").size )
+        self.assertEquals( 6, dde6.get("EMP-NO").offset )
+        self.assertEquals( 2, dde6.get("YEAR").size )
+        self.assertEquals( 12, dde6.get("YEAR").offset )
+
+        data1= "ABC123456789DE"
+        d1= Dump(data1)
+        #dde6.visitOccurance( d1 )
+        self.assertEquals( "ABC", dde6.get("SALARY").of( data1 ) )
+        self.assertEquals( "123456789", dde6.get("SO-SEC-NO").of( data1 ) )
+        self.assertEquals( "DE", dde6.get("MONTH").of( data1 ) )
+
+        data2= "123456ABCDEF78"
+        d2= Dump(data2)
+        #dde6.visitOccurance( d2 )
+        self.assertAlmostEquals( 123.456, float(dde6.get("WAGE").valOf( data2 )) )
+        self.assertEquals( "ABCDEF", dde6.get("EMP-NO").of( data2 ) )
+        self.assertEquals( "78", dde6.get("YEAR").of( data2 ) )
+</pre>
+<p>Used by: test_dde.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id30">30</a>)</p>
+<p class="rubric" id="id37">DDE Test copybook from page 198, example a (37)</p>
+<pre class="literal-block">page198A= """
+       01  REDEFINES-RECORD.
+           05 REGULAR-EMPLOYEE.
+              10 LOCATION PICTURE A(8).
+              10 GRADE PICTURE X(4).
+              10 SEMI-MONTHLY-PAY PICTURE 9999V99.
+              10 WEEKLY-PAY REDEFINES SEMI-MONTHLY-PAY
+                  PICTURE 999V999.
+           05 TEMPORARY-EMPLOYEE REDEFINES REGULAR-EMPLOYEE.
+              10 LOCATION PICTURE A(8).
+              10 FILLER PICTURE X(6).
+              10 HOURLY-PAY PICTURE 99V99.
+"""
+class Test_Copybook_7( DDE_Test ):
+    def setUp( self ):
+        super( Test_Copybook_7, self ).setUp()
+    def test_should_parse( self ):
+        dde7= self.rf.makeRecord( Lexer(page198A) )
+        #dde7.visit( self.rpt )
+        self.assertEquals( 18, dde7.get("REGULAR-EMPLOYEE").size )
+        self.assertEquals( 18, dde7.get("TEMPORARY-EMPLOYEE").size )
+        self.assertEquals( 6, dde7.get("SEMI-MONTHLY-PAY").size )
+        self.assertEquals( 6, dde7.get("WEEKLY-PAY").size )
+
+        data1= "ABCDEFGHijkl123456"
+        d1= Dump(data1)
+        #dde7.visitOccurance( d1 )
+        self.assertEquals( '1234.56', str(dde7.get("SEMI-MONTHLY-PAY").valOf( data1 )) )
+        data2= "ABCDEFGHijklmn1234"
+        d2= Dump(data2)
+        #dde7.visitOccurance( d2 )
+        self.assertEquals( '12.34', str(dde7.get("HOURLY-PAY").valOf( data2 ) ) )
+</pre>
+<p>Used by: test_dde.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id30">30</a>)</p>
+<p class="rubric" id="id38">DDE Test copybook from page 198, example b (38)</p>
+<pre class="literal-block">page198B= """
+       01  REDEFINES-RECORD.
+           05 REGULAR-EMPLOYEE.
+               10 LOCATION PICTURE A(8).
+               10 GRADE PICTURE X(4).
+               10 SEMI-MONTHLY-PAY PICTURE 999V999.
+           05 TEMPORARY-EMPLOYEE REDEFINES REGULAR-EMPLOYEE.
+               10 LOCATION PICTURE A(8).
+               10 FILLER PICTURE X(6).
+               10 HOURLY-PAY PICTURE 99V99.
+               10 CODE-H REDEFINES HOURLY-PAY PICTURE 9999.
+"""
+class Test_Copybook_8( DDE_Test ):
+    def setUp( self ):
+        super( Test_Copybook_8, self ).setUp()
+    def test_should_parse( self ):
+        dde8= self.rf.makeRecord( Lexer(page198B) )
+        #dde8.visit( self.rpt )
+        self.assertEquals( 18, dde8.get("REGULAR-EMPLOYEE").size )
+        self.assertEquals( 18, dde8.get("TEMPORARY-EMPLOYEE").size )
+        self.assertEquals( 6, dde8.get("SEMI-MONTHLY-PAY").size )
+        self.assertEquals( 4, dde8.get("HOURLY-PAY").size )
+        self.assertEquals( 4, dde8.get("CODE-H").size )
+
+        rec1= "ABCDEFGHijkl123456"
+        d1= Dump(rec1)
+        #dde8.visitOccurance( d1 )
+        self.assertAlmostEquals( 123.456,
+            float( dde8.get('REGULAR-EMPLOYEE')
+                .get('SEMI-MONTHLY-PAY').valOf(rec1) ) )
+
+        rec2= "ABCDEFGHijklmn1234"
+        d2= Dump(rec2)
+        #dde8.visitOccurance( d2 )
+        self.assertEquals( 12.34,
+            float( dde8.get('TEMPORARY-EMPLOYEE')
+                .get('HOURLY-PAY').valOf(rec2) ) )
+        self.assertEquals( 1234,
+            dde8.get('TEMPORARY-EMPLOYEE').get('CODE-H').valOf(rec2) )
+        self.assertEquals( "REDEFINES-RECORD.TEMPORARY-EMPLOYEE.HOURLY-PAY",
+            dde8.get('HOURLY-PAY').pathTo() )
+</pre>
+<p>Used by: test_dde.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id30">30</a>)</p>
+</div>
+</div>
+<div class="section" id="data-profile-application">
+<h1><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id99">data_profile Application</a></h1>
+<p>This is an application to handle simple data profiling.  It will
+discover the range of values in particular fields.</p>
+<p>It can be modified to profile and document relationships among
+data elements, also.</p>
+<div class="section" id="design">
+<h2><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id100">Design</a></h2>
+<p>TBD.</p>
+</div>
+<div class="section" id="id39">
+<h2><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id101">Implementation</a></h2>
+<p>The data_profile application has the following structure.</p>
+<p class="rubric" id="id40">data_profile.py (39)</p>
+<pre class="literal-block">→ DProfile Shell Escape (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id43">42</a>)
+→ DProfile DOC String (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id41">40</a>)
+→ DProfile CVS Cruft and pyweb generator warning (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id44">43</a>)
+→ DProfile Imports (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id42">41</a>)
+→ DProfile Utility Functions (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id45">44</a>)
+→ DProfile Class Definitions (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id47">45</a>)
+</pre>
+<div class="section" id="doc-string">
+<h3><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id102">DOC string</a></h3>
+<p class="rubric" id="id41">DProfile DOC String (40)</p>
+<pre class="literal-block">"""data_profiledata_profiledata_profiledata_profile - use a cobol_dde to analyze a file.
+
+Given a DDE instance, and a file, either dump fields of records
+or accumulate distinct values of fields of a record.
+
+HexDump
+    Display a record similarly to the
+    way the TSO users see files using the File-Aid screens in TSO.
+
+FieldValue
+NumFieldValue
+    Support gathering the actual domain for a field in a data file.
+
+FieldDump
+FieldScan
+    Examine all FieldValue instances for a particular record layout.
+    Either dump each FieldValue or scan to gather domain values.
+
+FileScan
+    A standardized class for scanning a file to accumulate frequency
+    tables for selected fields using FieldDump or FieldScan instance.
+
+
+This module includes the following utility functions:
+
+E2A
+    Convert EBCDIC characters to ASCII characters.
+"""
+</pre>
+<p>Used by: data_profile.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id40">39</a>)</p>
+</div>
+<div class="section" id="imports">
+<h3><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id103">Imports</a></h3>
+<p>The data_profile module depends on the cobol_dde module.</p>
+<p class="rubric" id="id42">DProfile Imports (41)</p>
+<pre class="literal-block">from cobol_dde import *
+</pre>
+<p>Used by: data_profile.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id40">39</a>)</p>
+</div>
+<div class="section" id="other-overheads">
+<h3><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id104">Other Overheads</a></h3>
+<p class="rubric" id="id43">DProfile Shell Escape (42)</p>
+<pre class="literal-block">#!/usr/bin/env python
+# -*- coding: UTF-8 -*-
+</pre>
+<p>Used by: data_profile.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id40">39</a>)</p>
+<p class="rubric" id="id44">DProfile CVS Cruft and pyweb generator warning (43)</p>
+<pre class="literal-block">__version__ = """$Revision$"""
+
+### DO NOT EDIT THIS FILE!
+### It was created by /Users/slott/Documents/Projects/pyWeb-2.1/pyweb/pyweb.py, __version__='$Revision$'.
+### From source DDE.w modified Sun Mar 14 10:46:18 2010.
+### In working directory '/Users/slott/Documents/Projects/COBOL_DDE-1.2'.
+</pre>
+<p>Used by: data_profile.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id40">39</a>)</p>
+</div>
+<div class="section" id="utility-functions">
+<h3><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id105">Utility Functions</a></h3>
+<p class="rubric" id="id45">DProfile Utility Functions (44)</p>
+<pre class="literal-block">import codecs
+
+# Static sequence of ASCII character codes that should be used for each
+# EBCDIC character.
+# See <a class="reference external" href="http://www.natural-innovations.com/boo/asciiebcdic.html">http://www.natural-innovations.com/boo/asciiebcdic.html</a>
+# for the source of this mapping.  Note that unassigned EBCDIC characters
+# assigned ASCII 0xA4 (164, §)
+# Unicode Technical Report 16 has a reversible mapping, but it doesn't
+# seem to handle some EBCDIC characters correctly, notably ¢ and ¬.
+EBCDIC2ASCII= map( chr, [
+    0x00,0x01,0x02,0x03,0xA3,0x09,0x97,0x7F,0xA4,0xA4,0x01,0x0B,0x0C,0x0D,0x0E,0x0F,
+    0x10,0x11,0x12,0x16,0xAE,0x15,0x08,0x2D,0x18,0x19,0xA9,0xA9,0x2D,0x2D,0x2D,0x2D,
+    0xD0,0x01,0x21,0xA4,0xA6,0x0A,0x17,0x1B,0xA4,0xA4,0x3B,0xA9,0xA4,0x05,0x06,0x07,
+    0xA4,0xA4,0x16,0xA4,0xA3,0xBA,0x1F,0x04,0xA4,0xA4,0xA4,0xA9,0x14,0x15,0xA4,0x1A,
+    0x20,0xA4,0xA4,0xA4,0xA4,0xA4,0xA4,0xA4,0xA4,0xA4,0xA2,0x2E,0x3C,0x28,0x2B,0x2E,
+    0x26,0xA4,0xA4,0xA4,0xA4,0xA4,0xA4,0xA4,0xA4,0xA4,0x21,0x24,0x2A,0x29,0x3B,0xAC,
+    0x2D,0x2F,0xA4,0xA4,0xA4,0xA4,0xA4,0xA4,0xA4,0xA4,0xA4,0x2C,0x25,0x5F,0x9B,0x3F,
+    0xA4,0xA4,0xA4,0xA4,0xA4,0xA4,0xA4,0xA4,0xA4,0xA4,0x3A,0x23,0x40,0x27,0x3D,0x22,
+    0xA4,0x61,0x62,0x63,0x64,0x65,0x66,0x67,0x68,0x69,0xA4,0xA4,0xA4,0xA4,0xA4,0xA4,
+    0xA4,0x6A,0x6B,0x6C,0x6D,0x6E,0x6F,0x70,0x71,0x72,0xA4,0xA4,0xA4,0xA4,0xA4,0xA4,
+    0xA4,0xA4,0x73,0x74,0x75,0x76,0x77,0x78,0x79,0x7A,0xA4,0xA4,0xA4,0xA4,0xA4,0xA4,
+    0xA4,0xA4,0xA4,0xA4,0xA4,0xA4,0xA4,0xA4,0xA4,0x60,0xA4,0xA4,0xA4,0xA4,0xA4,0xA4,
+    0xA4,0x41,0x42,0x43,0x44,0x45,0x46,0x47,0x48,0x49,0xA4,0xA4,0xA4,0xA4,0xA4,0xA4,
+    0xA4,0x4A,0x4B,0x4C,0x4D,0x4E,0x4F,0x50,0x51,0x52,0xA4,0xA4,0xA4,0xA4,0xA4,0xA4,
+    0xA4,0xA4,0x53,0x54,0x55,0x56,0x57,0x58,0x59,0x5A,0xA4,0xA4,0xA4,0xA4,0xA4,0xA4,
+    0x30,0x31,0x32,0x33,0x34,0x35,0x36,0x37,0x38,0x39,0xA4,0xA4,0xA4,0xA4,0xA4,0xA4
+    ] )
+
+def E2A_str( string ):
+    """Return the ASCII version of this EBCDIC string."""
+    #     r= StringIO.StringIO()
+    #     for c in string:
+    #         r.write( EBCDIC2ASCII[ ord(c) ] )
+    #     s= r.getvalue()
+    #     r.close()
+    chars= [ EBCDIC2ASCII[ ord(c) ] for c in string ]
+    return "".join( chars )
+
+def E2A( string ):
+    """Return UNICODE version of this EBCDIC string."""
+    chars, used= codecs.getdecoder('cp037')(string)
+    assert used == len(string)
+    return chars
+</pre>
+<p>Used by: data_profile.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id40">39</a>)</p>
+</div>
+<div class="section" id="id46">
+<h3><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id106">Base Class Definitions</a></h3>
+<p class="rubric" id="id47">DProfile Class Definitions (45)</p>
+<pre class="literal-block">→ DProfile Hex Dump Class to do raw dump of a record (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id48">46</a>)
+→ DProfile Field Value Class Hierarchy to accumulate distinct values (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id49">47</a>)
+→ DProfile Field and Record Scanning does either dumps or disctinct value processing (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id50">48</a>)
+</pre>
+<p>Used by: data_profile.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id40">39</a>)</p>
+</div>
+<div class="section" id="hexdump-class">
+<h3><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id107">HexDump Class</a></h3>
+<p class="rubric" id="id48">DProfile Hex Dump Class to do raw dump of a record (46)</p>
+<pre class="literal-block"># A handy hex dump printer class
+
+class HexDump:
+    """Create a Hex Dump object that can dump records from a file."""
+    def __init__( self, aFile=None, rowSize=64 ):
+        self.theFile= None
+        if aFile:
+            self.theFile= file(aFile,"rb")
+        self.rows= 0
+        self.hex= '0123456789ABCDEF'
+        self.rowSize= rowSize
+        self.positions= "".join([ ("----+----%d"%(i+1))[:10] for i in range(self.rowSize/10) ]) + "----+-----"[:self.rowSize%10]
+    def hexPrint( self, row, data ):
+        """Print a row of data in two-line hex format."""
+        cha= []
+        top= []
+        bot= []
+        for c in data:
+            if c in ('n','r','f','t','x00'): cha.append('.')
+            else: cha.append( c )
+            top.append( self.hex[ ord(c)/16 ] )
+            bot.append( self.hex[ ord(c)%16 ] )
+        print '%3d|' % (row*self.rowSize+1), "".join( cha )
+        print "   |", "".join(top)
+        print "   |", "".join(bot)
+    def dump( self, bytes=64 ):
+        """Dump a record of a given length."""
+        self.rows += 1
+        data= self.theFile.read(bytes)
+        if not data: return None
+        print "record %d (%d bytes)" % (self.rows, len(data))
+        print "   |",self.positions
+        rows= len(data)/self.rowSize
+        for i in range(rows):
+            self.hexPrint( i, data[i*self.rowSize:(i+1)*self.rowSize] )
+        self.hexPrint( rows, data[rows*self.rowSize:] )
+        print
+        return self
+    def dumpAll( self, bytes=64 ):
+        """Dump all records in the file."""
+        while self.dump(bytes):
+            pass
+</pre>
+<p>Used by: DProfile Class Definitions (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id47">45</a>); data_profile.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id40">39</a>)</p>
+</div>
+<div class="section" id="fieldvalue-class-hierarchy">
+<h3><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id108">FieldValue Class Hierarchy</a></h3>
+<p class="rubric" id="id49">DProfile Field Value Class Hierarchy to accumulate distinct values (47)</p>
+<pre class="literal-block"># Two handy classes for examining individual fields
+
+class FieldValue:
+    """Accumulate unique values for a named field of a DDE.
+
+    This will have to be subclassed for indexes of occurs clauses.
+    """
+    def __init__( self, dde, cobolName ):
+        """Given a DDE and a COBOL name, set up a field extractor and frequency mapping."""
+        self.cobolName= cobolName
+        self.usage = dde.get(cobolName).usage
+        self.get_field= dde.get(cobolName)
+        self.domain= {}
+    def getFrom( self, data ):
+        """Get the value from the field, then accumulate in the frequency mapping."""
+        v= self.get_field.of( data )
+        self.domain[v]= self.domain.setdefault(v,0) + 1
+    def fqTable( self ):
+        """Return a sequence of tuples with value and frequency count, sorted."""
+        val_count= self.domain.items()
+        # Sort descending by second field (count), ascending by first field (value)
+        val_count.sort( lambda a,b: cmp(b[1],a[1]) or cmp(a[0],b[0]) )
+        return val_count
+
+class NumFieldValue( FieldValue ):
+    """Accumulate unique values for a named field of a DDE that is numeric.
+
+    This will have to be subclassed for indexes of occurs clauses.
+    """
+    def fqTable( self ):
+        """Return a sequence of tuples with value and frequency count, sorted."""
+        val_count= [ (self.usage.valueOf(v),c) for v,c in self.domain.items() ]
+        # Sort descending by second field (count), ascending by first field (value)
+        val_count.sort( lambda a,b: cmp(b[1],a[1]) or cmp(a[0],b[0]) )
+        return val_count
+</pre>
+<p>Used by: DProfile Class Definitions (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id47">45</a>); data_profile.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id40">39</a>)</p>
+</div>
+<div class="section" id="field-and-record-scanning">
+<h3><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id109">Field and Record Scanning</a></h3>
+<p>FieldScan accumulates distinct values in a list of fields.
+FieldDump dumps each individual field.
+A FileScan uses either a FieldScan or a FieldDump to accumulate or dump fields.</p>
+<p class="rubric" id="id50">DProfile Field and Record Scanning does either dumps or disctinct value processing (48)</p>
+<pre class="literal-block"># Handy classes for examining all fields of all records of a file.
+
+class FieldScan:
+    def __init__( self, aFieldList ):
+        self.fieldList= aFieldList
+    def process( self, recno, data ):
+        for f in self.fieldList:
+            f.getFrom( data )
+    def final( self, records ):
+        print "n%d Records" % ( records )
+        for f in self.fieldList:
+            print "n%-10s %7s" % ( f.cobolName, "count" )
+            for di,c in f.fqTable():
+                print "%-10s %7d" % ( di,c )
+
+class FieldDump( FieldScan ):
+    def process( self, recno, data ):
+        print "nRecord %d" % (recno)
+        for f in self.fieldList:
+            v= f.get_field.of( data )
+            print " ", f.cobolName, f.usage.valueOf( v )
+    def final( self, records ):
+        pass
+
+class FileScan:
+    """Basic file scanning operation."""
+    def __init__( self, aDDE, aFieldProcess, aFileName ):
+        self.dde= aDDE
+        self.fieldProcess= aFieldProcess
+        self.theFile= file( aFileName, "rb" )
+        self.record= 0
+    def reclen( self ):
+        return self.dde.size
+    def process( self, end=-1 ):
+        data= self.theFile.read( self.reclen() )
+        while data:
+            self.record += 1
+            self.fieldProcess.process( self.record, data )
+            if self.record == end: break
+            data= self.theFile.read( self.reclen() )
+        self.theFile.close()
+        self.fieldProcess.final(self.record)
+</pre>
+<p>Used by: DProfile Class Definitions (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id47">45</a>); data_profile.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id40">39</a>)</p>
+</div>
+</div>
+<div class="section" id="data-profiling-unit-test">
+<h2><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id110">Data Profiling Unit Test</a></h2>
+<p class="rubric" id="id51">test_data_profile.py (49)</p>
+<pre class="literal-block">#!/usr/bin/env python
+# -*- coding: UTF-8 -*-
+
+import unittest
+from cobol_dde import *
+from data_profile import *
+import collections
+
+→ DProfile Test 1 (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id52">50</a>)
+→ DProfile Test 2 (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id53">51</a>)
+
+if __name__ == "__main__":
+    unittest.main()
+</pre>
+<p class="rubric" id="id52">DProfile Test 1 (50)</p>
+<pre class="literal-block">copy1= """
+      * COPY1.COB
+       01  DETAIL-LINE.
+           05                              PIC X(7).
+           05  QUESTION                    PIC ZZ.
+           05                              PIC X(6).
+           05  PRINT-YES                   PIC ZZ.
+           05                              PIC X(3).
+           05  PRINT-NO                    PIC ZZ.
+           05                              PIC X(6).
+           05  NOT-SURE                    PIC ZZ.
+           05                              PIC X(7).
+"""
+dataset1= (
+"ABCDEFG11HIJKLM12NOP13QRSTUV14WXYZabcn",
+"ABCDEFG22HIJKLM22NOP23QRSTUV24WXYZabcn",
+"ABCDEFG11HIJKLM12NOP33QRSTUV34WXYZabcn",
+"ABCDEFG44HIJKLMX2NOP13QRSTUV44WXYZabcn",
+"ABCDEFG11HIJKLMX2NOP23QRSTUV54WXYZabcn" )
+class Test_DProfile_1( unittest.TestCase ):
+    def setUp( self ):
+        # Create a Report() visitor to write a report on a structure
+        rpt= Report()
+
+        # Create a RecordFactory() to create DDE record definitions
+        rf= RecordFactory()
+
+        # copy1= open("copy1.cob","r").read()
+        self.dde1= rf.makeRecord( Lexer(copy1) )
+        #self.dde1.visit( rpt )
+
+    def test_should_dump( self ):
+        # dataset1= open("dataset.dat","r").readlines()
+        question_domain= collections.defaultdict( int )
+        yes_domain= collections.defaultdict( set )
+        for record in dataset1:
+            question= self.dde1.get('QUESTION').valOf(record)
+            yes= self.dde1.get('PRINT-YES').of(record)
+            question_domain[question] += 1
+            yes_domain[yes].add( yes )
+            #print record.rstrip()
+            #print question,yes,no,notsure
+        self.assertEquals( 3, len(question_domain ) )
+        self.assertEquals( 3, question_domain[11] )
+        self.assertEquals( 1, question_domain[22] )
+        self.assertEquals( 1, question_domain[44] )
+        self.assertEquals( set(['12', '22', 'X2']), set(yes_domain) )
+</pre>
+<p>Used by: test_data_profile.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id51">49</a>)</p>
+<p class="rubric" id="id53">DProfile Test 2 (51)</p>
+<pre class="literal-block">class Test_DProfile_2( unittest.TestCase ):
+    def setUp( self ):
+        self.dataset2="".join( map( chr,
+            [ 0x81, 0x82, 0x83, 0x84, 0x85, 0x86,
+            0x87, 0x88, 0x89, 0x5f, 0x4a ] ) )
+    def test_should_convert( self ):
+        self.assertEquals( u"abcdefghixacxa2", E2A(self.dataset2) )
+        self.assertEquals( "abcdefghixacxa2",  E2A_str(self.dataset2) )
+</pre>
+<p>Used by: test_data_profile.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id51">49</a>)</p>
+<p>TODO</p>
+<p>Rewrite <cite>hexPrint</cite> so we can perform the following test:</p>
+<pre class="literal-block">def test_should_format_dump( self ):
+    print "EBCDIC Data"
+    HexDump().hexPrint( 0, self.dataset2 )
+    print "ASCII Conversion"
+    HexDump().hexPrint( 0, E2A(self.dataset2) )
+</pre>
+</div>
+</div>
+<div class="section" id="complete-test-suite">
+<h1><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id111">Complete Test Suite</a></h1>
+<p>A combined test suite.</p>
+<p class="rubric" id="id54">test.py (52)</p>
+<pre class="literal-block">#!/usr/bin/env python
+from __future__ import print_function
+"""Combined tests."""
+import unittest
+import test_dde
+import test_data_profile
+import logging
+
+def suite():
+    s= unittest.TestSuite()
+    for m in ( test_dde, test_data_profile ):
+        s.addTests( unittest.defaultTestLoader.loadTestsFromModule( m ) )
+    return s
+
+
+if __name__ == "__main__":
+    import sys
+    logging.basicConfig( stream=sys.stdout, level=logging.CRITICAL )
+    tr= unittest.TextTestRunner()
+    result= tr.run( suite() )
+    logging.shutdown()
+    sys.exit( len(result.failures) + len(result.errors) )
+</pre>
+</div>
+<div class="section" id="demonstration-main-programs">
+<h1><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id112">Demonstration Main Programs</a></h1>
+<div class="section" id="id55">
+<h2><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id113">Design</a></h2>
+<p>Five Demos.</p>
+</div>
+<div class="section" id="id56">
+<h2><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id114">Implementation</a></h2>
+<p class="rubric" id="id57">demo1.py (53)</p>
+<pre class="literal-block">→ Demo Shell Escape (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id63">56</a>)
+→ Demo DOC String (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id59">54</a>)
+→ Demo CVS Cruft and pyweb generator warning (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id64">57</a>)
+→ Demo Imports (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id61">55</a>)
+→ Demo Subclass Definitions (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id65">58</a>)
+→ Demo 1 - complete, detailed examination of a file (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id66">59</a>)
+→ Demo 2 - low-level hex dump of a file (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id67">60</a>)
+→ Demo 3 - detailed, field-by-field occurance dump of a record (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id68">61</a>)
+→ Demo 4 - detailed, field-by-field scan of distinct values of a record (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id69">62</a>)
+→ Demo 5 - detailed, field-by-field occurance dump of a record (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id70">63</a>)
+→ Demo Main (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id71">64</a>)
+</pre>
+<div class="section" id="id58">
+<h3><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id115">Overheads</a></h3>
+<p>DOC string</p>
+<p class="rubric" id="id59">Demo DOC String (54)</p>
+<pre class="literal-block">"""Examine a sample COBOL file.
+
+This requires that files be transferred in strictly BINARY mode from
+the mainframe.  Any ASCII to EBCDIC conversion is a bad thing.
+
+Performance: 15,000 field values per second.
+
+There are five demos:
+demo1 collects the ranges of data values from a file
+demo2 does low-level hex dumps of records in a file
+demo3 does detailed structure dumps of records in a file
+demo4 shows the FieldScan and FileScan classes to examine a file (similar to demo1)
+demo5 shwos the FieldDump and FileScan classes to examine selected records (similar to demo3)
+"""
+</pre>
+<p>Used by: demo1.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id57">53</a>)</p>
+</div>
+<div class="section" id="id60">
+<h3><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id116">Imports</a></h3>
+<p>This demo application uses the cobol_dde module to parse a record layout and the
+data_profile module to analyze data in a file defined by the record layout.</p>
+<p class="rubric" id="id61">Demo Imports (55)</p>
+<pre class="literal-block">import os, time
+import cobol_dde, data_profile
+</pre>
+<p>Used by: demo1.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id57">53</a>)</p>
+</div>
+<div class="section" id="id62">
+<h3><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id117">Other Overheads</a></h3>
+<p class="rubric" id="id63">Demo Shell Escape (56)</p>
+<pre class="literal-block">#!/usr/bin/env python
+</pre>
+<p>Used by: demo1.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id57">53</a>)</p>
+<p class="rubric" id="id64">Demo CVS Cruft and pyweb generator warning (57)</p>
+<pre class="literal-block">__version__ = """$Revision$"""
+
+### DO NOT EDIT THIS FILE!
+### It was created by /Users/slott/Documents/Projects/pyWeb-2.1/pyweb/pyweb.py, __version__='$Revision$'.
+### From source DDE.w modified Sun Mar 14 10:46:18 2010.
+### In working directory '/Users/slott/Documents/Projects/COBOL_DDE-1.2'.
+</pre>
+<p>Used by: demo1.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id57">53</a>)</p>
+</div>
+<div class="section" id="demo-subclasses">
+<h3><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id118">Demo Subclasses</a></h3>
+<p class="rubric" id="id65">Demo Subclass Definitions (58)</p>
+<pre class="literal-block"># Extend the cobol_dde module's ``Lexer`` class to override how the lines are cleaned prior to parsing.
+class CleanupLexer( cobol_dde.Lexer ):
+    """Cleanup as part of Lexing: drop ID from 0:6 and sequence from [72:].
+       Also drop "SKIP" commands."""
+    def lineClean( self, text ):
+        lines= [ l[6:72].rstrip()+' ' for l in text.split('n') if len(l) &gt; 6 and l[6] not in ('*','/') ]
+        lines= [ l for l in lines if l.strip() != 'SKIP1' ]
+        return lines
+
+# Extend the FieldDump class to dump OVRMCUDB record instances.
+class OVRMCUDBdump( data_profile.FieldDump ):
+    """Dump OVRMCUDB record instances."""
+    def __init__( self, dde ):
+        FieldDump.__init__( self, None )
+        self.dde= dde
+    def process( self, recno, data ):
+        """Use the value-length field to decode records of OVRMCUDB file."""
+        print "nRecord %d:" % recno
+        print ' CUST-NO', self.dde.get('MCUDBI-CUST-NO').valOf( data )
+        print ' DATA-ITEM', self.dde.get('MCUDBI-DATA-ITEM').valOf( data )
+        print ' YR', self.dde.get('MCUDBI-YR').valOf( data )
+        print ' VALUE-LENGTH', self.dde.get('MCUDBI-VALUE-LENGTH').valOf( data )
+        value_length= self.dde.get('MCUDBI-VALUE-LENGTH').valOf( data )
+        if value_length == 1:
+            for i in range(1,13):
+                print ' VALUE-FIELD', i, self.dde.get('MCUDBI-VALUE-FIELD-1').setIndex(i).valOf(data)
+        elif value_length == 2:
+            for i in range(1,13):
+                print ' VALUE-FIELD', i, self.dde.get('MCUDBI-VALUE-FIELD-2').setIndex(i).valOf(data)
+        elif value_length == 3:
+            for i in range(1,13):
+                print ' VALUE-FIELD', i, self.dde.get('MCUDBI-VALUE-FIELD-3').setIndex(i).valOf(data)
+        elif value_length == 4:
+            for i in range(1,13):
+                print ' VALUE-FIELD', i, self.dde.get('MCUDBI-VALUE-FIELD-4').setIndex(i).valOf(data)
+        elif value_length == 5:
+            for i in range(1,13):
+                print ' VALUE-FIELD', i, self.dde.get('MCUDBI-VALUE-FIELD-5').setIndex(i).valOf(data)
+        elif value_length == 6:
+            for i in range(1,13):
+                print ' VALUE-FIELD', i, self.dde.get('MCUDBI-VALUE-FIELD-6').setIndex(i).valOf(data)
+        elif value_length == 7:
+            for i in range(1,13):
+                print ' VALUE-FIELD', i, self.dde.get('MCUDBI-VALUE-FIELD-7').setIndex(i).valOf(data)
+        elif value_length == 8:
+            for i in range(1,13):
+                print ' VALUE-FIELD', i, self.dde.get('MCUDBI-VALUE-FIELD-8').setIndex(i).valOf(data)
+        elif value_length == 8:
+            for i in range(1,13):
+                print ' VALUE-FIELD', i, self.dde.get('MCUDBI-VALUE-FIELD-9').setIndex(i).valOf(data)
+        else:
+            print "Invalid record"
+            cobol_dde.HexDump().hexPrint(recno,data)
+
+# Extend the FileScan class to handle a damaged OVRMCUDB file where record 1 is damaged.
+class OVRMCUDBfile( data_profile.FileScan ):
+    """Special-purpose FileScan to handle damaged record in OVRMCUDB."""
+    def reclen( self ):
+        if self.record == 0: return 92
+        return 97
+</pre>
+<p>Used by: demo1.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id57">53</a>)</p>
+</div>
+<div class="section" id="demo-functions">
+<h3><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id119">Demo Functions</a></h3>
+<p>The first demo function shows a relatively complex program to dump one record
+and summarize other records.</p>
+<ol class="arabic simple">
+<li>Print a simple heading</li>
+<li>Create a RecordFactory, rf.  Create an CleanupLexer to process the definition file.</li>
+<li>Pass the CleanupLexer to rf to create a DDE, called dde.</li>
+<li>Create a Report, rpt.  Pass this Visitor to dde to write a report
+on the parsed record structure.</li>
+</ol>
+<p>Create a list, fieldList with instance of NumFieldValue.</p>
+<p>Get the record size from dde.  Open a file, assigning it to theFile.</p>
+<p>Dump record number 1.  In this case, the record is damaged, and is only 92 bytes
+in length.  The first record is read into data.  An instance of the
+OCRMCUDBdump class, dump1Rec is created from the record definition in dde.</p>
+<p>The dump1Rec process method produces a dump of the record in data.</p>
+<p>Dump the remaining records.  The dump proceeds as follows:</p>
+<blockquote>
+Read a 97-byte record into data.
+While there is content in data, process each record.
+Increment the record counter, recno.
+Set f to each field in fieldList, perform the fields
+getFrom() method to extract the appropriate bytes from data.
+If the requested number of records have been processed, break from the loop.
+Read a 97-byte record into data.</blockquote>
+<p>Produce a final report from each NumFieldValue instance in fieldList.
+Set f to each field in fieldList; print an appropriate heading.
+The fqTable method of f returns a frequency table; set di, and c
+to the key and count from the frequency table; print di and c.</p>
+<p class="rubric" id="id66">Demo 1 - complete, detailed examination of a file (59)</p>
+<pre class="literal-block">def demo1( aDef, aFileName, end=10 ):
+    """Complete examination of a file."""
+
+    # Heading
+    print "File:     %snCopybook: %s" % ( aDef, aFileName )
+
+    # Create a RecordFactory() to parse copy books and create DDE record definitions
+    rf= cobol_dde.RecordFactory()
+    dde= rf.makeRecord( CleanupLexer(file(aDef,"r").read()) )
+
+    # Use the Report() visitor to produce a report on the record structure
+    print "nRecord Layout"
+    rpt= cobol_dde.Report()
+    dde.visit( rpt )
+
+    # Identify the fields to be examined
+    fieldList= [ data_profile.NumFieldValue( dde, 'MCUDBI-DATA-ITEM' ),
+        data_profile.NumFieldValue( dde, 'MCUDBI-YR' ),
+        data_profile.NumFieldValue( dde, 'MCUDBI-VALUE-LENGTH' )
+    ]
+
+    # Get the record size, open the input file, read and dump the records
+    reclen= dde.size
+    theFile= file(aFileName,"rb")
+
+    # Dump record 1 (92 bytes)
+    recno= 1
+    data= theFile.read(92)
+    dump1Rec= OVRMCUDBdump(dde)
+    dump1Rec.process( recno, data )
+
+    # Scan all remaining records (97 bytes each)
+    data= theFile.read(97)
+    while data:
+        recno += 1
+        for f in fieldList:
+            f.getFrom( data )
+        if recno == end: break
+        data= theFile.read(97)
+
+    # Final report
+    for f in fieldList:
+        print "n%-10s %7s" % ( f.cobolName, "count" )
+        for di,c in f.fqTable():
+            print "%-10s %7d" % ( di,c )
+
+    theFile.close()
+</pre>
+<p>Used by: demo1.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id57">53</a>)</p>
+<p>The second demo function shows a simple program to produce a hex dump of
+the first hundred records.</p>
+<p>Set h to a HexDump instance defined on aFileName.
+Use h dump method to dump a 92-byte record.
+Set i to 100 values (from 0 to 99); Use h dump method
+to dump a sequence of 97-byte records.</p>
+<p class="rubric" id="id67">Demo 2 - low-level hex dump of a file (60)</p>
+<pre class="literal-block">def demo2( aDef, aFileName ):
+    """Low-level hex dump of a file."""
+    print "nDump of 100 records"
+    h= data_profile.HexDump( aFileName, 80 )
+    h.dump(92)
+    for i in range(100):
+        h.dump(97)
+</pre>
+<p>Used by: demo1.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id57">53</a>)</p>
+<p>The third demo function shows a simple program to produce a detailed
+field-by-field dump of one record.</p>
+<ol class="arabic simple">
+<li>Print a simple heading</li>
+<li>Create a RecordFactory, rf.  Create an CleanupLexer to process the definition file.</li>
+<li>Pass the CleanupLexer to rf to create a DDE, called dde.</li>
+<li>Get the record size from dde.  Open a file, assigning it to theFile.</li>
+<li>Dump record number 1.  In this case, the record is damaged, and is only 92 bytes
+in length.  The first record is read into data.
+An instance of the
+Dump Visitor subclass, fd is created from the record data.</li>
+</ol>
+<p>The dde visitOccurance method produces a dump of each occurance
+of each field in the record in fd.
+Dump record number 2: set data to the next 97 bytes; set fd to a
+Dump subclass of Visitor; use dde visitOccurance to dump the record.</p>
+<p class="rubric" id="id68">Demo 3 - detailed, field-by-field occurance dump of a record (61)</p>
+<pre class="literal-block">def demo3( aDef, aFileName ):
+    """Detailed field-by-field occurance dump of a record."""
+    # Heading
+    print "File:     %snCopybook: %s" % ( aDef, aFileName )
+
+    # Create a RecordFactory() to parse copy books and create DDE record definitions
+    rf= cobol_dde.RecordFactory()
+    dde= rf.makeRecord( CleanupLexer(file(aDef,"r").read()) )
+
+    # Get the record size, open the input file, read and dump the first few records
+    reclen= dde.size
+    theFile= file(aFileName,"rb")
+
+    # Dump record 1 (92 bytes)
+    recno= 1
+    data= theFile.read(92)
+
+    # Detailed occurance-by-occurance dump of the most recent record
+    print "nField Dump"
+    fd= cobol_dde.Dump( data )
+    dde.visitOccurance( fd )
+
+    # Dump record 2 (97 bytes)
+    data= theFile.read(97)
+    fd= cobol_dde.Dump( data )
+    dde.visitOccurance( fd )
+</pre>
+<p>Used by: demo1.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id57">53</a>)</p>
+<p>The fourth demo function shows a simple program to scan selected fields of a file.</p>
+<p>Print a simple heading
+Create a RecordFactory, rf.  Create an CleanupLexer to process the definition file.
+Pass the CleanupLexer to rf to create a DDE, called dde.
+Define fieldList as an instance of FieldScan built from
+three instances of NumFieldValue.
+Define fs as an instance of OVRMCUDBfile, that uses fieldList to
+scan the file.
+Use fs process to examine each row, using fieldList to examine
+selected fields.</p>
+<p class="rubric" id="id69">Demo 4 - detailed, field-by-field scan of distinct values of a record (62)</p>
+<pre class="literal-block">def demo4( aDef, aFileName, end=10 ):
+    """Detailed field-by-field scan of a record."""
+    # Heading
+    print "File:     %snCopybook: %s" % ( aDef, aFileName )
+
+    # Create a RecordFactory() to parse copy books and create DDE record definitions
+    rf= cobol_dde.RecordFactory()
+    dde= rf.makeRecord( CleanupLexer(file(aDef,"r").read()) )
+
+    # Create a FieldScan for the three fields we care about
+    fieldList= data_profile.FieldScan( [ data_profile.NumFieldValue( dde, 'MCUDBI-DATA-ITEM' ),
+        data_profile.NumFieldValue( dde, 'MCUDBI-YR' ),
+        data_profile.NumFieldValue( dde, 'MCUDBI-VALUE-LENGTH' )
+    ] )
+
+    # Create a FileScan for the file, using the given FieldScan list of fields
+    fs= OVRMCUDBfile( dde, fieldList, aFileName )
+
+    # Process through the given ending record
+    fs.process( end )
+</pre>
+<p>Used by: demo1.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id57">53</a>)</p>
+<p>The fifth demo function shows a simple program to dump selected records of a file.</p>
+<p>Print a simple heading
+Create a RecordFactory, rf.  Create an CleanupLexer to process the definition file.
+Pass the CleanupLexer to rf to create a DDE, called dde.
+Define fieldList as an instance of OVRMCUDBdump, based on dde.
+Define fs as an instance of FileScan, that uses fieldList to
+scan the file.
+Use fs process to examine 4 rows, using fieldList to dump all
+fields.</p>
+<p class="rubric" id="id70">Demo 5 - detailed, field-by-field occurance dump of a record (63)</p>
+<pre class="literal-block">def demo5( aDef, aFileName ):
+    """Detailed field-by-field occurance dump of a record."""
+    # Heading
+    print "File:     %snCopybook: %s" % ( aDef, aFileName )
+
+    # Create a RecordFactory() to parse copy books and create DDE record definitions
+    rf= cobol_dde.RecordFactory()
+    dde= rf.makeRecord( CleanupLexer(file(aDef,"r").read()) )
+
+    # Create a special FieldDump that can separate the variant record formats
+    # for the OVRMCUDB file.
+    fieldList= OVRMCUDBdump(dde)
+
+    # Create a FileScan for the file, using the given FieldDump list of fields
+    fs= FileScan( dde, fieldList, aFileName )
+
+    # Process through the given ending record
+    fs.process( 4 )
+</pre>
+<p>Used by: demo1.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id57">53</a>)</p>
+</div>
+<div class="section" id="demo-main">
+<h3><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id120">Demo Main</a></h3>
+<p>The demo main calls a selected function on a selected file and copybook.
+This can be replaced with a function that uses getopts to parse the command-line
+arguments.</p>
+<p class="rubric" id="id71">Demo Main (64)</p>
+<pre class="literal-block">if __name__ == "__main__":
+    start= time.clock()
+    copyBook= r"J:Appl-DevFinanceMISMCUDBIW.TXT"
+    dataFile= r"J:Appl-DevFinanceMISOVRMCUDB_bin.txt"
+    #demo1( copyBook, dataFile, 100 )
+    demo4( copyBook, dataFile, 100000 )
+    print "Run Time: %7.4f" % (time.clock()-start)
+</pre>
+<p>Used by: demo1.py (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id57">53</a>)</p>
+</div>
+</div>
+</div>
+<div class="section" id="packaging">
+<h1><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id121">Packaging</a></h1>
+<p>The following additional elements are part of a complete
+package.</p>
+<ul class="simple">
+<li>README</li>
+<li>setup.py</li>
+<li>manifest.in</li>
+</ul>
+<p class="rubric" id="id72">README (65)</p>
+<pre class="literal-block">##############################################
+COBOL DDE (Data Definition Element) Processing
+##############################################
+
+This modules parses COBOL copybooks (DDE's)
+to help write ETL and Data Profiling applications.
+
+Installation
+------------
+
+Install with the following command::
+
+    python setup.py install
+
+Usage
+-----
+
+See demo1.py for demonstration applications built with these
+tools.
+
+Documentation
+-------------
+
+See `dde.html &lt;dde.html&gt;`_ for the detailed documentation of this application.
+
+Build
+-----
+
+The source and documentation is built via the pyWeb tool from ``DDE.w``.
+
+For information on pyWeb, see <a class="reference external" href="http://sourceforge.net/projects/pywebtool/">http://sourceforge.net/projects/pywebtool/</a>.
+</pre>
+<p class="rubric" id="id73">setup.py (66)</p>
+<pre class="literal-block">#!/usr/bin/env python
+
+from distutils.core import setup
+
+setup(name="DDE",
+      version="1.2",
+      description="COBOL Data Definition Element Processing",
+      author="Steven F. Lott",
+      author_email="<a class="reference external" href="mailto:s_lott@yahoo.com">s_lott@yahoo.com</a>",
+      url="<a class="reference external" href="https://sourceforge.net/projects/cobol-dde/">https://sourceforge.net/projects/cobol-dde/</a>",
+      py_modules=['cobol_dde', 'data_discovery']
+     )
+</pre>
+<p class="rubric" id="id74">MANIFEST.in (67)</p>
+<pre class="literal-block">include *.w *.html *.css *.py *.tex *.pdf
+</pre>
+</div>
+<div class="section" id="indices">
+<h1><a class="toc-backref" href="http://cobol-dde.sourceforge.net/#id122">Indices</a></h1>
+<p>Files</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field"><th class="field-name">MANIFEST.in:</th><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id74">67</a>)</td>
+</tr>
+<tr class="field"><th class="field-name">README:</th><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id72">65</a>)</td>
+</tr>
+<tr class="field"><th class="field-name">cobol_dde.py:</th><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id1">1</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">data_profile.py:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id40">39</a>)</td>
+</tr>
+<tr class="field"><th class="field-name">demo1.py:</th><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id57">53</a>)</td>
+</tr>
+<tr class="field"><th class="field-name">setup.py:</th><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id73">66</a>)</td>
+</tr>
+<tr class="field"><th class="field-name">test.py:</th><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id54">52</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">test_data_profile.py:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id51">49</a>)</td>
+</tr>
+<tr class="field"><th class="field-name">test_dde.py:</th><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id30">30</a>)</td>
+</tr>
+</tbody>
+</table>
+<p>Macros</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field"><th class="field-name" colspan="2">DDE Blank When Zero Clause Parsing:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id19">19</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">DDE Class Construction methods:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id12">12</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">DDE Class Hierarchy - defines group and elementary data descriptions elements:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id11">11</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">DDE Class Record Scanning methods:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id14">14</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">DDE Class Reporting methods:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id13">13</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">DDE Common Visitors for reporting on a DDE structure:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id15">15</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">DDE Element Parsing:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id28">28</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">DDE Exception Definitions:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id7">7</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">DDE Justified Clause Parsing:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id20">20</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">DDE Lexical Scanner base class provides the default lexical scanner implementation:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id16">16</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">DDE Occurs Clause Parsing:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id21">21</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">DDE Overheads - Shell Escape, Doc String, Imports, CVS Cruft:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id2">2</a>) → (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id3">3</a>) → (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id4">4</a>) → (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id5">5</a>) → (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id6">6</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">DDE Picture Clause Parsing:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id18">18</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">DDE Record Parsing:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id29">29</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">DDE RecordFactory parses a record clause to create a DDE instance:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id17">17</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">DDE Redefines Clause Parsing:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id22">22</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">DDE Redefines Strategy class hierarchy - to define offsets to DDE elements:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id10">10</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">DDE Renames Clause Parsing:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id23">23</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">DDE Sign Clause Parsing:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id24">24</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">DDE Synchronized Clause Parsing:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id25">25</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">DDE Test copybook 1 with basic features:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id31">31</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">DDE Test copybook 2 with 88-level item:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id32">32</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">DDE Test copybook 3 with nested occurs level:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id33">33</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">DDE Test copybook from page 174 with nested occurs level:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id34">34</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">DDE Test copybook from page 195 with simple redefines:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id35">35</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">DDE Test copybook from page 197 with another redefines:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id36">36</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">DDE Test copybook from page 198, example a:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id37">37</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">DDE Test copybook from page 198, example b:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id38">38</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">DDE Usage Clause Parsing:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id26">26</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">DDE Usage Strategy class hierarchy - to extract data from input buffers:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id9">9</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">DDE Value Clause Parsing:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id27">27</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">DDE Visitor base class - to analyze a complete DDE tree structure:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id8">8</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">DProfile CVS Cruft and pyweb generator warning:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id44">43</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">DProfile Class Definitions:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id47">45</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">DProfile DOC String:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id41">40</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">DProfile Field Value Class Hierarchy to accumulate distinct values:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id49">47</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">DProfile Field and Record Scanning does either dumps or disctinct value processing:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id50">48</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">DProfile Hex Dump Class to do raw dump of a record:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id48">46</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">DProfile Imports:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id42">41</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">DProfile Shell Escape:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id43">42</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">DProfile Test 1:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id52">50</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">DProfile Test 2:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id53">51</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">DProfile Utility Functions:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id45">44</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">Demo 1 - complete, detailed examination of a file:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id66">59</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">Demo 2 - low-level hex dump of a file:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id67">60</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">Demo 3 - detailed, field-by-field occurance dump of a record:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id68">61</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">Demo 4 - detailed, field-by-field scan of distinct values of a record:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id69">62</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">Demo 5 - detailed, field-by-field occurance dump of a record:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id70">63</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">Demo CVS Cruft and pyweb generator warning:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id64">57</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">Demo DOC String:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id59">54</a>)</td>
+</tr>
+<tr class="field"><th class="field-name">Demo Imports:</th><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id61">55</a>)</td>
+</tr>
+<tr class="field"><th class="field-name">Demo Main:</th><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id71">64</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">Demo Shell Escape:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id63">56</a>)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">Demo Subclass Definitions:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">→ (<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id65">58</a>)</td>
+</tr>
+</tbody>
+</table>
+<p>User Identifiers</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field"><th class="field-name">DDE:</th><td class="field-body"><a class="reference internal" href="http://cobol-dde.sourceforge.net/#id1">1</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id3">3</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id6">6</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id7">7</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id8">8</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id9">9</a> [<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id11">11</a>] <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id12">12</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id13">13</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id14">14</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id17">17</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id28">28</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id29">29</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id30">30</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id41">40</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id44">43</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id49">47</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id52">50</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id64">57</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id66">59</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id68">61</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id69">62</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id70">63</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id72">65</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id73">66</a></td>
+</tr>
+<tr class="field"><th class="field-name">Dump:</th><td class="field-body"><a class="reference internal" href="http://cobol-dde.sourceforge.net/#id3">3</a> [<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id15">15</a>] <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id31">31</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id32">32</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id33">33</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id35">35</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id36">36</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id37">37</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id38">38</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id48">46</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id65">58</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id66">59</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id68">61</a></td>
+</tr>
+<tr class="field"><th class="field-name">E2A:</th><td class="field-body"><a class="reference internal" href="http://cobol-dde.sourceforge.net/#id41">40</a> [<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id45">44</a>] <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id53">51</a></td>
+</tr>
+<tr class="field"><th class="field-name">EBCDIC2ASCII:</th><td class="field-body">[<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id45">44</a>]</td>
+</tr>
+<tr class="field"><th class="field-name">FieldDump:</th><td class="field-body"><a class="reference internal" href="http://cobol-dde.sourceforge.net/#id41">40</a> [<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id50">48</a>] <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id59">54</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id65">58</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id70">63</a></td>
+</tr>
+<tr class="field"><th class="field-name">FieldScan:</th><td class="field-body"><a class="reference internal" href="http://cobol-dde.sourceforge.net/#id41">40</a> [<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id50">48</a>] <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id59">54</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id69">62</a></td>
+</tr>
+<tr class="field"><th class="field-name">FieldValue:</th><td class="field-body"><a class="reference internal" href="http://cobol-dde.sourceforge.net/#id41">40</a> [<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id49">47</a>]</td>
+</tr>
+<tr class="field"><th class="field-name">FileScan:</th><td class="field-body"><a class="reference internal" href="http://cobol-dde.sourceforge.net/#id41">40</a> [<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id50">48</a>] <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id59">54</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id65">58</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id69">62</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id70">63</a></td>
+</tr>
+<tr class="field"><th class="field-name">HexDump:</th><td class="field-body"><a class="reference internal" href="http://cobol-dde.sourceforge.net/#id41">40</a> [<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id48">46</a>] <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id65">58</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id67">60</a></td>
+</tr>
+<tr class="field"><th class="field-name">Lexer:</th><td class="field-body"><a class="reference internal" href="http://cobol-dde.sourceforge.net/#id3">3</a> [<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id16">16</a>] <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id31">31</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id32">32</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id33">33</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id34">34</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id35">35</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id36">36</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id37">37</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id38">38</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id52">50</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id65">58</a></td>
+</tr>
+<tr class="field"><th class="field-name">NonRedefines:</th><td class="field-body"><a class="reference internal" href="http://cobol-dde.sourceforge.net/#id3">3</a> [<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id10">10</a>] <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id28">28</a></td>
+</tr>
+<tr class="field"><th class="field-name">NumFieldValue:</th><td class="field-body"><a class="reference internal" href="http://cobol-dde.sourceforge.net/#id41">40</a> [<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id49">47</a>] <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id66">59</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id69">62</a></td>
+</tr>
+<tr class="field"><th class="field-name">RecordFactory:</th><td class="field-body"><a class="reference internal" href="http://cobol-dde.sourceforge.net/#id3">3</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id12">12</a> [<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id17">17</a>] <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id30">30</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id52">50</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id66">59</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id68">61</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id69">62</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id70">63</a></td>
+</tr>
+<tr class="field"><th class="field-name">Redefines:</th><td class="field-body"><a class="reference internal" href="http://cobol-dde.sourceforge.net/#id3">3</a> [<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id10">10</a>] <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id11">11</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id14">14</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id22">22</a></td>
+</tr>
+<tr class="field"><th class="field-name">Report:</th><td class="field-body"><a class="reference internal" href="http://cobol-dde.sourceforge.net/#id3">3</a> [<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id15">15</a>] <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id30">30</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id45">44</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id52">50</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id66">59</a></td>
+</tr>
+<tr class="field"><th class="field-name">Source:</th><td class="field-body"><a class="reference internal" href="http://cobol-dde.sourceforge.net/#id3">3</a> [<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id15">15</a>]</td>
+</tr>
+<tr class="field"><th class="field-name">SyntaxError:</th><td class="field-body"><a class="reference internal" href="http://cobol-dde.sourceforge.net/#id3">3</a> [<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id7">7</a>] <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id18">18</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id26">26</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id28">28</a></td>
+</tr>
+<tr class="field"><th class="field-name">TestDDE:</th><td class="field-body">[<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id51">49</a>]</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">Test_DProfile_1:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">[<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id52">50</a>]</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">Test_DProfile_2:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">[<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id53">51</a>]</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">UnsupportedError:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body"><a class="reference internal" href="http://cobol-dde.sourceforge.net/#id3">3</a> [<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id7">7</a>] <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id21">21</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id23">23</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id24">24</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id25">25</a></td>
+</tr>
+<tr class="field"><th class="field-name">Usage:</th><td class="field-body"><a class="reference internal" href="http://cobol-dde.sourceforge.net/#id3">3</a> [<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id9">9</a>] <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id11">11</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id26">26</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id72">65</a></td>
+</tr>
+<tr class="field"><th class="field-name">UsageComp:</th><td class="field-body"><a class="reference internal" href="http://cobol-dde.sourceforge.net/#id3">3</a> [<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id9">9</a>] <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id26">26</a></td>
+</tr>
+<tr class="field"><th class="field-name">UsageComp3:</th><td class="field-body"><a class="reference internal" href="http://cobol-dde.sourceforge.net/#id3">3</a> [<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id9">9</a>] <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id26">26</a></td>
+</tr>
+<tr class="field"><th class="field-name">UsageDisplay:</th><td class="field-body"><a class="reference internal" href="http://cobol-dde.sourceforge.net/#id3">3</a> [<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id9">9</a>] <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id26">26</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id28">28</a></td>
+</tr>
+<tr class="field"><th class="field-name">UsageError:</th><td class="field-body"><a class="reference internal" href="http://cobol-dde.sourceforge.net/#id3">3</a> [<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id7">7</a>] <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id14">14</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id33">33</a></td>
+</tr>
+<tr class="field"><th class="field-name">Visitor:</th><td class="field-body"><a class="reference internal" href="http://cobol-dde.sourceforge.net/#id3">3</a> [<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id8">8</a>] <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id15">15</a></td>
+</tr>
+<tr class="field"><th class="field-name">__version__:</th><td class="field-body"><a class="reference internal" href="http://cobol-dde.sourceforge.net/#id5">5</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id6">6</a> [<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id44">43</a>] <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id64">57</a></td>
+</tr>
+<tr class="field"><th class="field-name">cobol_dde:</th><td class="field-body"><a class="reference internal" href="http://cobol-dde.sourceforge.net/#id30">30</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id41">40</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id42">41</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id51">49</a> [<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id61">55</a>] <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id65">58</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id66">59</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id68">61</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id69">62</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id70">63</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id73">66</a></td>
+</tr>
+<tr class="field"><th class="field-name">data_profile:</th><td class="field-body"><a class="reference internal" href="http://cobol-dde.sourceforge.net/#id51">49</a> [<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id61">55</a>] <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id65">58</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id66">59</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id67">60</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id69">62</a></td>
+</tr>
+<tr class="field"><th class="field-name">decimal:</th><td class="field-body">[<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id4">4</a>] <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id9">9</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id14">14</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id18">18</a></td>
+</tr>
+<tr class="field"><th class="field-name">os:</th><td class="field-body">[<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id61">55</a>]</td>
+</tr>
+<tr class="field"><th class="field-name">re:</th><td class="field-body">[<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id4">4</a>] <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id16">16</a></td>
+</tr>
+<tr class="field"><th class="field-name">string:</th><td class="field-body"><a class="reference internal" href="http://cobol-dde.sourceforge.net/#id3">3</a> [<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id4">4</a>] <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id11">11</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id14">14</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id16">16</a> <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id45">44</a></td>
+</tr>
+<tr class="field"><th class="field-name">struct:</th><td class="field-body">[<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id4">4</a>] <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id9">9</a></td>
+</tr>
+<tr class="field"><th class="field-name">time:</th><td class="field-body">[<a class="reference internal" href="http://cobol-dde.sourceforge.net/#id61">55</a>] <a class="reference internal" href="http://cobol-dde.sourceforge.net/#id71">64</a></td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils">
+<p>Created by /Users/slott/Documents/Projects/pyWeb-2.1/pyweb/pyweb.py at Sun Mar 14 10:46:52 2010.
+pyweb.__version__ '$Revision$'.
+Source DDE.w modified Sun Mar 14 10:46:18 2010.</p>
+<p>Working directory '/Users/slott/Documents/Projects/COBOL_DDE-1.2'.</p>
+</div>
+</div>
+
+
+</body></html>

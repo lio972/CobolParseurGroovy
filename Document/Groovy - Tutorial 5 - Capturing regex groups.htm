@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<!-- saved from url=(0062)http://groovy.codehaus.org/Tutorial+5+-+Capturing+regex+groups -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    
+    <meta name="description" content="Groovy Wiki">
+    <meta name="keywords" content="Groovy, Groovy Programming, Dynamic Language, Scripting language, Closure, Java, Domain-Specific Languages, JVM, Java platform, static typing, static type checking, invoke dynamic, JDK">
+    <meta name="author" content="Codehaus Groovy Community">
+
+    <link href="./Groovy - Tutorial 5 - Capturing regex groups_files/bootstrap-1.2.0.min.css" type="text/css" rel="stylesheet">
+    <link href="./Groovy - Tutorial 5 - Capturing regex groups_files/BreadCrumb.css" type="text/css" rel="stylesheet">
+    <link href="./Groovy - Tutorial 5 - Capturing regex groups_files/custom.css" type="text/css" rel="stylesheet">
+    <link href="./Groovy - Tutorial 5 - Capturing regex groups_files/idea.css" type="text/css" rel="stylesheet">
+
+    <link href="http://groovy.codehaus.org/favicon.ico" type="image/x-ico" rel="icon">
+    
+    <link href="https://plus.google.com/101432359761228268146/" rel="publisher">
+
+    <link rel="alternate" type="application/rss+xml" title="Site updates" href="http://docs.codehaus.org/spaces/rss.action?key=GROOVY&newPages=false">
+    <link rel="alternate" type="application/rss+xml" title="News feed" href="http://docs.codehaus.org/spaces/blogrss.action?key=GROOVY">
+
+    <title>Groovy - Tutorial 5 - Capturing regex groups</title>
+
+    <!--
+    <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js'></script>
+    -->
+    <script async="" src="./Groovy - Tutorial 5 - Capturing regex groups_files/analytics.js"></script><script type="text/javascript" async="" src="./Groovy - Tutorial 5 - Capturing regex groups_files/ga.js"></script><script type="text/javascript" async="" src="./Groovy - Tutorial 5 - Capturing regex groups_files/groovy.codehaus.org"></script><script type="text/javascript" src="./Groovy - Tutorial 5 - Capturing regex groups_files/jquery-1.7.2.min.js"></script><style type="text/css"></style>
+
+    <script type="text/javascript" src="./Groovy - Tutorial 5 - Capturing regex groups_files/jquery.jBreadCrumb.1.1.js"></script>
+
+    <script type="text/javascript" src="./Groovy - Tutorial 5 - Capturing regex groups_files/keymaster.min.js"></script>
+    <script type="text/javascript" src="./Groovy - Tutorial 5 - Capturing regex groups_files/pageLookup.js"></script>
+
+    <script type="text/javascript" src="./Groovy - Tutorial 5 - Capturing regex groups_files/highlight.js"></script>
+    <script type="text/javascript" src="./Groovy - Tutorial 5 - Capturing regex groups_files/groovy.js"></script>
+
+    <script src="./Groovy - Tutorial 5 - Capturing regex groups_files/jsapi" type="text/javascript"></script>
+    <script type="text/javascript">
+        google.load('search', '1');
+        google.setOnLoadCallback(
+                function() {
+                    var customSearchControl = new google.search.CustomSearchControl('013939896723962546743:tjolwat4pbq');
+                    customSearchControl.enableAds('5267633279208525');
+                    customSearchControl.setSearchStartingCallback(this, function() {
+                        document.getElementById('initial-page-content').style.display = 'none';
+                        document.getElementById('search-area').style.display = 'block';
+                    });
+                    google.search.Csedr.addOverride("mysite_");
+                    var drawOptions = new google.search.DrawOptions();
+                    drawOptions.setInput(document.getElementById('search-input-field'));
+                    customSearchControl.draw('cse', drawOptions);
+                },
+                true);
+    </script><script src="./Groovy - Tutorial 5 - Capturing regex groups_files/saved_resource" type="text/javascript"></script><link href="./Groovy - Tutorial 5 - Capturing regex groups_files/default+fr.css" type="text/css" rel="stylesheet"><script src="./Groovy - Tutorial 5 - Capturing regex groups_files/default+fr.I.js" type="text/javascript"></script>
+    <link href="./Groovy - Tutorial 5 - Capturing regex groups_files/search.css" type="text/css" rel="stylesheet">
+<style> /* groovy.codehaus.org Training Classes */  .S2UniGeoipBanner {     letter-spacing: 0px;     line-height: 1.2;     text-align: left;     text-indent: 0;     text-transform: none;     word-spacing: 0px; cursor: pointer; width: 160px; padding: 15px 10px; border: 5px solid #bebebe; -webkit-border-radius: 5px; -moz-border-radius: 5px; -ms-border-radius: 5px; -o-border-radius: 5px; border-radius: 5px; background: url('http://s3.amazonaws.com/assets.spring.io/drupal/files/SpringOne/2013/training-bg-image.png') top right no-repeat; margin: 15px 0; background-color: #ede7de; font-family: Arial;      color: #0A96C5;     text-shadow: 0 1px 0 #FFFFFF; }  .S2UniGeoipBanner .S2GPcourse_name { font-size: 14px; font-weight: bold; font-family: Arial; text-transform: uppercase; display: block; }  .S2UniGeoipBanner .S2GPcity { font-size: 14px; color: #333; }  .S2UniGeoipBanner .S2GPstart_date { font-size: 14px; color: #333; }  .learn-more-button { background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #cdcdcd)); background-image: -webkit-linear-gradient(#ffffff,#cdcdcd); background-image: -moz-linear-gradient(#ffffff,#cdcdcd); background-image: -o-linear-gradient(#ffffff,#cdcdcd); background-image: linear-gradient(#ffffff,#cdcdcd); text-shadow: none; color: #0094d4; font-size: 12px; line-height: 16px; padding: 2px 9px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -ms-border-radius: 4px; -o-border-radius: 4px; border-radius: 4px; text-align: center; border: 1px solid #b8b8b8; margin-top: 5px; display: block; width: 65px;</style><script type="text/javascript" src="http://www.google.com/uds/?file=ads&v=3&packages=search&async=2"></script><style type="text/css">#yieldsquare-ad {
+  margin:10px auto 20px;
+
+  width: 728px;
+}
+
+#yieldsquare-about a {
+  cursor: pointer;
+}
+
+.yieldsquare-enabled {
+  border-radius:0 0 5px 5px;
+  box-shadow: inset 0 0 75px 75px lightgray, 0 0 0 lightgray;
+  -webkit-transition:opacity 1s linear;
+}
+
+.yieldsquare-disabled-first {
+  -webkit-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.45);
+  -webkit-transition: opacity 1s linear;
+  background-image: url(http://s3.amazonaws.com/static.yieldsquare.com/ads-disabled/messagebed.gif);
+  height: 90px;
+  opacity: 1;
+  position: relative;
+  width: 728px;
+}
+
+.yieldsquare-disabled-second {
+  -webkit-transition: all 0.4s ease-in-out;
+  background-image: url(http://s3.amazonaws.com/static.yieldsquare.com/ads-disabled/messagebed.gif);
+  border-radius:0 0 5px 5px;
+  box-shadow: inset 0 0 35px 35px transparent, 0 0 75px 50px transparent;
+  height: 90px;
+  opacity: 0;
+  position: relative;
+  width: 728px;
+}
+
+#yieldsquare-about-ad {
+  font:11px arial !important;
+  color:#555;
+  padding: 4px;
+  text-align:center;
+}
+
+#yieldsquare-about-ad a {
+  cursor: pointer;
+  color: #333;
+}
+
+.yieldsquare-message-icon {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.yieldsquare-message-p {
+    font: 13px/17px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+    width: 542px;
+    height: 74px;
+    left: 123px;
+    position: absolute;
+    top: 0px;
+    color: #3d3d3d;
+    margin-top: 13px;
+    margin-bottom: 13px;
+}
+
+.yieldsquare-message-p span {
+    font: bold 16px/17px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+    color: #292929;
+}
+
+.yieldsquare-message-p a {
+    text-decoration: none;
+    color: #1d97cf;
+}
+
+.yieldsquare-message-p a:hover {
+    text-decoration: underline;
+}
+
+#yieldsquare-message-x {
+    position: absolute;
+    left: 715px;
+    top: 6px;
+}
+
+</style></head>
+
+<body id="Tutorial 5 - Capturing regex groups">
+
+<div id="page">
+
+<div id="pageLookup" class="modal">
+    <div class="modal-header">
+        <h3>Quick page lookup</h3>
+        <a href="javascript:void(0)" class="close">×</a>
+    </div>
+    <div class="modal-body">
+        <input class="xlarge" id="quickSearch" name="quickSearch" size="40" type="text">
+
+        <div id="searchResults">
+            <ul>
+            </ul>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="javascript:void(0)" id="okButton" class="btn primary">Go!</a>
+    </div>
+</div>
+
+
+<div class="container">
+
+    <div class="row topbar">
+        <div class="fill">
+            <div class="container">
+                <h3><a href="http://groovy.codehaus.org/">★ Groovy</a></h3>
+                <ul class="nav">
+                    <li class="dropdown">
+                        <a href="http://groovy.codehaus.org/Tutorial+5+-+Capturing+regex+groups#" class="dropdown-toggle">Documentation</a>
+                        <ul class="dropdown-menu">
+                            <li class=""><a href="http://groovy.codehaus.org/Documentation">Documentation
+                                Portal</a></li>
+                            <li class="divider"></li>
+                            <li><a href="http://beta.groovy-lang.org/docs/groovy-2.3.1/html/documentation">New Documentation</a></li>
+                            <li class=""><a href="http://groovy.codehaus.org/Installing+Groovy">Installing Groovy</a></li>
+                            <li class=""><a href="http://groovy.codehaus.org/Getting+Started+Guide">Getting Started</a></li>
+                            <li class="divider"></li>
+                            <li class=""><a href="http://groovy.codehaus.org/User+Guide">User Guide</a></li>
+                            <li class=""><a href="http://groovy.codehaus.org/Testing+Guide">Testing Guide</a></li>
+                            <li class=""><a href="http://groovy.codehaus.org/Advanced+Usage+Guide">Advanced Usage Guide</a></li>
+                            <li class=""><a href="http://groovy.codehaus.org/Developer+Guide">Developer Guide</a></li>
+                            <li class="divider"></li>
+                            <li class=""><a href="http://groovy.codehaus.org/Cookbook+Examples">Cookbook Examples</a></li>
+                            <li class="divider"></li>
+                            <li><a href="http://groovy.codehaus.org/gapi/">Groovy APIs</a></li>
+                            <li><a href="http://groovy.codehaus.org/groovy-jdk/">Groovy Development Kit</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="http://groovy.codehaus.org/Tutorial+5+-+Capturing+regex+groups#" class="dropdown-toggle">Community &amp; Support</a>
+                        <ul class="dropdown-menu">
+                            <li class=""><a href="http://groovy.codehaus.org/Community+and+Support">Welcome!</a></li>
+                            <li class="divider"></li>
+                            <li class=""><a href="http://groovy.codehaus.org/Git">Groovy Sources</a></li>
+                            <li class=""><a href="http://groovy.codehaus.org/Mailing+Lists">Mailing Lists</a></li>
+                            <li><a href="http://jira.codehaus.org/secure/BrowseProject.jspa?id=10242">Bug Tracker</a></li>
+                            <li><a href="http://docs.codehaus.org/display/GROOVY/Home">Wiki</a></li>
+                            <li class="divider"></li>
+                            <li class=""><a href="http://groovy.codehaus.org/Contributing">Contributing</a></li>
+                            <li class="divider"></li>
+                            <li class=""><a href="http://groovy.codehaus.org/Related+Projects">Related Projects</a></li>
+                            <li class=""><a href="http://groovy.codehaus.org/Modules">Modules</a></li>
+                            <li class="divider"></li>
+                            <li class=""><a href="http://groovy.codehaus.org/User+Groups">User Groups</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="http://groovy.codehaus.org/Tutorial+5+-+Capturing+regex+groups#" class="dropdown-toggle">IDE Support</a>
+                        <ul class="dropdown-menu">
+                            <li class=""><a href="http://groovy.codehaus.org/Eclipse+Plugin">Eclipse Plugin</a></li>
+                            <li class=""><a href="http://groovy.codehaus.org/IntelliJ+IDEA+Plugin+by+JetBrains">IntelliJ IDEA Plugin</a></li>
+                            <li class="divider"></li>
+                            <li class=""><a href="http://groovy.codehaus.org/IDE+Support">Other IDE plugins</a></li>
+                        </ul>
+                    </li>
+                    <li class=""><a href="http://groovy.codehaus.org/Download">Download</a></li>
+                    <li class=""><a href="http://groovy.codehaus.org/Project+Information">About</a></li>
+                    <li>
+                        <div class="nav secondary-nav" style="top: 5px; left: 101px">
+                            <input type="text" id="search-input-field" style="width: 198px;" placeholder="Search">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+
+        <div class="span12 columns">
+
+            <div id="initial-page-content">
+
+                                <div id="breadCrumbLinks" class="breadCrumb module">
+                    <div style="overflow:hidden; position:relative;  width: 700px;"><div><ul style="width: 5000px;">
+                        <li class="first"><a href="http://groovy.codehaus.org/">Home</a></li>
+                                                                                                                        <li><a href="http://groovy.codehaus.org/Documentation">Documentation</a></li>
+                                                                                                <li style="background: none;"><span style="width: 5px;"><a href="http://groovy.codehaus.org/Getting+Started+Guide" style="width: 127px;">Getting Started Guide</a></span><div class="chevronOverlay" style="display: block;"></div></li>
+                                                                                                <li><a href="http://groovy.codehaus.org/Beginners+Tutorial">Beginners Tutorial</a></li>
+                                                                                                <li class="last" style="background: none;"><a href="./Groovy - Tutorial 5 - Capturing regex groups_files/Groovy - Tutorial 5 - Capturing regex groups.htm">Tutorial 5 - Capturing regex groups</a></li>
+                                                                    </ul></div></div>
+                </div>
+                
+                <h1 class="mainPageTitle">
+                    Tutorial 5 - Capturing regex groups
+
+                <span style="float: right">
+                    <a title="Add comment to Wiki" href="http://docs.codehaus.org/display/GROOVY/Tutorial+5+-+Capturing+regex+groups?showComments=true%20showCommentArea=true#addcomment"><img src="./Groovy - Tutorial 5 - Capturing regex groups_files/discuss.jpg" class="print" alt="Add comment to Wiki"></a>
+                    <a title="View in Wiki" href="http://docs.codehaus.org/display/GROOVY/Tutorial+5+-+Capturing+regex+groups"><img src="./Groovy - Tutorial 5 - Capturing regex groups_files/view.jpg" class="print" alt="View in Wiki"></a>
+                    <a title="Edit Wiki page" href="http://docs.codehaus.org/pages/editpage.action?spaceKey=GROOVY&title=Tutorial+5+-+Capturing+regex+groups"><img src="./Groovy - Tutorial 5 - Capturing regex groups_files/edit.jpg" class="print" alt="Edit Wiki page"></a>
+                    <a title="Printable Version" href="http://groovy.codehaus.org/Tutorial+5+-+Capturing+regex+groups?print=1"><img src="./Groovy - Tutorial 5 - Capturing regex groups_files/print.jpg" class="print" alt="Printable Version"></a>
+                </span>
+                </h1>
+
+                                <div class="ads">
+                    <script type="text/javascript"><!--
+                    google_ad_client = "pub-5267633279208525";
+                    google_ad_width = 468;
+                    google_ad_height = 60;
+                    google_ad_format = "468x60_as";
+                    //google_ad_channel = "7321085054"; //unity-top
+                    google_color_border = "3483A1";
+                    google_color_bg = "FFFFFF";
+                    google_color_link = "3483A1";
+                    google_color_url = "3483A1";
+                    google_color_text = "000000";
+                    //--></script>
+                    <script type="text/javascript" src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+                    </script>
+                </div>
+                
+                <div>
+                    <div class="section_1"><h1 id="Tutorial5-Capturingregexgroups-Capturegroups">Capture groups</h1><p>One of the most useful features of Groovy is the ability to use regular expressions to "capture" data out of a regular expression. Let's say for example we wanted to extract the location data of Liverpool, England from the following data:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script type="syntaxhighlighter" class="theme: Confluence; brush: java; gutter: false"><![CDATA[locationData = &quot;Liverpool, England: 53d 25m 0s N 3d 0m 0s&quot;
+]]></script>
+<pre><code class="" data-result="[object Object]">locationData = "Liverpool, England: 53d 25m 0s N 3d 0m 0s"
+</code></pre></div></div><p>We could use the split() function of string and then go through and strip out the comma between Liverpool and England, and all the special location characters. Or we could do it all in one step with a regular expression. The syntax for doing this is a little bit strange. First, we have to define a regular expression, putting anything we are interested in in parentheses.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script type="syntaxhighlighter" class="theme: Confluence; brush: java; gutter: false"><![CDATA[myRegularExpression = /([a-zA-Z]+), ([a-zA-Z]+): ([0-9]+). ([0-9]+). ([0-9]+). ([A-Z]) ([0-9]+). ([0-9]+). ([0-9]+)./
+]]></script>
+<pre><code class="" data-result="[object Object]">myRegularExpression = /([a-zA-Z]+), ([a-zA-Z]+): ([0-9]+). ([0-9]+). ([0-9]+). ([A-Z]) ([0-9]+). ([0-9]+). ([0-9]+)./
+</code></pre></div></div><p>Next, we have to define a "matcher" which is done using the <strong>=~</strong> operator:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script type="syntaxhighlighter" class="theme: Confluence; brush: java; gutter: false"><![CDATA[matcher = ( locationData =~ myRegularExpression )
+]]></script>
+<pre><code class="" data-result="[object Object]">matcher = ( locationData =~ myRegularExpression )
+</code></pre></div></div><p>The variable matcher contains a java.util.regex.Matcher as enhanced by groovy. You can access your data just as you would in Java from a Matcher object. A groovier way to get your data is to use the matcher as if it were an array--a two dimensional array, to be exact. A two dimensional array is simply an array of arrays. In this case the first "dimension" of the array corresponds to each match of the regular expression to the string. With this example, the regular expression only matches once, so there is only one element in the first dimension of the two-dimensional array. So consider the following code:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script type="syntaxhighlighter" class="theme: Confluence; brush: java; gutter: false"><![CDATA[matcher[0]
+]]></script>
+<pre><code class="" data-result="[object Object]">matcher[0]
+</code></pre></div></div><p>That expression should evaluate to:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script type="syntaxhighlighter" class="theme: Confluence; brush: java; gutter: false"><![CDATA[[&quot;Liverpool, England: 53d 25m 0s N 3d 0m 0s&quot;, &quot;Liverpool&quot;, &quot;England&quot;, &quot;53&quot;, &quot;25&quot;, &quot;0&quot;, &quot;N&quot;, &quot;3&quot;, &quot;0&quot;, &quot;0&quot;]
+]]></script>
+<pre><code class="" data-result="[object Object]">["Liverpool, England: 53d 25m 0s N 3d 0m 0s", "Liverpool", "England", "53", "25", "0", "N", "3", "0", "0"]
+</code></pre></div></div><p>And then we use the second dimension of the array to access the capture groups that we're interested in:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script type="syntaxhighlighter" class="theme: Confluence; brush: java; gutter: false"><![CDATA[if (matcher.matches()) {
+	println(matcher.getCount()+ &quot; occurrence of the regular expression was found in the string.&quot;);
+	println(matcher[0][1] + &quot; is in the &quot; + matcher[0][6] + &quot; hemisphere. (According to: &quot; + matcher[0][0] + &quot;)&quot;)
+}
+]]></script>
+<pre><code class="groovy" data-result="[object Object]"><span class="keyword">if</span> (matcher.matches()) {
+	println(matcher.getCount()+ <span class="string">" occurrence of the regular expression was found in the string."</span>);
+	println(matcher[<span class="number">0</span>][<span class="number">1</span>] + <span class="string">" is in the "</span> + matcher[<span class="number">0</span>][<span class="number">6</span>] + <span class="string">" hemisphere. (According to: "</span> + matcher[<span class="number">0</span>][<span class="number">0</span>] + <span class="string">")"</span>)
+}
+</code></pre></div></div><p>Notice that the extra benefit that we get from using regular expressions is that we can see if the data is well-formed. That is if <strong>locationData</strong> contained the string "Could not find location data for Lima, Peru", the if statement would not execute.</p></div><div class="section_1"><h1 id="Tutorial5-Capturingregexgroups-Non-matchingGroups">Non-matching Groups</h1><p>Sometimes it is desirable to group an expression without marking it as a capture group. You can do this by enclosing the expression in parentheses with ?: as the first two characters. For example if we wanted to reformat the names of some people, ignoring middle names if any, we might:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script type="syntaxhighlighter" class="theme: Confluence; brush: java; gutter: false"><![CDATA[names = [
+    &quot;Graham James Edward Miller&quot;,
+    &quot;Andrew Gregory Macintyre&quot;,
+    &quot;No MiddleName&quot;
+]
+
+printClosure = {
+	matcher = (it =~ /(.*?)(?: .*)* (.*)/);  // notice the non-matching group in the middle
+	if (matcher.matches())
+		println(matcher[0][2]+&quot;, &quot;+matcher[0][1]);
+}
+names.each(printClosure);
+]]></script>
+<pre><code class="groovy" data-result="[object Object]">names = [
+    <span class="string">"Graham James Edward Miller"</span>,
+    <span class="string">"Andrew Gregory Macintyre"</span>,
+    <span class="string">"No MiddleName"</span>
+]
+
+printClosure = {
+	matcher = (it =~ /(.*?)(?: .*)* (.*)/);  <span class="comment">// notice the non-matching group in the middle</span>
+	<span class="keyword">if</span> (matcher.matches())
+		println(matcher[<span class="number">0</span>][<span class="number">2</span>]+<span class="string">", "</span>+matcher[<span class="number">0</span>][<span class="number">1</span>]);
+}
+names.each(printClosure);
+</code></pre></div></div><p>Should output:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script type="syntaxhighlighter" class="theme: Confluence; brush: java; gutter: false"><![CDATA[Miller, Graham
+Macintyre, Andrew
+MiddleName, No]]></script>
+<pre><code class="" data-result="[object Object]">Miller, Graham
+Macintyre, Andrew
+MiddleName, No</code></pre></div></div><p>That way, we always know that the last name is the second matcher group.</p><div class="section_2"><h2 id="Tutorial5-Capturingregexgroups-Replacement">Replacement</h2><p>One of the simpler but more useful things you can do with regular expressions is to replace the matching part of a string. You do that using the replaceFirst() and replaceAll() functions on java.util.regex.Matcher (this is the type of object you get when you do something like myMatcher = ("a" += /b/); ).</p><p>So let's say we want to replace all occurrences of Harry Potter's name so that we can resell J.K. Rowlings books as Tanya Grotter novels (yes, someone tried this, Google it if you don't believe me).</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script type="syntaxhighlighter" class="theme: Confluence; brush: java; gutter: false"><![CDATA[excerpt = &quot;At school, Harry had no one. Everybody knew that Dudley&#39;s gang hated that odd Harry Potter &quot;+
+          &quot;in his baggy old clothes and broken glasses, and nobody liked to disagree with Dudley&#39;s gang.&quot;;
+matcher = (excerpt =~ /Harry Potter/);
+excerpt = matcher.replaceAll(&quot;Tanya Grotter&quot;);
+
+matcher = (excerpt =~ /Harry/);
+excerpt = matcher.replaceAll(&quot;Tanya&quot;);
+println(&quot;Publish it! &quot;+excerpt);
+]]></script>
+<pre><code class="" data-result="[object Object]">excerpt = "At school, Harry had no one. Everybody knew that Dudley's gang hated that odd Harry Potter "+
+          "in his baggy old clothes and broken glasses, and nobody liked to disagree with Dudley's gang.";
+matcher = (excerpt =~ /Harry Potter/);
+excerpt = matcher.replaceAll("Tanya Grotter");
+
+matcher = (excerpt =~ /Harry/);
+excerpt = matcher.replaceAll("Tanya");
+println("Publish it! "+excerpt);
+</code></pre></div></div><p>In this case, we do it in two steps, one for Harry Potter's full name, one for just his first name.</p></div><div class="section_2"><h2 id="Tutorial5-Capturingregexgroups-ReluctantOperators">Reluctant Operators</h2><p>The operators ?, +, and * are by default "greedy". That is, they attempt to match as much of the input as possible. Sometimes this is not what we want. Consider the following list of fifth century popes:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script type="syntaxhighlighter" class="theme: Confluence; brush: java; gutter: false"><![CDATA[popesArray = [
+    &quot;Pope Anastasius I 399-401&quot;,
+    &quot;Pope Innocent I 401-417&quot;,
+    &quot;Pope Zosimus 417-418&quot;,
+    &quot;Pope Boniface I 418-422&quot;,
+    &quot;Pope Celestine I 422-432&quot;,
+    &quot;Pope Sixtus III 432-440&quot;,
+    &quot;Pope Leo I the Great 440-461&quot;,
+    &quot;Pope Hilarius 461-468&quot;,
+    &quot;Pope Simplicius 468-483&quot;,
+    &quot;Pope Felix III 483-492&quot;,
+    &quot;Pope Gelasius I 492-496&quot;,
+    &quot;Pope Anastasius II 496-498&quot;,
+    &quot;Pope Symmachus 498-514&quot;
+]
+]]></script>
+<pre><code class="" data-result="[object Object]">popesArray = [
+    "Pope Anastasius I 399-401",
+    "Pope Innocent I 401-417",
+    "Pope Zosimus 417-418",
+    "Pope Boniface I 418-422",
+    "Pope Celestine I 422-432",
+    "Pope Sixtus III 432-440",
+    "Pope Leo I the Great 440-461",
+    "Pope Hilarius 461-468",
+    "Pope Simplicius 468-483",
+    "Pope Felix III 483-492",
+    "Pope Gelasius I 492-496",
+    "Pope Anastasius II 496-498",
+    "Pope Symmachus 498-514"
+]
+</code></pre></div></div><p>A first attempt at a regular expression to parse out the name (without the sequence number or modifier) and years of each pope might be as follows:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script type="syntaxhighlighter" class="theme: Confluence; brush: java; gutter: false"><![CDATA[/Pope (.*)(?: .*)? ([0-9]+)-([0-9]+)/
+]]></script>
+<pre><code class="" data-result="[object Object]">/Pope (.*)(?: .*)? ([0-9]+)-([0-9]+)/
+</code></pre></div></div><p>Which splits up as:</p><div class="table-wrap"><table class="confluenceTable"><tbody><tr><td class="confluenceTd"><p>/</p></td><td class="confluenceTd"><p>Pope</p></td><td class="confluenceTd"><p>(.*)</p></td><td class="confluenceTd"><p>(?: .*)?</p></td><td class="confluenceTd"><p>([0-9]+)</p></td><td class="confluenceTd"><p>-</p></td><td class="confluenceTd"><p>([0-9]+)</p></td><td class="confluenceTd"><p>/</p></td></tr><tr><td class="confluenceTd"><p>begin expression</p></td><td class="confluenceTd"><p>Pope</p></td><td class="confluenceTd"><p>capture some characters</p></td><td class="confluenceTd"><p>non-capture group: space and some characters</p></td><td class="confluenceTd"><p>capture a number</p></td><td class="confluenceTd"><p>-</p></td><td class="confluenceTd"><p>capture a number</p></td><td class="confluenceTd"><p>end expression</p></td></tr></tbody></table></div><p>We hope that then the first capture group would just be the name of the pope in each example, but as it turns out, it captures too much of the input. For example the first pope breaks up as follows:</p><div class="table-wrap"><table class="confluenceTable"><tbody><tr><td class="confluenceTd"><p>/</p></td><td class="confluenceTd"><p>Pope</p></td><td class="confluenceTd"><p>(.*)</p></td><td class="confluenceTd"><p>(?: .*)?</p></td><td class="confluenceTd"><p>([0-9]+)</p></td><td class="confluenceTd"><p>-</p></td><td class="confluenceTd"><p>([0-9]+)</p></td><td class="confluenceTd"><p>/</p></td></tr><tr><td class="confluenceTd"><p>begin expression</p></td><td class="confluenceTd"><p>Pope</p></td><td class="confluenceTd"><p>Anastasius I</p></td><td class="confluenceTd"><p>&nbsp;</p></td><td class="confluenceTd"><p>399</p></td><td class="confluenceTd"><p>-</p></td><td class="confluenceTd"><p>401</p></td><td class="confluenceTd"><p>end expression</p></td></tr></tbody></table></div><p>Clearly the first capture group is capturing too much of the input. We only want it to capture Anastasius, and the modifiers should be captured by the second capture group. Another way to put this is that the first capture group should capture as little of the input as possible to still allow a match. In this case it would be everything until the next space. Java regular expressions allow us to do this using "reluctant" versions of the *, + and ? operators. In order to make one of these operators reluctant, simply add a ? after it (to make *?, +? and ??). So our new regular expression would be:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script type="syntaxhighlighter" class="theme: Confluence; brush: java; gutter: false"><![CDATA[/Pope (.*?)(?: .*)? ([0-9]+)-([0-9]+)/
+]]></script>
+<pre><code class="" data-result="[object Object]">/Pope (.*?)(?: .*)? ([0-9]+)-([0-9]+)/
+</code></pre></div></div><p>So now let's look at our new regular expression with the most difficult of the inputs, the one before Pope Hilarius (a real jokester), breaks up as follows:</p><div class="table-wrap"><table class="confluenceTable"><tbody><tr><td class="confluenceTd"><p>/</p></td><td class="confluenceTd"><p>Pope</p></td><td class="confluenceTd"><p>(.*?)</p></td><td class="confluenceTd"><p>(?: .*)?</p></td><td class="confluenceTd"><p>([0-9]+)</p></td><td class="confluenceTd"><p>-</p></td><td class="confluenceTd"><p>([0-9]+)</p></td><td class="confluenceTd"><p>/</p></td></tr><tr><td class="confluenceTd"><p>begin expression</p></td><td class="confluenceTd"><p>Pope</p></td><td class="confluenceTd"><p>Leo</p></td><td class="confluenceTd"><p>I the Great</p></td><td class="confluenceTd"><p>440</p></td><td class="confluenceTd"><p>-</p></td><td class="confluenceTd"><p>461</p></td><td class="confluenceTd"><p>end expression</p></td></tr></tbody></table></div><p>Which is what we want.</p><p>So to test this out, we would use the code:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script type="syntaxhighlighter" class="theme: Confluence; brush: java; gutter: false"><![CDATA[popesArray = [
+    &quot;Pope Anastasius I 399-401&quot;,
+    &quot;Pope Innocent I 401-417&quot;,
+    &quot;Pope Zosimus 417-418&quot;,
+    &quot;Pope Boniface I 418-422&quot;,
+    &quot;Pope Celestine I 422-432&quot;,
+    &quot;Pope Sixtus III 432-440&quot;,
+    &quot;Pope Leo I the Great 440-461&quot;,
+    &quot;Pope Hilarius 461-468&quot;,
+    &quot;Pope Simplicius 468-483&quot;,
+    &quot;Pope Felix III 483-492&quot;,
+    &quot;Pope Gelasius I 492-496&quot;,
+    &quot;Pope Anastasius II 496-498&quot;,
+    &quot;Pope Symmachus 498-514&quot;
+]
+
+myClosure = {
+	myMatcher = (it =~ /Pope (.*?)(?: .*)? ([0-9]+)-([0-9]+)/);
+	if (myMatcher.matches())
+		println(myMatcher[0][1]+&quot;: &quot;+myMatcher[0][2]+&quot; to &quot;+myMatcher[0][3]);
+}
+popesArray.each(myClosure);
+]]></script>
+<pre><code class="groovy" data-result="[object Object]">popesArray = [
+    <span class="string">"Pope Anastasius I 399-401"</span>,
+    <span class="string">"Pope Innocent I 401-417"</span>,
+    <span class="string">"Pope Zosimus 417-418"</span>,
+    <span class="string">"Pope Boniface I 418-422"</span>,
+    <span class="string">"Pope Celestine I 422-432"</span>,
+    <span class="string">"Pope Sixtus III 432-440"</span>,
+    <span class="string">"Pope Leo I the Great 440-461"</span>,
+    <span class="string">"Pope Hilarius 461-468"</span>,
+    <span class="string">"Pope Simplicius 468-483"</span>,
+    <span class="string">"Pope Felix III 483-492"</span>,
+    <span class="string">"Pope Gelasius I 492-496"</span>,
+    <span class="string">"Pope Anastasius II 496-498"</span>,
+    <span class="string">"Pope Symmachus 498-514"</span>
+]
+
+myClosure = {
+	myMatcher = (it =~ /Pope (.*?)(?: .*)? ([<span class="number">0</span>-<span class="number">9</span>]+)-([<span class="number">0</span>-<span class="number">9</span>]+)/);
+	<span class="keyword">if</span> (myMatcher.matches())
+		println(myMatcher[<span class="number">0</span>][<span class="number">1</span>]+<span class="string">": "</span>+myMatcher[<span class="number">0</span>][<span class="number">2</span>]+<span class="string">" to "</span>+myMatcher[<span class="number">0</span>][<span class="number">3</span>]);
+}
+popesArray.each(myClosure);
+</code></pre></div></div><p>Try this code with the original regular expression as well to see the broken output.</p></div></div>
+                </div>
+
+                <div class="ads">
+                    <p>&nbsp;</p>
+                    <script type="text/javascript"><!--
+                    google_ad_client = "pub-5267633279208525";
+                    google_ad_width = 468;
+                    google_ad_height = 60;
+                    google_ad_format = "468x60_as";
+                    //google_ad_channel = "7321085054"; //unity-top
+                    google_color_border = "3483A1";
+                    google_color_bg = "FFFFFF";
+                    google_color_link = "3483A1";
+                    google_color_url = "3483A1";
+                    google_color_text = "000000";
+                    //--></script>
+                    <script type="text/javascript" src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+                    </script>
+                </div>
+
+            </div>
+
+            <div id="search-area">
+
+                    <div id="breadCrumbLinksSearch" class="breadCrumb module">
+                        <div style="overflow:hidden; position:relative;  width: 100%;"><div><ul style="width: 5000px;">
+                            <li class="first"><a href="http://groovy.codehaus.org/">Home</a></li>
+                            <li class="last"><a href="http://groovy.codehaus.org/search.html">Search</a></li>
+                        </ul></div></div>
+                    </div>
+
+                    <h1 class="mainPageTitle">Search</h1>
+
+                    <p>
+                        Results of your search request can come from various sources: the Groovy website itself,
+                        the JIRA issues, the API documentation, as well as a few other interesting Groovy-related blogs.
+                    </p>
+
+                    <div style="display:none">
+                        <div id="mysite_thumbnail">
+                            <div data-attr="0" data-vars="{tn:Vars.thumbnail &amp;&amp; thumbnail.src ? thumbnail : {src:Vars.document &amp;&amp; document.thumbnailUrl}}">
+                                <div data-if="tn.src" class="gs-image-box gs-web-image-box">
+                                    <a class="gs-image" data-attr="{href:url,target:google.search.Search.LINK_TARGET_SELF}">
+                                        <img class="gs-image" src="" data-attr="{src:tn.src, width:48, height: 48}">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="mysite_webResult">
+                            <div class="gs-webResult gs-result" data-vars="{longUrl:function() { var i = unescapedUrl.indexOf(visibleUrl); return i &lt; 1 ? visibleUrl : unescapedUrl.substring(i);}}">
+                                <table>
+                                    <tbody><tr>
+                                        <td valign="top">
+                                            <div data-if="Vars.richSnippet" data-attr="0" data-body="render(&#39;thumbnail&#39;,richSnippet,{url:unescapedUrl,target:google.search.Search.LINK_TARGET_SELF})"></div>
+                                        </td>
+                                        <td valign="top">
+                                            <div class="gs-title">
+                                                <a class="gs-title" data-attr="{href:unescapedUrl,target:google.search.Search.LINK_TARGET_SELF}" data-body="html(title)"></a>
+                                            </div>
+                                            <div class="gs-snippet" data-body="html(content)"></div>
+                                            <div class="gs-visibleUrl gs-visibleUrl-short" data-body="longUrl()"></div>
+                                            <div style="color:#676767" data-if="Vars.richSnippet &amp;&amp; Vars.richSnippet.document">
+                                                <img data-attr="{src:Vars.richSnippet.document.filetypeImage}">&nbsp;
+                                                By <span data-body="html(Vars.richSnippet.document.author)"></span>
+                                                &nbsp;-&nbsp;<span data-body="html(Vars.richSnippet.document.pageCount)"></span> pages
+                                                &nbsp;-&nbsp;<span data-body="html(Vars.richSnippet.document.viewCount)"></span> views
+                                                &nbsp;-&nbsp;last modified&nbsp;<span data-body="html(Vars.richSnippet.document.timeAgo)"></span>
+                                            </div>
+
+                                            <div data-if="Vars.richSnippet &amp;&amp; Vars.richSnippet.action" class="gs-actions" data-body="render(&#39;action&#39;,richSnippet,{url:unescapedUrl,target:google.search.Search.LINK_TARGET_SELF})"></div>
+                                        </td>
+                                    </tr>
+                                </tbody></table>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="cse"><div class="gsc-control-cse gsc-control-cse-fr"><div class="gsc-control-wrapper-cse" dir="ltr"><div class="gsc-results-wrapper-nooverlay"><div class="gsc-tabsAreaInvisible"><div class="gsc-tabHeader gsc-inline-block gsc-tabhActive">Recherche personnalisée</div><span class="gs-spacer"> </span></div><div class="gsc-tabsAreaInvisible"></div><div class="gsc-above-wrapper-area-invisible"><table cellspacing="0" cellpadding="0" class="gsc-above-wrapper-area-container"><tbody><tr><td class="gsc-result-info-container"><div class="gsc-result-info-invisible"></div></td></tr></tbody></table></div><div class="gsc-adBlockInvisible"></div><div class="gsc-wrapper"><div class="gsc-adBlockInvisible"></div><div class="gsc-resultsbox-invisible"><div class="gsc-resultsRoot gsc-tabData gsc-tabdActive"><table cellspacing="0" cellpadding="0" class="gsc-resultsHeader"><tbody><tr><td class="gsc-twiddleRegionCell"><div class="gsc-twiddle"><div class="gsc-title">Web</div></div><div class="gsc-stats"></div><div class="gsc-results-selector gsc-all-results-active"><div class="gsc-result-selector gsc-one-result" title="afficher un résultat">&nbsp;</div><div class="gsc-result-selector gsc-more-results" title="afficher plus de résultats">&nbsp;</div><div class="gsc-result-selector gsc-all-results" title="afficher tous les résultats">&nbsp;</div></div></td><td class="gsc-configLabelCell"></td></tr></tbody></table><div><div class="gsc-expansionArea"></div></div></div></div></div></div></div></div></div>
+
+                </div>
+
+        </div>
+
+        <div class="span4 columns">
+            <div id="sidebar">
+                                <img src="./Groovy - Tutorial 5 - Capturing regex groups_files/groovy-logo-medium.png" height="100" alt="">
+                
+                <div class="navigation">
+                    <br>
+                        The Groovy programming language is supported by <a href="http://www.gopivotal.com/" class="external-link">Pivotal</a> and the Groovy Community
+                    <a href="http://www.gopivotal.com/" class="external-link">
+                        <img class="confluence-embedded-image image-center" src="./Groovy - Tutorial 5 - Capturing regex groups_files/pivotal155px.png">
+                    </a> 
+
+                    <div class="section_1">
+                        <h1 id="Navigation-TrainingEvents">Training Events <a href="http://groovy.codehaus.org/Training+Events">...</a></h1>
+                        <script type="text/javascript"> (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) })(window,document,'script','//www.google-analytics.com/analytics.js','gaPiAd'); gaPiAd('create', 'UA-42481901-1', 'none'); gaPiAd('send', 'event', 'Impression', 'Groovy and Grails [V2.0] - 22 Sep 2014 - Paris', location.href); var gaPiAdClick_53ac3586e5de882892000001 = function() { gaPiAd('send', 'event', 'Click', 'Groovy and Grails [V2.0] - 22 Sep 2014 - Paris', location.href) }; </script><div class="PivotalAdBannerDiv"> <style> /* custom banner style placeholder */ /* #gaPiAdDivId_53ac3586e5de882892000001 { } */ </style> <a style="text-decoration:none;" onclick="gaPiAdClick_53ac3586e5de882892000001();" href="http://mylearn.vmware.com/gateway/?credits=0&course=177394" target="_new"> <div id="gaPiAdDivId_53ac3586e5de882892000001" class="S2UniGeoipBanner">   <span class="S2GPcourse_name">Groovy and Grails [V2.0]</span>   <span class="S2GPcity">Paris, </span>   <span class="S2GPstart_date">22 Sep 2014</span>   <span class="learn-more-button">Learn More</span> </div></a> </div>
+                        <script>
+                            (function() {
+                            var s = document.createElement('script');
+                            s.type = 'text/javascript';
+                            s.async = true;
+                            s.src = 'http://bserv.cfapps.io/gb/groovy.codehaus.org';
+                            var x = document.getElementsByTagName('script')[0];
+                            x.parentNode.insertBefore(s, x);
+                            })();
+                        </script>
+                    </div>
+
+                    <div class="section_1"><h1 id="Navigation-Information">Information</h1><ul class="alternate"><li><a href="http://groovy.codehaus.org/News">News</a></li><li><a href="http://groovy.codehaus.org/FAQ">FAQ</a></li><li><a href="http://groovy.codehaus.org/Roadmap">Roadmap</a></li><li><a href="http://groovy.codehaus.org/Eclipse+Plugin">Eclipse plugin</a></li></ul></div><div class="section_1"><h1 id="Navigation-Books...">Books&nbsp;<a href="http://groovy.codehaus.org/Books">...</a></h1><p><a href="http://www.manning.com/koenig2/" class="external-link"><img class="confluence-embedded-image" src="./Groovy - Tutorial 5 - Capturing regex groups_files/gina_cover.jpg" data-image-src="/download/attachments/1871/gina_cover.jpg?version=2&amp;modificationDate=1315509019302&amp;api=v2"></a><br><br> <a href="http://www.amazon.com/gp/product/1932394842?ie=UTF8&tag=httpgroovycan-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=1932394842" class="external-link">buy at Amazon</a></p><p><a href="http://www.amazon.com/gp/product/1932394842?ie=UTF8&tag=httpgroovycan-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=1932394842" class="external-link"></a><a href="http://www.packtpub.com/groovy-2-cookbook/book" class="external-link"><img class="confluence-embedded-image confluence-thumbnail" width="126" src="./Groovy - Tutorial 5 - Capturing regex groups_files/9366OS_Cover.png" data-image-src="/download/attachments/1871/9366OS_Cover.png?version=1&amp;modificationDate=1384940664040&amp;api=v2"></a></p><p><a href="http://www.amazon.com/Groovy-2-Cookbook-Andrey-Adamovich/dp/1849519366/ref=sr_1_1?ie=UTF8&qid=1384940751&sr=8-1&keywords=groovy+2+cookbook" class="external-link">buy at Amazon</a></p><p><a href="https://www.packtpub.com/groovy-for-domain-specific-languages-dsl/book" style="font-size: 14.0px;line-height: 1.4285715;" class="external-link"><img class="confluence-embedded-image confluence-external-resource" src="./Groovy - Tutorial 5 - Capturing regex groups_files/6903_Groovy for Domain-Specific Languages_Front cover.jpg" data-image-src="https://www.packtpub.com/sites/default/files/imagecache/productview/6903_Groovy%20for%20Domain-Specific%20Languages_Front%20cover.jpg"></a>&nbsp;</p><p><a href="http://www.amazon.com/Groovy-Domain-Specific-Languages-Fergal-Dearle/dp/184719690X/" class="external-link">buy at Amazon</a></p></div><div class="section_1"><h1 id="Navigation-International">International</h1><ul class="alternate"><li><a href="http://groovy.codehaus.org/Chinese+Home">Chinese Home</a></li><li><a href="http://groovy.codehaus.org/Korean+Home">Korean Home</a></li><li><a href="http://groovy.codehaus.org/Portuguese+Home">Portuguese Home</a></li><li><a href="http://groovy.codehaus.org/Japanese+Home">Japanese Home</a></li></ul></div>
+
+                    <h1 class="headerstyle">Feeds</h1>
+                    <ul>
+                        <li><a class="rss" href="http://docs.codehaus.org/spaces/rss.action?key=GROOVY&newPages=false">Site</a>
+                        </li>
+                        <li><a class="rss" href="http://docs.codehaus.org/spaces/blogrss.action?key=GROOVY">News</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+</div><div id="yieldsquare-ad" class="yieldsquare-enabled" style="display: none; clear: both;"><iframe id="yieldsquare-frame" frameborder="0" width="0" height="0" src="about:blank" style="margin: 0px; overflow: hidden; display: none !important; visibility: hidden !important; opacity: 0 !important; background-position: 0px 0px;"></iframe><div id="yieldsquare-about-ad">This ad is supporting your extension Smooth Gestures<a id="yieldsquare-disable-ad" href="http://groovy.codehaus.org/undefined">Turn off these ads?</a></div></div>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-257558-3']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+</body></html>

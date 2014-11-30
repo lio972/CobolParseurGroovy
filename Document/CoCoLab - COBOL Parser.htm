@@ -1,0 +1,264 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!-- saved from url=(0039)http://www.cocolab.com/parse_cobol.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>CoCoLab - COBOL Parser</title>
+
+<meta http-equiv="content-language" content="en">
+<meta name="author" content="Dr. Josef Grosch, CoCoLab">
+<meta name="publisher" content="Dr. Josef Grosch, CoCoLab, Karlsruhe, Germany">
+<meta name="copyright" content="(C)2005, Dr. Josef Grosch, CoCoLab, Karlsruhe, Germany">
+<meta name="robots" content="index,follow">
+
+<meta name="description" lang="en" content="CoCoLab, program analysis,
+  program transformation, compiler construction, Tukan, Cocktail Toolbox,
+  scanner, parser">
+
+<meta name="description" lang="de" content="CoCoLab, Programm-Analyse,
+  Programm-Transformation, Compilerbau, Tukan, Cocktail Toolbox,
+  Scanner, Parser">
+
+<meta name="keywords" lang="en" content="CoCoLab, program analysis,
+  program transformation, compiler construction, Tukan, Cocktail Toolbox,
+  scanner, parser, software development, reengineering,
+  Impact Analysis, Application Mining, Redocumentation, Program Slicing,
+  Data Flow Analysis, Programming Guidelines,
+  Application Reengineering, Software Migration, Software Restructuring,
+  Source-to-Source Translation, Dialect Conversion, Pretty-Printing,
+  COBOL, PL/I, NATURAL, SQL, PL/SQL, CICS, JCL, REXX,
+  Java, C, C++, C#, Visual Basic, PowerBuilder, Delphi, Unix Shell,
+  ASP, Javascript, JScript, Ecmascript, VBScript, PHP, UPC, OpenMP,
+  Objective-C, ABAP">
+
+<meta name="keywords" lang="de" content="CoCoLab, Programm-Analyse,
+  Programm-Transformation, Compilerbau, Tukan, Cocktail Toolbox,
+  Scanner, Parser, Softwareentwicklung, Reengineering,
+  Impact Analyse, Application Mining, Redokumentation, Programm Slicing,
+  Datenfluss Analyse, Programmier Richtlinien,
+  Anwendungs-Reengineering, Software Migration, Software Restrukturierung,
+  Sprachkonvertierung, Dialektkonvertierung, Pretty-Printing,
+  COBOL, PL/I, NATURAL, SQL, PL/SQL, CICS, JCL, REXX,
+  Java, C, C++, C#, Visual Basic, PowerBuilder, Delphi, Unix Shell,
+  ASP, Javascript, JScript, Ecmascript, VBScript, PHP, UPC, OpenMP,
+  Objective-C, ABAP">
+
+<link rel="stylesheet" type="text/css" href="./CoCoLab - COBOL Parser_files/cocolab.css">
+<style type="text/css"></style><style type="text/css">#yieldsquare-ad {
+  margin:10px auto 20px;
+
+  width: 728px;
+}
+
+#yieldsquare-about a {
+  cursor: pointer;
+}
+
+.yieldsquare-enabled {
+  border-radius:0 0 5px 5px;
+  box-shadow: inset 0 0 75px 75px lightgray, 0 0 0 lightgray;
+  -webkit-transition:opacity 1s linear;
+}
+
+.yieldsquare-disabled-first {
+  -webkit-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.45);
+  -webkit-transition: opacity 1s linear;
+  background-image: url(http://s3.amazonaws.com/static.yieldsquare.com/ads-disabled/messagebed.gif);
+  height: 90px;
+  opacity: 1;
+  position: relative;
+  width: 728px;
+}
+
+.yieldsquare-disabled-second {
+  -webkit-transition: all 0.4s ease-in-out;
+  background-image: url(http://s3.amazonaws.com/static.yieldsquare.com/ads-disabled/messagebed.gif);
+  border-radius:0 0 5px 5px;
+  box-shadow: inset 0 0 35px 35px transparent, 0 0 75px 50px transparent;
+  height: 90px;
+  opacity: 0;
+  position: relative;
+  width: 728px;
+}
+
+#yieldsquare-about-ad {
+  font:11px arial !important;
+  color:#555;
+  padding: 4px;
+  text-align:center;
+}
+
+#yieldsquare-about-ad a {
+  cursor: pointer;
+  color: #333;
+}
+
+.yieldsquare-message-icon {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.yieldsquare-message-p {
+    font: 13px/17px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+    width: 542px;
+    height: 74px;
+    left: 123px;
+    position: absolute;
+    top: 0px;
+    color: #3d3d3d;
+    margin-top: 13px;
+    margin-bottom: 13px;
+}
+
+.yieldsquare-message-p span {
+    font: bold 16px/17px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+    color: #292929;
+}
+
+.yieldsquare-message-p a {
+    text-decoration: none;
+    color: #1d97cf;
+}
+
+.yieldsquare-message-p a:hover {
+    text-decoration: underline;
+}
+
+#yieldsquare-message-x {
+    position: absolute;
+    left: 715px;
+    top: 6px;
+}
+
+</style></head>
+<body>
+
+<div class="toppanel">
+<div class="logo"><h1>&nbsp;CoCoLab</h1></div>
+<div class="toptitle"><h2>COBOL Parser</h2></div>
+</div>
+
+<div class="maincontent">
+
+<p>
+The COBOL parser conforms to the following standards and dialects:
+</p>
+
+<ul>
+<li> ANSI COBOL 74 (ANSI X3.23-1974) = ISO 1989:1978</li>
+<li> ANSI COBOL 85 (ANSI X3.23-1985) = ISO 1989:1985 = DIN 66 028</li>
+<li> IBM OS/VS COBOL</li>
+<li> IBM VS COBOL II</li>
+<li> IBM SAA COBOL/370</li>
+<li> IBM DOSVS COBOL</li>
+<li> IBM COBOL for OS/390 &amp; VM (Version 2)</li>
+<li> IBM COBOL Set for AIX (Version 1)</li>
+<li> IBM VisualAge for COBOL (Version 2)</li>
+<li> IBM ILE COBOL Reference (Version 5) AS/400</li>
+<li> IBM COBOL Report Writer Precompiler</li>
+<li> X/Open COBOL</li>
+<li> Micro Focus COBOL</li>
+<li> DEC COBOL (Version 2.3)</li>
+<li> VAX COBOL (Version 5.4) including ORACLE DBMS and DEC RDB</li>
+<li> BULL COBOL-85 (GCOS 8 Release 4020) including IDS/II</li>
+<li> DATA GENERAL COBOL (AOS/VS) including INFOS II and DG/DBMS</li>
+<li> UNISYS ASCII COBOL (1998)</li>
+<li> UNISYS UCS COBOL (HMP IX 5.0, 1999)</li>
+</ul>
+
+<p>
+The parser implements <b>full</b> COBOL including features
+such as report writer and communication section.
+The COPY statement as well as the REPLACING clauses of
+the COPY and the REPLACE statements are interpreted.
+The statements EXEC&nbsp;SQL, EXEC&nbsp;CICS and EXEC&nbsp;DLI are handled.
+The parsers for embedded SQL, CICS and DLI can be attached as optional modules.
+The COBOL parser builds a syntax tree and a symbol table
+and it performs name analysis.
+</p>
+<p>
+Optional modules for Control Flow Analysis (CFA)
+and Data Flow Analysis (DFA) are available.
+The control flow analysis takes SQL and CICS statements into account.
+The control flow in CICS programs can be quite complicated because of
+the exception handling (EXEC&nbsp;CICS HANDLE CONDITION).
+A result of control flow analysis is the detection of <em>dead code</em>.
+</p>
+<p>
+More COBOL dialects can be implemented upon request.
+For example we have added the dialects
+TANDEM COBOL and SCREEN COBOL (Pathway)
+to an instance of the COBOL parser for a certain customer.
+</p>
+<p>
+Customer specific preprocessors can also be implemented upon request.
+Examples of preprocessors we have added to some instances of the COBOL parser
+are Columbus COBOL (Siemens) and Delta COBOL.
+</p>
+
+<h3>References</h3>
+
+<ul>
+<li> ANSI COBOL 85 (ANSI X3.23-1985) = ISO 1989:1985 = DIN 66 028<br>
+Information technology - Programming languages - COBOL</li>
+<li> IBM VS COBOL II, Application Programming Language Reference, Release 4,
+Eighth Edition (March 1993), Document Number GC26-4047-07</li>
+<li> IBM COBOL for OS/390 &amp; VM Version 2,
+IBM COBOL Set for AIX Version 1,
+VisualAge for COBOL for OS/2 and for Windows Version 2,
+Language Reference, First Edition (May 1997), Document Number SC26-9046-00</li>
+<li> Enterprise COBOL for z/OS, Language Reference, Version 3 Release 3,
+Third Edition (February 2004), Document Number SC27-1408-02</li>
+<li> Enterprise COBOL for z/OS, Language Reference, Version 4 Release 2,
+Second Edition (August 2009), Document Number SC23-8528-01</li>
+<li> IBM WebSphere Development Studio: ILE COBOL Reference, Version 5,
+Third Edition (May 2001), Document Number SC09-2539-02</li>
+<li> IBM COBOL Report Writer Precompiler, Programmer's Manual, Eighth Edition,
+January 2002, IBM Publication SC26-4301-03</li>
+<li> Micro Focus COBOL, Pocket Guide</li>
+<li> DEC COBOL, Reference Manual, Digital Equipment Corporation, Version 2.3</li>
+<li> VAX COBOL, Reference Manual, Digital Equipment Corporation, Version 5.4,
+March 1997, Order Number AA-H631G-TE</li>
+<li> BULL COBOL-85, Reference Manual, GCOS 8 Release 4020, September 1991</li>
+<li> COBOL Reference Manual (AOS/VS), Data General Corporation, Rev. 03, January
+1992</li>
+<li> ASCII COBOL, Programming Reference Manual, Unisys Corporation,
+Release Level 7R2G, August 1998</li>
+<li> Universal Compiling System (UCS) COBOL, Programming Reference Manual,
+Unisys Corporation, HMP IX 5.0, November 1999</li>
+</ul>
+
+<div id="yieldsquare-ad" class="yieldsquare-enabled" style="display: none; clear: both;"><iframe id="yieldsquare-frame" frameborder="0" width="0" height="0" src="about:blank" style="margin: 0px; overflow: hidden; display: none !important; visibility: hidden !important; opacity: 0 !important; background-position: 0px 0px;"></iframe><div id="yieldsquare-about-ad">This ad is supporting your extension Smooth Gestures<a id="yieldsquare-disable-ad" href="http://www.cocolab.com/undefined">Turn off these ads?</a></div></div></div> <!-- maincontent -->
+<div class="sidepanel">
+
+<br>
+<br>
+<div class="section">About Us</div>
+<div class="button"><a href="http://www.cocolab.com/overview.html" class="menubutton">Overview</a></div>
+<div class="button"><a href="http://www.cocolab.com/history.html" class="menubutton">History</a></div>
+<div class="button"><a href="http://www.cocolab.com/team.html" class="menubutton">Team</a></div>
+<div class="section">Products</div>
+<div class="button"><a href="http://www.cocolab.com/applications.html" class="menubutton">Applications</a></div>
+<div class="button"><a href="http://www.cocolab.com/parsers.html" class="menubutton">Parsers</a></div>
+<div class="button"><a href="http://www.cocolab.com/cocktail.html" class="menubutton">Cocktail Toolbox</a></div>
+<div class="section">Services</div>
+<div class="button"><a href="http://www.cocolab.com/services.html" class="menubutton">Development</a></div>
+<div class="button"><a href="http://www.cocolab.com/services.html" class="menubutton">Maintenance</a></div>
+<div class="button"><a href="http://www.cocolab.com/services.html" class="menubutton">Training</a></div>
+<div class="section">Downloads</div>
+<div class="button"><a href="http://www.cocolab.com/demo.html" class="menubutton">Demo Software</a></div>
+<div class="button"><a href="http://www.cocolab.com/documentation.html" class="menubutton">Documentation</a></div>
+<div class="button"><a href="http://www.cocolab.com/updates.html" class="menubutton">Updates</a></div>
+<div class="button"><a href="http://www.cocolab.com/esd.html" class="menubutton">Cocktail</a></div>
+<div class="section">Information</div>
+<div class="button"><a href="http://www.cocolab.com/news.html" class="menubutton">News</a></div>
+<div class="button"><a href="http://www.cocolab.com/partner.html" class="menubutton">Partner</a></div>
+<div class="button"><a href="http://www.cocolab.com/contact.html" class="menubutton">Contact</a></div>
+<br>
+<div class="button"><a href="http://www.cocolab.de/" class="menubutton">Deutsch</a></div>
+
+
+</div> <!-- sidepanel -->
+
+
+
+</body></html>

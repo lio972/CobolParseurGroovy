@@ -1,0 +1,110 @@
+body {
+	font-family: Arial, Helvetica, Geneva, Swiss, sans-serif;
+	color: black;
+	background: white;
+}
+
+a:link {
+	color: blue;
+	background: transparent;
+}
+a:visited {
+	color: purple;
+	background: transparent;
+}
+a:hover {
+	color: black;
+	background: #ffff99;
+}
+a:active {
+	color: red;
+	background: transparent;
+}
+
+div.toppanel {
+	position: absolute;
+	left: 5px;
+	top: 5px;
+	width: 98%;
+}
+div.logo {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 180px;
+	font-family: Times, serif;
+}
+div.toptitle {
+	position: absolute;
+	top: 0px;
+	left: 205px;
+}
+div.sidepanel {
+	position: absolute;
+	top: 50px;
+	left: 5px;
+	width: 180px;
+}
+div.maincontent {
+	position: absolute;
+	top: 80px;
+	left: 200px;
+	right: 0px;
+	width: auto;
+	line-height: 1.3em;
+	margin-right: 3px;
+}
+dt.news {
+	margin-top: 10px;
+}
+ul {
+	margin-left: 0;
+	padding-left: 1.1em;
+	list-style-type: circle;
+}
+div.button {
+	color: black;
+	background: #dcdcdc;
+	border-top: 1px solid black;
+	border-right: 1px solid black;
+	border-bottom: 1px solid black;
+	border-left: 1px solid black;
+	margin: -1px;
+	text-align: left;
+	text-indent: 5px;
+}
+div.section {
+	color: black;
+	background: white;
+	border-top: 1px solid black;
+	border-right: 1px solid black;
+	border-bottom: 1px solid black;
+	border-left: 1px solid black;
+	margin: -1px;
+	text-align: right;
+	padding-right: 5px;
+}
+a.menubutton:link {
+	text-decoration: none;
+	color: black;
+	background: #dcdcdc;
+	display: block;
+}
+a.menubutton:visited {
+	text-decoration: none;
+	color: black;
+	background: #dcdcdc;
+	display: block;
+}
+a.menubutton:hover {
+	text-decoration: none;
+	color: black;
+	background: white;
+	display: block;
+}
+a.menubutton:active {
+	text-decoration: none;
+	color: black;
+	background: #ffff99;
+	display: block;
+}

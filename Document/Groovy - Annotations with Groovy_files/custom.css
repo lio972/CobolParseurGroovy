@@ -1,0 +1,261 @@
+body {
+    padding-top: 50px;
+    color: #000000;
+}
+
+table tr td {
+    vertical-align: top;
+    line-height: 1.4;
+    border: 0;
+}
+
+#initial-page-content table {
+    padding: 2px;
+    border-collapse: collapse;
+}
+
+
+#initial-page-content table tr td {
+    padding: 2px;
+    border: 1px solid lightgray;
+}
+
+a {
+    color: #3483A1;
+}
+
+li {
+    color: black;
+}
+
+pre {
+    border-radius: 10px;
+    border: 5px solid white;
+    box-shadow: 3px 3px 8px #CCCCCC;
+    -webkit-box-shadow: 3px 3px 8px #CCCCCC;
+    padding: 5px;
+}
+
+tt {
+    font-family: monospace, monaco, courier;
+}
+
+code {
+    background-color: #f5f5f5;
+    line-height: 1.4;
+}
+
+.code, .panel, .codeHeader, .panelHeader, .codeContent, .panelContent {
+    border-color: white;
+}
+
+#Home {
+    padding-top: 40px;
+}
+
+#moto {
+    font-size: 3em;
+    font-weight: bold;
+    line-height: 1.3em;
+    text-shadow: 2px 2px 4px black;
+}
+
+#welcome {
+    width: 100%;
+    background-color: #1F4F61; /* #132C4F; */
+    color: white;
+    padding-top: 15px;
+    margin-bottom: 10px;
+    box-shadow: 0 0 10px black;
+    -webkit-box-shadow: 0 0 10px black;
+}
+
+#search-box {
+    background: #CCCCCC;
+    width: 187px;
+    margin-right: -11px;
+}
+
+#download-box {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: inset 2px 2px 5px #CCCCCC;
+    -webkit-box-shadow: inset 2px 2px 5px #CCCCCC;
+    color: black;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top: 5px;
+    margin-left: 15px;
+}
+
+#download-box a {
+    text-shadow: 1px 1px 3px #CCCCCC;
+    font-weight: bold;
+}
+
+#download-box table {
+    margin-top: 12px;
+    margin-bottom: 15px;
+}
+
+#download-box td {
+    font-size: 1.5em;
+    font-weight: bold;
+    line-height: 1.2em;
+}
+
+#download-box * {
+    border: 0;
+    vertical-align: middle;
+    text-align: center;
+}
+
+#breadCrumbLinks, #breadCrumbLinksSearch {
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.mainPageTitle {
+    margin-top: 10px;
+    margin-bottom: 15px;
+    border-bottom: 2px dotted #CCCCCC;
+}
+
+.ads {
+    width: 100%;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+#definition {
+    margin: 15px;
+    margin-right: 20px;
+    padding: 5px 10px 10px;
+    box-shadow: 1px 1px 8px #CCCCCC;
+    -webkit-box-shadow: 1px 1px 8px #CCCCCC;
+    border-radius: 10px;
+
+    background: #ffffef; /* Old browsers */
+    background: -moz-linear-gradient(top, #ffffef 0%, #ffffff 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffef), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #ffffef 0%, #ffffff 100%); /* Chrome10+,Safari5.1+ */
+    background: -ms-linear-gradient(top, #ffffef 0%, #ffffff 100%); /* IE10+ */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#ffffef', endColorstr = '#ffffff', GradientType = 0); /* IE6-9 */
+    background: linear-gradient(top, #ffffef 0%, #ffffff 100%); /* W3C */
+}
+
+#page > .container {
+    background-color: white;
+    box-shadow: 0 0 200px #CCCCCC;
+    -webkit-box-shadow: 0 0 200px #CCCCCC;
+    padding: 10px;
+    padding-left: 30px;
+    border-top-right-radius: 10px;
+    padding-top: 10px;
+}
+
+#sidebar {
+    background-color: #E6E6E6;
+    padding: 5px;
+    padding-left: 15px;
+    box-shadow: inset 2px 2px 10px #CCCCCC;
+    -webkit-box-shadow: inset 2px 2px 10px #CCCCCC;
+    border-radius: 10px;
+}
+
+#sidebar h1 {
+    border-bottom: 2px solid #CCC;
+    font-size: 20px;
+}
+
+.blog-post-listing {
+    border-top: 3px dotted #E6E6E6;
+    padding-top: 10px;
+    padding-bottom: 15px;
+}
+
+.logoBlock {
+    display: inline;
+}
+
+.blogHeading > .blogHeading {
+    font-weight: bold;
+    font-size: 1.5em;
+    display: block;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.topbar div > ul.secondary-nav, .nav.secondary-nav {
+    margin-left: 20px;
+}
+
+.wiki-content {
+    margin-left: 20px;
+}
+
+#search-area {
+    display: none;
+}
+
+#pageLookup {
+    display: none;
+    width: 350px;
+    position: fixed;
+    top: 100px;
+    left: 20%;
+    margin: 0 auto;
+    z-index: 1
+}
+
+#searchResults {
+    position: absolute;
+    border: 1px solid #CCCCCC;
+    padding: 0;
+    background-color: white;
+    box-shadow: 2px 2px 4px #CCCCCC;
+    -webkit-box-shadow: 2px 2px 4px #CCCCCC;
+}
+
+#searchResults ul {
+    margin: 0;
+}
+
+#searchResults ul li {
+    list-style: none;
+    border-bottom: 1px solid #CCCCCC;
+    padding: 5px 10px;
+}
+
+#searchResults ul li:last-child {
+    list-style: none;
+    border-bottom: 0;
+}
+
+.selectedResult {
+    background-color: #3483A1;
+}
+
+.selectedResult a {
+    color: white;
+}
+
+.infoMacro {
+    background-color: #edecff;
+    border: 1px solid #87cefa;
+    padding: 5px;
+}
+
+.noteMacro {
+    background-color: #ffffe0;
+    border: 1px solid yellow;
+    padding: 5px;
+}
+
+.warningMacro {
+    background-color: #ffcccc;
+    border: 1px solid red;
+    padding: 5px;
+}

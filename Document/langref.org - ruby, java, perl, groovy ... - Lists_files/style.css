@@ -1,0 +1,299 @@
+/** { margin:0; padding:0; }*/
+body { font-family:"Trebuchet MS", Verdana, Arial, sans-serif;
+/*	line-height:160%;*/
+/*	font-size:14px;*/
+	color:#000;
+/*	background: url(../images/gradient.jpg);*/
+/*	background-repeat: repeat-x; */
+	background-color:#FFF; }
+
+        .fieldWithErrors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+
+#errorExplanation {
+  width: 400px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+
+#errorExplanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: -7px;
+  background-color: #c00;
+  color: #fff;
+}
+
+#errorExplanation p {
+  color: #333;
+  margin-bottom: 0;
+  padding: 5px;
+}
+
+#errorExplanation ul li {
+  font-size: 12px;
+  list-style: square;
+}
+
+#topright {
+    float:right;
+}
+
+#login_box {
+    font-size: 0.5em;
+}
+
+.content {
+    	line-height:80%;
+}
+
+.category, .category-short {
+    margin: 10px 0px 10px 0px;
+}
+
+.clear {
+    clear:both;
+}
+
+.category-short {
+    width: 15em;
+    float:left;
+}
+
+.category {
+    overflow: hidden;
+}
+
+.subcategory {
+    overflow:hidden;
+}
+
+#footer {
+   margin-top: 10px;    
+}
+
+.formdesc {
+    font-size: 0.8em;
+}
+
+#title-short, .category-short, .subcategory, .problem {
+	padding-right: 10px;
+}
+
+.subcategory, .problem, .solutions {
+    margin: 10px;
+}
+
+#sidebar {
+    margin-top: 10px;
+    margin-right: 10px;
+    color: #999;
+}
+
+#title, #title-short {
+    margin-top: 10px;
+}
+
+#title-short {
+    float:left;
+    width: 15em;
+}
+
+#title {
+    overflow:hidden;
+}
+
+#sidebar .box .rtop *, #sidebar .box .rbottom *, #sidebar .content {
+    background-color: #561420;     
+}
+
+#title .box .rtop *, #title .box .rbottom *, #title .content {
+    background-color: #a04545;     
+}
+
+#title-short .box .rtop *, #title-short .box .rbottom *, #title-short .content {
+    background-color: #a04545;     
+}
+
+#header .box .rtop *, #header .box .rbottom *, #header .content {
+    background-color: #821122;     
+}
+
+#footer .box .rtop *, #footer .box .rbottom *, #footer .content {
+    background-color: #001020;     
+}
+
+.category .box .rtop *, .category .box .rbottom *, .category .content {
+    background-color: #355A6F;     
+}
+
+.category-short .box .rtop *, .category-short .box .rbottom *, .category-short .content {
+    background-color: #355A6F;     
+}
+
+.subcategory .box .rtop *, .subcategory .box .rbottom *, .subcategory .content {
+    background-color: #333333;     
+}
+
+.content a {
+    color: #ccc;
+}
+
+#title .content, #title-short .content {
+    padding: 10px;
+    font-size: 1.5em;
+    color: #ccc;
+}
+
+#header .content {
+    padding: 10px;
+    font-size: 2em;
+    color: #ccc;
+}
+
+#footer .content {
+    padding: 10px;
+    font-size: 1em;
+    color: #ccc;
+}
+
+.category .content, .category-short .content {
+    padding: 10px;
+    font-size: 1.5em;
+    color: #ccc;
+}
+
+.subcategory .content {
+    padding: 10px;
+    font-size: 1.2em;
+    color: #ccc;
+}
+
+.problem h3 {
+    font-size: 1em;
+    font-style: italic;
+    margin: 0px;
+}
+
+form {
+    display:inline;    
+}
+.code {
+color:black;
+font-size:0.8em;
+font-size-adjust:none;
+font-stretch:normal;
+font-style:normal;
+font-variant:normal;
+font-weight:normal;
+line-height:normal;
+margin:8px 0px;
+white-space: pre; /* Safari */
+}
+
+.commented {
+white-space: -moz-pre-wrap; /* Mozilla */
+white-space: -hp-pre-wrap; /* HP printers */
+white-space: -o-pre-wrap; /* Opera 7 */
+white-space: -pre-wrap; /* Opera 4-6 */
+white-space: pre-wrap; /* CSS 2.1 */
+white-space: pre-line; /* CSS 3 (and 2.1 as well, actually) */
+word-wrap: break-word; /* IE */
+}
+
+.code .type {
+color:white;
+padding:0px 10px;
+}
+
+.code .body {
+padding:8px 0px 8px 8px;
+}
+
+.code .body-multiple {
+padding:8px 0px 8px 2px;
+border-top:1px dashed gray;
+}
+
+.code .body .string {
+color:#009999;
+}
+.code .body .comment {
+color:#999999;
+}
+.code .body .keyword {
+color:#0000CC;
+}
+.code .body .global {
+color:#BB0000;
+}
+.code .body .variable {
+color:#9900FF;
+}
+
+.edit {
+float:right;
+padding: 5px;
+}
+
+.edit a {
+    padding: 3px;
+}
+
+.rtop, .rbottom{
+    display:block; 
+}
+
+#sidebar {
+    float:left;
+    width: 160px;
+    font-size: 1.2em;
+}
+
+#main {
+    margin-left: 10px;
+    overflow: hidden;
+}
+
+#sidebar ul { 
+	list-style: none;
+        margin: 0px; 
+        padding: 10px;
+} 
+
+#sidebar li {
+    padding: 0px 10px 10px 0px;
+}
+
+
+
+.rtop *, .rbottom *{
+    display: block; 
+    height: 1px; 
+    overflow: hidden; 
+}
+
+.r1{
+    margin: 0 5px
+}
+
+.r2{
+    margin: 0 3px
+}
+
+.r3{
+    margin: 0 2px    
+}
+
+.r4{
+    margin: 0 1px; 
+    height: 2px
+}

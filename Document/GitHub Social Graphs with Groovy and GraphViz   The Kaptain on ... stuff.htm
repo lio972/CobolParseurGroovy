@@ -1,0 +1,1211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0088)http://www.kellyrob99.com/blog/2012/05/27/github-social-graphs-with-groovy-and-graphviz/ -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" class=" social-js"><head profile="http://gmpg.org/xfn/11"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+<title>GitHub Social Graphs with Groovy and GraphViz | The Kaptain on ... stuff</title>
+
+<link rel="stylesheet" href="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/style.css" type="text/css" media="screen">
+<link rel="alternate" type="application/rss+xml" title="The Kaptain on … stuff RSS Feed" href="http://www.kellyrob99.com/blog/feed/">
+<link rel="pingback" href="http://www.kellyrob99.com/blog/xmlrpc.php">
+<script type="text/javascript" async="" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/page.js"></script><script type="text/javascript" async="" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/ga.js"></script><script type="text/javascript" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/tabs.js"></script><style type="text/css"></style>
+<link rel="shortcut icon" href="http://www.kellyrob99.com/blog/wp-content/themes/fervens-a/ferevens-a/favicon.ico" type="image/x-icon">
+
+
+            <script type="text/javascript">//<![CDATA[
+            // Google Analytics for WordPress by Yoast v4.3.5 | http://yoast.com/wordpress/google-analytics/
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-7406332-1']);
+				            _gaq.push(['_trackPageview']);
+            (function () {
+                var ga = document.createElement('script');
+                ga.type = 'text/javascript';
+                ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(ga, s);
+            })();
+            //]]></script>
+			<link rel="alternate" type="application/rss+xml" title="The Kaptain on ... stuff » GitHub Social Graphs with Groovy and GraphViz Comments Feed" href="http://www.kellyrob99.com/blog/2012/05/27/github-social-graphs-with-groovy-and-graphviz/feed/">
+<link rel="stylesheet" id="nextgen_gallery_related_images-css" href="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/nextgen_gallery_related_images.css" type="text/css" media="all">
+<link rel="stylesheet" id="fontawesome-css" href="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/font-awesome.css" type="text/css" media="all">
+<link rel="stylesheet" id="jetpack-subscriptions-css" href="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/subscriptions.css" type="text/css" media="all">
+<link rel="stylesheet" id="openid-css" href="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/openid.css" type="text/css" media="all">
+<link rel="stylesheet" id="social_comments-css" href="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/comments.css" type="text/css" media="screen">
+<link rel="stylesheet" id="jetpack-widgets-css" href="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/widgets.css" type="text/css" media="all">
+<link rel="stylesheet" id="A2A_SHARE_SAVE-css" href="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/addtoany.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="wp_dlmp_styles-css" href="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/styles.css" type="text/css" media="all">
+<link rel="stylesheet" id="aec_frontend-css" href="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/frontend.css" type="text/css" media="all">
+<link rel="stylesheet" id="aec_atd-css" href="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/atd.css" type="text/css" media="all">
+<link rel="stylesheet" id="colorbox-css" href="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/colorbox.css" type="text/css" media="screen">
+<script type="text/javascript" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/jquery.js"></script>
+<script type="text/javascript" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/jquery-migrate.min.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var photocrati_ajax = {"url":"http:\/\/www.kellyrob99.com\/blog\/photocrati_ajax","wp_site_url":"http:\/\/www.kellyrob99.com\/blog","wp_site_static_url":"http:\/\/www.kellyrob99.com\/blog"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/ajax.js"></script>
+<script type="text/javascript" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/persist.js"></script>
+<script type="text/javascript" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/store.js"></script>
+<script type="text/javascript" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/ngg_store.js"></script>
+<script type="text/javascript" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/swfobject.js"></script>
+<script type="text/javascript" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/openid.js"></script>
+<script type="text/javascript" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/lightbox_context.js"></script>
+<script type="text/javascript" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/jquery.colorbox.min.js"></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.kellyrob99.com/blog/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.kellyrob99.com/blog/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="JFreeChart with Groovy and Apache POI" href="http://www.kellyrob99.com/blog/2012/03/18/jfreechart-with-groovy-and-apache-poi/">
+<link rel="next" title="Kuler iTerm2 Themes with Groovy Scripting" href="http://www.kellyrob99.com/blog/2012/12/08/kuler-iterm2-themes-with-groovy-scripting/">
+<meta name="generator" content="WordPress 3.9.1">
+<link rel="shortlink" href="http://wp.me/prjtg-vb">
+
+<script type="text/javascript"><!--
+var a2a_config=a2a_config||{},wpa2a={done:false,html_done:false,script_ready:false,script_load:function(){var a=document.createElement('script'),s=document.getElementsByTagName('script')[0];a.type='text/javascript';a.async=true;a.src='http://static.addtoany.com/menu/page.js';s.parentNode.insertBefore(a,s);wpa2a.script_load=function(){};},script_onready:function(){if(a2a.type=='page'){wpa2a.script_ready=true;if(wpa2a.html_done)wpa2a.init();}},init:function(){for(var i=0,el,target,targets=wpa2a.targets,length=targets.length;i<length;i++){el=document.getElementById('wpa2a_'+(i+1));target=targets[i];a2a_config.linkname=target.title;a2a_config.linkurl=target.url;if(el){a2a.init('page',{target:el});el.id='';}wpa2a.done=true;}wpa2a.targets=[];}};a2a_config.tracking_callback=['ready',wpa2a.script_onready];
+//--></script>
+	<style type="text/css">
+	.download-info .download-button {
+		background-image: url(http://www.kellyrob99.com/blog/wp-content/plugins/download-monitor/page-addon/downloadbutton.gif);
+	}
+	.download-info .more-button {
+		background-image: url(http://www.kellyrob99.com/blog/wp-content/plugins/download-monitor/page-addon/morebutton.gif);
+	}
+	</style>
+<link rel="stylesheet" type="text/css" media="screen" href="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/myprofiles.css">
+<!-- <meta name="NextGEN" version="2.0.61" /> -->
+<style type="text/css" media="screen">#wpFollowmeFlash {visibility:hidden}</style><link rel="stylesheet" type="text/css" id="gravatar-card-css" href="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/hovercard.css"><link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/services.css"><script charset="UTF-8" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/fr.js"></script><style type="text/css">.a2a_menu, .a2a_menu *{-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box;float:none;margin:0;padding:0;height:auto;width:auto;}.a2a_menu{width: 300px;}.a2a_menu table{border-collapse:collapse;border-spacing:0;width:auto}.a2a_menu table,.a2a_menu tbody,.a2a_menu td,.a2a_menu tr{border:0;margin:0;padding:0;background-color:#FFF} .a2a_menu td{vertical-align:top}.a2a_menu,.a2a_menu_inside{border-radius:16px;}.a2a_menu{display:none;z-index:9999999;position:absolute;direction:ltr;min-width:200px;background:#EEE;background:rgba(238,238,238,.6);font:12px Arial,Helvetica,sans-serif;color:#000;line-height:12px;border:1px solid transparent;_border:1px solid #EEE;padding:7px;vertical-align:baseline;overflow:hidden}.a2a_menu_inside{background-color:#FFF;border: 1px solid #CCC;padding:8px}.a2a_menu a span, .a2a_tabs .a2a_tab_selected span{color:#00F}.a2a_menu a:hover span, .a2a_tabs div span,.a2a_tabs a span{color:#000}.a2a_menu a,#a2a_hist_list a,.a2a_tabs div{color:#00F;text-decoration:none;font:12px Arial,Helvetica,sans-serif;line-height:12px;height:auto;width:auto;outline:none;-moz-outline:none;border-radius:8px;}.a2a_menu a:visited,#a2a_hist_list a:visited{color:#00F}.a2a_menu a:hover,.a2a_menu a:active,.a2a_menu a.a2a_i:focus,.a2a_tabs div:hover{color:#000;border:1px solid #CCC;background-color:#EEE;text-decoration:none}.a2a_menu span,.a2a_img{background:url(http://static.addtoany.com/menu/icons.26.png) no-repeat;border:0;display:block;line-height:16px}.a2a_menu span.a2a_i_find{height:16px;left:5px;position:absolute;top:2px;width:16px}#a2a_menu_container{display:inline-block} #a2a_menu_container{_display:inline} .a2a_menu_title_container{margin-bottom:2px;padding:6px}.a2a_menu_find_container{position:relative;text-align:left;margin:4px 1px;padding:1px 24px 1px 0;border:1px solid #CCC;border-radius:8px;}.a2a_cols_container{border-bottom-right-radius:8px;border-top-right-radius:8px}.a2a_cols_container .a2a_col1{overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch}.a2a_menu input, .a2a_menu input[type="text"]{display:block;background-image:none;box-shadow:none;line-height:100%;margin:0;overflow:hidden;padding:0;-moz-box-shadow:none;-webkit-box-shadow:none;-webkit-appearance:none} .a2a_menu_title_container input.a2a_menu_title{color:#000;background-color:#FFF;border:0;margin:0;padding:0;width:99%}.a2a_menu_find_container input.a2a_menu_find{position:relative;left:24px;color:#000;font-size:12px;padding:2px 0;outline:0;border:0;background-color:transparent;_background-color:#FFF;width:99%} .a2a_clear{clear:both} .a2a_img, .a2a_svg { display:block; overflow:hidden; }.a2a_img{height:16px;line-height:16px;width:16px;}.a2a_svg{height:32px;line-height:32px;width:32px;}.a2a_default_style a{float:left;line-height:16px;padding:0 2px}.a2a_default_style a:hover .a2a_img,.a2a_default_style a:hover .a2a_svg,.a2a_floating_style a:hover .a2a_img,.a2a_floating_style a:hover .a2a_svg { opacity: .7;}.a2a_default_style .a2a_svg, .a2a_floating_style .a2a_svg { border-radius:14% ;} .a2a_default_style .a2a_img, .a2a_default_style .a2a_dd, .a2a_default_style .a2a_svg{float:left}.a2a_default_style .a2a_img_text{margin-right:4px}.a2a_default_style .a2a_divider{border-left:1px solid #000;display:inline;float:left;height:16px;line-height:16px;margin:0 5px}.a2a_kit a{cursor:pointer}.a2a_floating_style { background-color: #fff; border-radius: 6px; padding: 4px; position: fixed; z-index: 9999998; }.a2a_vertical_style a { display: block; padding: 4px; }.a2a_floating_style.a2a_default_style { bottom: 0; }.a2a_floating_style.a2a_default_style a { padding: 4px; }.a2a_nowrap{white-space:nowrap}.a2a_note{margin:0 auto;padding:9px;font-size:12px;text-align:center}.a2a_note .a2a_note_note{margin:0;color:#000}.a2a_wide a{display:block;margin-top:3px;border:1px solid #EEE;padding:3px;text-align:center}.a2a_tabs{float:left;margin:0 0 3px} .a2a_tabs a,.a2a_tabs div{margin:1px;background-color:#EEE; border:1px solid #EEE; font-size:11px; padding:6px 12px ; white-space:nowrap} .a2a_tabs a span, .a2a_tabs div span{display:inline-block;padding-left:20px;height:auto;width:auto} .a2a_tabs_default a span, .a2a_tabs_default div span{height:auto;max-width:99px;overflow:hidden;padding-left:20px;width:auto;_width:expression(this.clientWidth > 99? "97px" : "auto");}.a2a_tabs a, .a2a_tabs a:visited, .a2a_tabs a:hover, .a2a_tabs div, .a2a_tabs div:hover{cursor:pointer;border-bottom:1px solid #EEE;color:#000;border-bottom-left-radius:0;-webkit-border-bottom-left-radius:0;-moz-border-radius-bottomleft:0;border-bottom-right-radius:0;-webkit-border-bottom-right-radius:0;-moz-border-radius-bottomright:0}a.a2a_tab_selected, a.a2a_tab_selected:visited,a.a2a_tab_selected:hover,a.a2a_tab_selected:active,a.a2a_tab_selected:focus, div.a2a_tab_selected,div.a2a_tab_selected:hover{color:#00F;background-color:#FFF;border:1px solid #CCC;border-bottom:1px solid #FFF}a.a2a_i{display:block;float:left;border:1px solid #FFF;padding:4px 6px;text-align:left;white-space:nowrap;width:126px;}a.a2a_i span{padding-left:20px}.a2a_x_shorten a.a2a_i{width:116px}a.a2a_sss{font-weight:700}a.a2a_ind{display:inline;margin:0;padding:0} a.a2a_email_client span{display:inline-block;height:16px;line-height:16px;margin:0 2px;padding-left:0;width:16px;}a.a2a_menu_show_more_less{margin:4px 0 8px;padding:0}a.a2a_menu_show_more_less span{display:inline-block;height:14px;margin:0 auto;vertical-align:baseline;width:16px} div.a2a_menu_powered_by{background-color:#EEE;font-size:9px;color:#999;text-align:center;margin-top:4px;padding:3px;border-radius:8px;}div.a2a_menu_powered_by a,div.a2a_menu_powered_by a:visited{display:inline;font-size:9px;color:#999}div.a2a_menu_powered_by a:hover{border:0;text-decoration:underline}iframe.a2a_shim{border:0;position:absolute;z-index:999999;}.a2a_dd img {border:0;-ms-touch-action:manipulation;}.a2a_i_a2a{background-position:0 0!important}.a2a_i_a2a_bw{background-position:0 -17px!important}.a2a_i_agregator{background-position:0 -34px!important}.a2a_i_aim{background-position:0 -51px!important}.a2a_i_allvoices{background-position:0 -68px!important}.a2a_i_amazon{background-position:0 -85px!important}.a2a_i_aol{background-position:0 -102px!important}.a2a_i_app_net{background-position:0 -119px!important}.a2a_i_apple_mail{background-position:0 -136px!important}.a2a_i_arto{background-position:0 -153px!important}.a2a_i_baidu{background-position:0 -170px!important}.a2a_i_bebo{background-position:0 -187px!important}.a2a_i_bibsonomy{background-position:0 -204px!important}.a2a_i_bitty{background-position:0 -221px!important}.a2a_i_blinklist{background-position:0 -238px!important}.a2a_i_blogger{background-position:0 -255px!important}.a2a_i_bloglines{background-position:0 -272px!important}.a2a_i_blogmarks{background-position:0 -289px!important}.a2a_i_bloomberg_current{background-position:0 -306px!important}.a2a_i_bookmark{background-position:0 -323px!important}.a2a_i_bookmarks_fr{background-position:0 -340px!important}.a2a_i_box{background-position:0 -357px!important}.a2a_i_buddymarks{background-position:0 -374px!important}.a2a_i_buffer{background-position:0 -391px!important}.a2a_i_care2{background-position:0 -408px!important}.a2a_i_chrome{background-position:0 -425px!important}.a2a_i_citeulike{background-position:0 -442px!important}.a2a_i_clear{background-position:0 -459px!important}.a2a_i_dailyrotation{background-position:0 -476px!important}.a2a_i_darr{background-position:0 -493px!important}.a2a_i_darr_wt{background-position:0 -510px!important}.a2a_i_default{background-position:0 -527px!important}.a2a_i_delicious{background-position:0 -544px!important}.a2a_i_designfloat{background-position:0 -561px!important}.a2a_i_diaspora{background-position:0 -578px!important}.a2a_i_digg{background-position:0 -595px!important}.a2a_i_diigo{background-position:0 -612px!important}.a2a_i_dzone{background-position:0 -629px!important}.a2a_i_email{background-position:0 -646px!important}.a2a_i_email_bw{background-position:0 -663px!important}.a2a_i_evernote{background-position:0 -680px!important}.a2a_i_facebook{background-position:0 -697px!important}.a2a_i_fark{background-position:0 -714px!important}.a2a_i_feed{background-position:0 -731px!important}.a2a_i_feedblitz{background-position:0 -748px!important}.a2a_i_feedbucket{background-position:0 -765px!important}.a2a_i_feedly{background-position:0 -782px!important}.a2a_i_feedmailer{background-position:0 -799px!important}.a2a_i_find{background-position:0 -816px!important}.a2a_i_fireant{background-position:0 -833px!important}.a2a_i_firefox{background-position:0 -850px!important}.a2a_i_flipboard{background-position:0 -867px!important}.a2a_i_folkd{background-position:0 -884px!important}.a2a_i_friendfeed{background-position:0 -901px!important}.a2a_i_funp{background-position:0 -918px!important}.a2a_i_gmail{background-position:0 -935px!important}.a2a_i_google{background-position:0 -952px!important}.a2a_i_google_plus{background-position:0 -969px!important}.a2a_i_hatena{background-position:0 -986px!important}.a2a_i_instapaper{background-position:0 -1003px!important}.a2a_i_itunes{background-position:0 -1020px!important}.a2a_i_jamespot{background-position:0 -1037px!important}.a2a_i_jumptags{background-position:0 -1054px!important}.a2a_i_khabbr{background-position:0 -1071px!important}.a2a_i_kindle{background-position:0 -1088px!important}.a2a_i_klipfolio{background-position:0 -1105px!important}.a2a_i_linkagogo{background-position:0 -1122px!important}.a2a_i_linkatopia{background-position:0 -1139px!important}.a2a_i_linkedin{background-position:0 -1156px!important}.a2a_i_livejournal{background-position:0 -1173px!important}.a2a_i_mail_ru{background-position:0 -1190px!important}.a2a_i_mendeley{background-position:0 -1207px!important}.a2a_i_meneame{background-position:0 -1224px!important}.a2a_i_miro{background-position:0 -1241px!important}.a2a_i_mister-wong{background-position:0 -1258px!important}.a2a_i_my_msn{background-position:0 -1275px!important}.a2a_i_myspace{background-position:0 -1292px!important}.a2a_i_netlog{background-position:0 -1309px!important}.a2a_i_netvibes{background-position:0 -1326px!important}.a2a_i_netvouz{background-position:0 -1343px!important}.a2a_i_newsalloy{background-position:0 -1360px!important}.a2a_i_newsisfree{background-position:0 -1377px!important}.a2a_i_newstrust{background-position:0 -1394px!important}.a2a_i_newsvine{background-position:0 -1411px!important}.a2a_i_nowpublic{background-position:0 -1428px!important}.a2a_i_odnoklassniki{background-position:0 -1445px!important}.a2a_i_oknotizie{background-position:0 -1462px!important}.a2a_i_oldreader{background-position:0 -1479px!important}.a2a_i_orkut{background-position:0 -1496px!important}.a2a_i_outlook{background-position:0 -1513px!important}.a2a_i_outlook_com{background-position:0 -1530px!important}.a2a_i_pdf{background-position:0 -1547px!important}.a2a_i_phonefavs{background-position:0 -1564px!important}.a2a_i_pinboard{background-position:0 -1581px!important}.a2a_i_pinterest{background-position:0 -1598px!important}.a2a_i_plurk{background-position:0 -1615px!important}.a2a_i_pocket{background-position:0 -1632px!important}.a2a_i_podnova{background-position:0 -1649px!important}.a2a_i_print{background-position:0 -1666px!important}.a2a_i_printfriendly{background-position:0 -1683px!important}.a2a_i_protopage{background-position:0 -1700px!important}.a2a_i_pusha{background-position:0 -1717px!important}.a2a_i_rapidfeeds{background-position:0 -1734px!important}.a2a_i_reddit{background-position:0 -1751px!important}.a2a_i_rediff{background-position:0 -1768px!important}.a2a_i_segnalo{background-position:0 -1785px!important}.a2a_i_share{background-position:0 -1802px!important}.a2a_i_sina_weibo{background-position:0 -1819px!important}.a2a_i_sitejot{background-position:0 -1836px!important}.a2a_i_slashdot{background-position:0 -1853px!important}.a2a_i_springpad{background-position:0 -1870px!important}.a2a_i_startaid{background-position:0 -1887px!important}.a2a_i_stumbleupon{background-position:0 -1904px!important}.a2a_i_stumpedia{background-position:0 -1921px!important}.a2a_i_symbaloo{background-position:0 -1938px!important}.a2a_i_technotizie{background-position:0 -1955px!important}.a2a_i_thefreedictionary{background-position:0 -1972px!important}.a2a_i_thefreelibrary{background-position:0 -1989px!important}.a2a_i_thunderbird{background-position:0 -2006px!important}.a2a_i_tuenti{background-position:0 -2023px!important}.a2a_i_tumblr{background-position:0 -2040px!important}.a2a_i_twiddla{background-position:0 -2057px!important}.a2a_i_twitter{background-position:0 -2074px!important}.a2a_i_typepad{background-position:0 -2091px!important}.a2a_i_uarr{background-position:0 -2108px!important}.a2a_i_uarr_wt{background-position:0 -2125px!important}.a2a_i_viadeo{background-position:0 -2142px!important}.a2a_i_vk{background-position:0 -2159px!important}.a2a_i_wanelo{background-position:0 -2176px!important}.a2a_i_webnews{background-position:0 -2193px!important}.a2a_i_whatsapp{background-position:0 -2210px!important}.a2a_i_windows_mail{background-position:0 -2227px!important}.a2a_i_winksite{background-position:0 -2244px!important}.a2a_i_wists{background-position:0 -2261px!important}.a2a_i_wordpress{background-position:0 -2278px!important}.a2a_i_xerpi{background-position:0 -2295px!important}.a2a_i_xing{background-position:0 -2312px!important}.a2a_i_yahoo{background-position:0 -2329px!important}.a2a_i_yigg{background-position:0 -2346px!important}.a2a_i_yim{background-position:0 -2363px!important}.a2a_i_yoolink{background-position:0 -2380px!important}.a2a_i_youmob{background-position:0 -2397px!important}</style><style type="text/css">#yieldsquare-ad {
+  margin:10px auto 20px;
+
+  width: 728px;
+}
+
+#yieldsquare-about a {
+  cursor: pointer;
+}
+
+.yieldsquare-enabled {
+  border-radius:0 0 5px 5px;
+  box-shadow: inset 0 0 75px 75px lightgray, 0 0 0 lightgray;
+  -webkit-transition:opacity 1s linear;
+}
+
+.yieldsquare-disabled-first {
+  -webkit-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.45);
+  -webkit-transition: opacity 1s linear;
+  background-image: url(http://s3.amazonaws.com/static.yieldsquare.com/ads-disabled/messagebed.gif);
+  height: 90px;
+  opacity: 1;
+  position: relative;
+  width: 728px;
+}
+
+.yieldsquare-disabled-second {
+  -webkit-transition: all 0.4s ease-in-out;
+  background-image: url(http://s3.amazonaws.com/static.yieldsquare.com/ads-disabled/messagebed.gif);
+  border-radius:0 0 5px 5px;
+  box-shadow: inset 0 0 35px 35px transparent, 0 0 75px 50px transparent;
+  height: 90px;
+  opacity: 0;
+  position: relative;
+  width: 728px;
+}
+
+#yieldsquare-about-ad {
+  font:11px arial !important;
+  color:#555;
+  padding: 4px;
+  text-align:center;
+}
+
+#yieldsquare-about-ad a {
+  cursor: pointer;
+  color: #333;
+}
+
+.yieldsquare-message-icon {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.yieldsquare-message-p {
+    font: 13px/17px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+    width: 542px;
+    height: 74px;
+    left: 123px;
+    position: absolute;
+    top: 0px;
+    color: #3d3d3d;
+    margin-top: 13px;
+    margin-bottom: 13px;
+}
+
+.yieldsquare-message-p span {
+    font: bold 16px/17px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+    color: #292929;
+}
+
+.yieldsquare-message-p a {
+    text-decoration: none;
+    color: #1d97cf;
+}
+
+.yieldsquare-message-p a:hover {
+    text-decoration: underline;
+}
+
+#yieldsquare-message-x {
+    position: absolute;
+    left: 715px;
+    top: 6px;
+}
+
+</style><link rel="stylesheet" href="http://static.addtoany.com/menu/svg/icons.5.svg.css"></head><body><br>
+<b>Warning</b>:  Creating default object from empty value in <b>/home/kellyrob/kellyrob99.com/blog/wp-content/plugins/search-unleashed/models/incoming-search.php</b> on line <b>27</b><br>
+<script type="text/javascript">
+	swfobject.registerObject("wpFollowmeFlash", "9.0.0");
+</script>
+<style type="text/css">
+	.getflash { font-size:8px; }
+	.wp_followme_c2 {
+		position:fixed;
+		background:#59B7FF;
+		top:200px;
+		right:0px;
+		width:32px;
+		height:160px;
+		border:1px solid #;
+		color:#FFFFFF;
+	}
+</style>
+
+<link id="MediaRSS" rel="alternate" type="application/rss+xml" title="NextGEN Gallery RSS Feed" href="http://www.kellyrob99.com/blog/wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/ngglegacy/xml/media-rss.php">
+
+<!-- All in One SEO Pack 2.1.4 by Michael Torbert of Semper Fi Web Design[297,410] -->
+<meta name="description" content="Using the GitHub API, Groovy and GraphViz to determine, interpret and render a graph of the relationships between GitHub users based on the watchers of their">
+
+<meta name="keywords" content="groovy,gradle,kellyrob99,java,programming,open source,thekaptain,httpbuilder,gaelyk,gae,google app engine,github,github api,graphviz,gpars">
+
+<link rel="canonical" href="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff.htm">
+<!-- /all in one seo pack -->
+<!-- Vipers Video Quicktags v6.5.0 | http://www.viper007bond.com/wordpress-plugins/vipers-video-quicktags/ -->
+<style type="text/css">
+.vvqbox { display: block; max-width: 100%; visibility: visible !important; margin: 10px auto; } .vvqbox img { max-width: 100%; height: 100%; } .vvqbox object { max-width: 100%; } 
+</style>
+<script type="text/javascript">
+// <![CDATA[
+	var vvqflashvars = {};
+	var vvqparams = { wmode: "opaque", allowfullscreen: "true", allowscriptaccess: "always" };
+	var vvqattributes = {};
+	var vvqexpressinstall = "http://www.kellyrob99.com/blog/wp-content/plugins/vipers-video-quicktags/resources/expressinstall.swf";
+// ]]>
+</script>
+<style type="text/css" media="all">
+/* <![CDATA[ */
+@import url("http://www.kellyrob99.com/blog/wp-content/plugins/wp-table-reloaded/css/plugin.css?ver=1.9.4");
+@import url("http://www.kellyrob99.com/blog/wp-content/plugins/wp-table-reloaded/css/tablesorter.css?ver=1.9.4");
+.wp-table-reloaded {
+	background-color:#CDCDCD;
+	margin:10px 0px 15px 0px;
+	font-size:8pt;
+	width:100%;
+	text-align:left;
+}
+.wp-table-reloaded th {
+	background-color:#E6EEEE;
+	border:1px solid #FFFFFF;
+	padding:4px;
+}
+.wp-table-reloaded td {
+	color:#3D3D3D;
+	padding:4px;
+	background-color:#FFFFFF;
+	vertical-align:top;
+}
+.wp-table-reloaded .even td {
+	background-color:#FFFFFF;
+}
+.wp-table-reloaded .odd td{
+	background-color:#F0F0F6;
+}
+.wp-table-reloaded .header {
+	background-image:url(http://www.kellyrob99.com/blog/wp-content/plugins/wp-table-reloaded/img/bg.gif);
+	background-repeat:no-repeat;
+	background-position:center right;
+	cursor:pointer;
+}
+.wp-table-reloaded .headerSortUp {
+	background-color:#8DBDD8;
+	background-image:url(http://www.kellyrob99.com/blog/wp-content/plugins/wp-table-reloaded/img/asc.gif);
+}
+
+.wp-table-reloaded .headerSortDown {
+	background-color:#8DBDD8;
+	background-image:url(http://www.kellyrob99.com/blog/wp-content/plugins/wp-table-reloaded/img/desc.gif);
+}
+/* ]]> */
+</style><style type="text/css" id="syntaxhighlighteranchor"></style>
+<!-- wp thread comment 1.4.9.4.002 -->
+<style type="text/css" media="screen">
+
+.editComment, .editableComment, .textComment{
+	display: inline;
+}
+.comment-childs{
+	border: 1px solid #999;
+	margin: 5px 2px 2px 4px;
+	padding: 4px 2px 2px 4px;
+	background-color: white;
+}
+.chalt{
+	background-color: #E2E2E2;
+}
+#newcomment{
+	border:1px dashed #777;width:90%;
+}
+#newcommentsubmit{
+	color:red;
+}
+.adminreplycomment{
+	border:1px dashed #777;
+	width:99%;
+	margin:4px;
+	padding:4px;
+}
+.mvccls{
+	color: #999;
+}
+			
+</style>
+<link rel="stylesheet" id="ngg_trigger_buttons-css" href="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/trigger_buttons.css" type="text/css" media="all">
+<link rel="stylesheet" id="shutter-0-css" href="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/shutter.css" type="text/css" media="all">
+<link rel="stylesheet" id="nextgen_basic_singlepic_style-css" href="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/nextgen_basic_singlepic.css" type="text/css" media="all">
+<link rel="stylesheet" id="nggallery-css" href="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/nggallery.css" type="text/css" media="all">
+<link rel="stylesheet" id="nextgen_basic_thumbnails_style-css" href="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/nextgen_basic_thumbnails.css" type="text/css" media="all">
+<link rel="stylesheet" id="nextgen_pagination_style-css" href="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/style(1).css" type="text/css" media="all">
+
+
+
+
+<!-- Start BG -->
+<div id="bg">
+
+
+<!-- Start Header -->
+<div class="header">
+ <h1><a href="http://www.kellyrob99.com/blog/">The Kaptain on … stuff</a></h1>
+ <ul class="rss">
+  <li><a href="http://www.kellyrob99.com/blog/feed/">Entries (RSS)</a></li>
+  <li><a href="http://www.kellyrob99.com/blog/comments/feed/">Comments (RSS)</a></li>
+ </ul>
+</div>
+<!-- End Header -->
+
+<div class="menu">
+ <ul>
+   <li class=""><a href="http://www.kellyrob99.com/blog/"><span>Home</span></a></li>
+<li class="page_item page-item-2"><a href="http://www.kellyrob99.com/blog/about/"><span>About Me</span></a></li>
+<li class="page_item page-item-774"><a href="http://www.kellyrob99.com/blog/cv/"><span>CV</span></a></li>
+  </ul>
+ 
+</div>
+
+
+
+<!-- Start Con-->
+<div class="con">
+
+<div class="scs1">
+
+<!-- Start SL -->
+<div class="sc-all"><div class="sc">
+
+
+
+<div class="post" id="post-1933" style="margin-bottom: 20px;">
+
+<div class="p-head">
+<p class="p-date">27 May, 2012</p>
+<h2>GitHub Social Graphs with Groovy and GraphViz</h2>
+<p class="p-who">Posted by: Kelly Robinson In: <a href="http://www.kellyrob99.com/blog/category/dev/" title="View all posts in Development" rel="category tag">Development</a></p>
+</div>
+
+
+<div class="p-con">
+<h2>The Goal</h2>
+<p>Using the <a href="http://develop.github.com/" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;outbound-article&#39;,&#39;http://develop.github.com&#39;]);">GitHub API</a>, <a href="http://groovy.codehaus.org/" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;outbound-article&#39;,&#39;http://groovy.codehaus.org&#39;]);">Groovy</a> and <a href="http://www.graphviz.org/" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;outbound-article&#39;,&#39;http://www.graphviz.org&#39;]);">GraphViz</a> to determine, interpret and render a graph of the relationships between GitHub users based on the watchers of their repositories. The end result can look something like this.</p>
+<p>            
+		</p><div class="ngg-gallery-singlepic-image " style="max-width: 664px">
+			    	<a href="http://www.kellyrob99.com/blog/wp-content/gallery/githubsocialgraphs/amandasblueandyellow-dot_-twopi-1024.png" title="Twopi layout with randomly assigned node colors." data-src="http://www.kellyrob99.com/blog/wp-content/gallery/githubsocialgraphs/amandasblueandyellow-dot_-twopi-1024.png" data-thumbnail="http://www.kellyrob99.com/blog/wp-content/gallery/githubsocialgraphs/thumbs/thumbs_amandasblueandyellow-dot_-twopi-1024.png" data-image-id="81" data-title="amandasblueandyellow-dot_-twopi-1024" data-description="Twopi layout with randomly assigned node colors." target="_self" class="shutterset_340e9219077512c188f899f6d1dbce20">
+            <img class="ngg-singlepic" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/amandasblueandyellow-dot_-twopi-1024-nggid0281-ngg0dyn-900x450x100-00f0w011c010r110f110r010t010.png" alt="amandasblueandyellow-dot_-twopi-1024" title="amandasblueandyellow-dot_-twopi-1024" width="664">
+    	</a>
+		      </div>
+    <span></span>    <p></p>
+<h2>The GitHub V3 API</h2>
+<p>You can find the full documentation for the GitHub V3 API <a href="http://developer.github.com/v3/" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;outbound-article&#39;,&#39;http://developer.github.com&#39;]);">here</a>. They do a great job of documenting the various endpoints and their behaviour as well as demonstrating usage of the API extensively with <a href="http://curl.haxx.se/" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;outbound-article&#39;,&#39;http://curl.haxx.se&#39;]);">curl</a>. For the purposes of this post the API calls I’m making are simple GET requests that do not require authentication. In particular I’m targeting two specific endpoints: <a href="http://developer.github.com/v3/repos/" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;outbound-article&#39;,&#39;http://developer.github.com&#39;]);">repositories for a specific user</a> and <a href="http://developer.github.com/v3/repos/watching/" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;outbound-article&#39;,&#39;http://developer.github.com&#39;]);">watchers for a repository</a>. </p>
+<h3>Limitations of the API</h3>
+<p>Although a huge upgrade from the 50 requests per hour rate limit on the V2 API, I found it fairly easy to exhaust the 5000 requests per hour provided by the V3 API while gathering data. Fortunately, included with every response from GitHub is a convenient <strong><a href="http://developer.github.com/v3/#rate-limiting" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;outbound-article&#39;,&#39;http://developer.github.com&#39;]);">X-RateLimit-Remaining</a></strong> header we can use to check our limit. This allows us to stop processing before we run out of requests, after which GitHub will return errors for every request. For each user we examine one url to find their repositories, and for each of those repositories execute a separate request to find all of the watchers. While executing these requests, using my own GitHub account as the centerpoint, I was able to gather repository information about 1143 users and find 31142 total watchers- 18023 of which were unique in the data collected. This is somewhat of a broken figure as consistently, after reaching the rate limit, there were far more nodes left to process in the queue than already encountered. Myself I only have 31 total repository watchers but appearing within the graph we find users like <a href="https://github.com/igrigorik" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;outbound-article&#39;,&#39;http://github.com&#39;]);">igrigorik</a>, an employee of Google with 529 repository watchers, and that tends to skew the results somewhat. The end result is that the data provided here is far from complete, I’m sorry to say, but that doesn’t mean it’s not interesting to visualize.</p>
+<h2>Groovy and HttpBuilder</h2>
+<p>Groovy and the <a href="http://groovy.codehaus.org/HTTP+Builder" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;outbound-article&#39;,&#39;http://groovy.codehaus.org&#39;]);">HttpBuilder</a> dsl abstract away most of the details of handling the HTTP connections. The graph I’m building starts with one central GitHub user and links that user to everyone that is presently watching one of their repositories. This requires a single GET request to load all of the repositories for the given user, and a GET request per repository to find the watchers. These two HTTP operations are very easily encapsulated with Closures using the HttpBuilder wrapper around HttpClient. Each call returns both the <strong>X-RateLimit-Remaining</strong> value and the requested data. Here’s what the configuration of HttpBuilder looks like:</p>
+<pre class="brush: groovy; title: ; notranslate" title="">final String rootUrl = 'https://api.github.com'
+final HTTPBuilder builder = new HTTPBuilder(rootUrl)
+</pre>
+<p>The builder object is created and fixed at the GitHub api url, simplifying the syntax for future calls. Now we define two closures, each of which targets a specific url and extracts the appropriate data from the (already automagically unmarshalled by HttpBuilder) JSON response. The <strong>findWatchers</strong> Closure has a little bit more logic in it to remove duplicate entries, and to exclude the user themselves from the list as by default GitHub records a self-referential link for all users with their own repositories.</p>
+<pre class="brush: groovy; title: ; notranslate" title="">final String RATE_LIMIT_HEADER = 'X-RateLimit-Remaining'
+final Closure findReposForUser = { HTTPBuilder http, username -&gt;
+    http.get(path: "/users/$username/repos", contentType: JSON) { resp, json -&gt;
+        return [resp.headers[RATE_LIMIT_HEADER].value as int, json.toList()]
+    }
+}
+final Closure findWatchers = { HTTPBuilder http, username, repo -&gt;
+    http.get(path: "/repos/$username/$repo/watchers", contentType: JSON) { resp, json -&gt;
+        return [resp.headers[RATE_LIMIT_HEADER].value as int, json.toList()*.login.flatten().unique() - username]
+    }
+}
+</pre>
+<p>Out of this data we’re only interested (for now) in keeping a simple map of Username -&gt; Watchers which we can easily marshal as a JSON object and store in a file. The complete Groovy script code for loading the data can be run from the command line using the following code or executed remotely from a GitHub gist on the command line by calling <em>groovy https://raw.github.com/gist/2468052/5d536c5a35154defb5614bed78b325eeadbdc1a7/repos.groovy {username}</em>. In either case you should pass in the username you would like to center the graph on. The results will be output to a file called ‘reposOutput.json’ in the working directory. Please be patient, as this is going to take a little while; progress is output to the console as each user is processed so you can follow along.</p>
+<pre class="brush: groovy; title: ; notranslate" title="">@Grab('org.codehaus.groovy.modules.http-builder:http-builder:0.5.2')
+import groovy.json.JsonBuilder
+import groovyx.net.http.HTTPBuilder
+import static groovyx.net.http.ContentType.JSON
+
+final rootUser = args[0]
+final String RATE_LIMIT_HEADER = 'X-RateLimit-Remaining'
+final String rootUrl = 'https://api.github.com'
+final Closure&lt;Boolean&gt; hasWatchers = {it.watchers &gt; 1}
+final Closure findReposForUser = { HTTPBuilder http, username -&gt;
+    http.get(path: "/users/$username/repos", contentType: JSON) { resp, json -&gt;
+        return [resp.headers[RATE_LIMIT_HEADER].value as int, json.toList()]
+    }
+}
+final Closure findWatchers = { HTTPBuilder http, username, repo -&gt;
+    http.get(path: "/repos/$username/$repo/watchers", contentType: JSON) { resp, json -&gt;
+        return [resp.headers[RATE_LIMIT_HEADER].value as int, json.toList()*.login.flatten().unique() - username]
+    }
+}
+
+LinkedList nodes = [rootUser] as LinkedList
+Map&lt;String, List&gt; usersToRepos = [:]
+Map&lt;String, List&lt;String&gt;&gt; watcherMap = [:]
+boolean hasRemainingCalls = true
+final HTTPBuilder builder = new HTTPBuilder(rootUrl)
+while(!nodes.isEmpty() &amp;&amp; hasRemainingCalls)
+{
+    String username = nodes.remove()
+    println "processing $username"
+    println "remaining nodes = ${nodes.size()}"
+
+    def remainingApiCalls, repos, watchers
+    (remainingApiCalls, repos) = findReposForUser(builder, username)
+    usersToRepos[username] = repos
+    hasRemainingCalls = remainingApiCalls &gt; 300
+    repos.findAll(hasWatchers).each{ repo -&gt;
+        (remainingApiCalls, watchers) =  findWatchers(builder, username, repo.name)
+        def oldValue = watcherMap.get(username, [] as LinkedHashSet)
+        oldValue.addAll(watchers)
+        watcherMap[username] =  oldValue
+        nodes.addAll(watchers)
+        nodes.removeAll(watcherMap.keySet())
+        hasRemainingCalls = remainingApiCalls &gt; 300
+    }
+    if(!hasRemainingCalls)
+    {
+        println "Stopped with $remainingApiCalls api calls left."
+        println "Still have not processed ${nodes.size()} users."
+    }
+}
+
+new File('reposOutput.json').withWriter {writer -&gt;
+    writer &lt;&lt; new JsonBuilder(watcherMap).toPrettyString()
+}
+</pre>
+<p>The JSON file contains very simple data that looks like this:</p>
+<blockquote>
+<pre>    "bmuschko": [
+        "claymccoy",
+        "AskDrCatcher",
+        "roycef",
+        "btilford",
+        "madsloen",
+        "phaggood",
+        "jpelgrim",
+        "mrdanparker",
+        "rahimhirani",
+        "seymores",
+        "AlBaker",
+        "david-resnick", ...
+</pre>
+</blockquote>
+<p>Now we need to take this data and turn it into a representation that GraphViz can understand. We're also going to add information about the number of watchers for each user and a link back to their GitHub page.</p>
+<h2>Generating a GraphViz file in dot format</h2>
+<p><a href="http://www.graphviz.org/" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;outbound-article&#39;,&#39;http://www.graphviz.org&#39;]);">GraphViz</a> is a popular framework for generating graphs. The cornerstone of this is a simple format for describing a directed graph in a simple text file(commonly referred to as a 'dot' file) combined with a variety of different layouts for displaying the graph. For the purposes of this post, I'm after describing the following for inclusion in the graph:</p>
+<ul>
+<li>An edge from each watcher to the user whose repository they are watching.</li>
+<li>A label on each node which includes the user's name and the count of watchers for all of their repositories.</li>
+<li>An embedded HTML link to the user's GitHub page on each node.</li>
+<li>Highlighting the starting user in the graph by coloring that node red.</li>
+<li>Assigning a 'rank' attribute to nodes that links all users with the same number of watchers.</li>
+</ul>
+<p>The script I'm using to create the 'dot' file is pretty much just brute force string processing and the full source code is <a href="https://gist.github.com/2475460" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;outbound-article&#39;,&#39;http://gist.github.com&#39;]);">available as a gist</a>, but here are the interesting parts. First, loading in the JSON file that was output in the last step; converting it to a map structure is very simple:</p>
+<pre class="brush: groovy; title: ; notranslate" title="">def data
+new File(filename).withReader {reader -&gt;
+   data = new JsonSlurper().parse(reader)
+}
+</pre>
+<p>From this data structure we can extract particular details and group everything by the number of watchers per user.</p>
+<pre class="brush: groovy; title: ; notranslate" title="">println "Number of mapped users = ${data.size()}"
+println "Number of watchers = ${data.values().flatten().size()}"
+println "Number of unique watchers = ${data.values().flatten().unique().size()}"
+
+//group the data by the number of watchers
+final Map groupedData = data.groupBy {it.value.size()}.sort {-it.key}
+final Set allWatchers = data.collect {it.value}.flatten()
+final Set allUsernames = data.keySet()
+final Set leafNodes = allWatchers - allUsernames
+</pre>
+<p>Given this data, we create individual nodes with styling details like so:</p>
+<pre class="brush: groovy; title: ; notranslate" title="">    StringWriter writer = new StringWriter()
+    groupedUsers.each {count, users -&gt;
+        users.each { username, watchers -&gt;
+            def user = "\t\"$username\""
+            def attrs = generateNodeAttrsMemoized(username, count)
+            def rootAttrs = "fillcolor=red style=filled $attrs"
+            if (username == rootUser) {
+                writer &lt;&lt; "$user [$rootAttrs];\n"
+            } else {
+                writer &lt;&lt; "$user [$attrs ${extraAttrsMemoized(count, username)}];\n"
+            }
+        }
+    }
+</pre>
+<p>And this generates node and edge descriptions that look like this:</p>
+<blockquote>
+<pre>     ...
+     	"gyurisc" [label="gyurisc = 31" URL="https://github.com/gyurisc" ];
+	"kellyrob99" [fillcolor=red style=filled label="kellyrob99 = 31" 
+                      URL="https://github.com/kellyrob99"];
+     ...
+	"JulianDevilleSmith" -&gt; "cfxram";
+	"rhyolight" -&gt; "aalmiray";
+	"kellyrob99" -&gt; "aalmiray";
+     ...
+</pre>
+</blockquote>
+<p>If you created the JSON data already, you can run this command in the same directory in order to generate the GraphViz dot file: <em>groovy https://raw.github.com/gist/2475460/78642d81dd9bc95f099e0f96c3d87389a1ef6967/githubWatcherDigraphGenerator.groovy {username} reposOutput.json</em>. This will create a file named ‘reposDigraph.dot’ in that directory. From there the last step is to interpret the graph definition into an image.</p>
+<h2>Turning a ‘dot’ file into an image</h2>
+<p>I was looking for a quick and easy way to generate multiple visualizations from the same model quickly for comparison and settled on using GPars to generate them concurrently. We have to be a little careful here as some of the layout/format combinations can require a fair bit of memory and CPU – in the worst cases as much as 2GB of memory and processing times in the range of an hour. My recommendation is to stick with the sfdp and twopi(see the <a href="http://www.graphviz.org/Documentation.php" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;outbound-article&#39;,&#39;http://www.graphviz.org&#39;]);">online documentation here</a>) layouts for graphs of similar size to the one described here. If you’re after a huge, stunning graphic with complete detail, expect a png image to weigh in somewhere north of 150MB whereas the corresponding svg file will be less than 10MB. This Groovy script depends on having the GraphViz command line ‘dot’ executable already installed, exercises six of the available layout algorithms and generates png and svn files using four concurrently.</p>
+<pre class="brush: groovy; title: ; notranslate" title="">import groovyx.gpars.GParsPool
+
+def inputfile = args[0]
+def layouts = [ 'dot', 'neato', 'twopi', 'sfdp', 'osage', 'circo' ] //NOTE some of these will fail to process large graphs
+def formats = [ 'png', 'svg']
+def combinations = [layouts, formats].combinations()
+
+GParsPool.withPool(4) {
+    combinations.eachParallel { combination -&gt;
+        String layout = combination[0]
+        String format = combination[1]
+        List args = [ '/usr/local/bin/dot', "-K$layout", '-Goverlap=prism', '-Goverlap_scaling=-10', "-T$format",
+                '-o', "${inputfile}.${layout}.$format", inputfile ]
+        println args
+        final Process execute = args.execute()
+        execute.waitFor()
+        println execute.exitValue()
+    }
+}
+
+</pre>
+<p>Here’s a gallery with some examples of the images created and scaled down to be web friendly. The full size graphs I generated using this data weighed in as large as 300MB for a single PNG file. The SVG format takes up significantly less space but still more than 10MB. I also had trouble finding a viewer for the SVG format that was a) capable of showing the large graph in a navigable way and b) didn’t crash my browser due to memory usage.<br>
+</p><div class="ngg-galleryoverview ngg-ajax-pagination-none" id="ngg-gallery-6de656fe81593ad0403c53997216d365-1">
+
+    	<div class="slideshowlink">
+        <a href="http://www.kellyrob99.com/blog/2012/05/27/github-social-graphs-with-groovy-and-graphviz/nggallery/slideshow">[Show as slideshow]</a>
+		
+	</div>
+	
+			<!-- Thumbnails -->
+				<div id="ngg-image-0" class="ngg-gallery-thumbnail-box">
+				        <div class="ngg-gallery-thumbnail">
+            <a href="http://www.kellyrob99.com/blog/wp-content/gallery/githubsocialgraphs/amandasblueandyellow-dot_-twopi-1024.png" title="Twopi layout with randomly assigned node colors." data-src="http://www.kellyrob99.com/blog/wp-content/gallery/githubsocialgraphs/amandasblueandyellow-dot_-twopi-1024.png" data-thumbnail="http://www.kellyrob99.com/blog/wp-content/gallery/githubsocialgraphs/thumbs/thumbs_amandasblueandyellow-dot_-twopi-1024.png" data-image-id="81" data-title="amandasblueandyellow-dot_-twopi-1024" data-description="Twopi layout with randomly assigned node colors." class="shutterset_6de656fe81593ad0403c53997216d365">
+                <img title="amandasblueandyellow-dot_-twopi-1024" alt="amandasblueandyellow-dot_-twopi-1024" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/thumbs_amandasblueandyellow-dot_-twopi-1024.png" width="100" height="75" style="max-width:none;">
+            </a>
+        </div>
+							</div> 
+			
+        
+				<div id="ngg-image-1" class="ngg-gallery-thumbnail-box">
+				        <div class="ngg-gallery-thumbnail">
+            <a href="http://www.kellyrob99.com/blog/wp-content/gallery/githubsocialgraphs/circo-1024.png" title="Circo layout" data-src="http://www.kellyrob99.com/blog/wp-content/gallery/githubsocialgraphs/circo-1024.png" data-thumbnail="http://www.kellyrob99.com/blog/wp-content/gallery/githubsocialgraphs/thumbs/thumbs_circo-1024.png" data-image-id="82" data-title="circo-1024" data-description="Circo layout" class="shutterset_6de656fe81593ad0403c53997216d365">
+                <img title="circo-1024" alt="circo-1024" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/thumbs_circo-1024.png" width="100" height="75" style="max-width:none;">
+            </a>
+        </div>
+							</div> 
+			
+        
+				<div id="ngg-image-2" class="ngg-gallery-thumbnail-box">
+				        <div class="ngg-gallery-thumbnail">
+            <a href="http://www.kellyrob99.com/blog/wp-content/gallery/githubsocialgraphs/neato-1024.png" title="Neato layout" data-src="http://www.kellyrob99.com/blog/wp-content/gallery/githubsocialgraphs/neato-1024.png" data-thumbnail="http://www.kellyrob99.com/blog/wp-content/gallery/githubsocialgraphs/thumbs/thumbs_neato-1024.png" data-image-id="83" data-title="neato-1024" data-description="Neato layout" class="shutterset_6de656fe81593ad0403c53997216d365">
+                <img title="neato-1024" alt="neato-1024" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/thumbs_neato-1024.png" width="100" height="75" style="max-width:none;">
+            </a>
+        </div>
+							</div> 
+			
+        
+				<div id="ngg-image-3" class="ngg-gallery-thumbnail-box">
+				        <div class="ngg-gallery-thumbnail">
+            <a href="http://www.kellyrob99.com/blog/wp-content/gallery/githubsocialgraphs/reposdigraph-dot_-neato-1024.png" title="Neato layout on larger graph" data-src="http://www.kellyrob99.com/blog/wp-content/gallery/githubsocialgraphs/reposdigraph-dot_-neato-1024.png" data-thumbnail="http://www.kellyrob99.com/blog/wp-content/gallery/githubsocialgraphs/thumbs/thumbs_reposdigraph-dot_-neato-1024.png" data-image-id="84" data-title="reposdigraph-dot_-neato-1024" data-description="Neato layout on larger graph" class="shutterset_6de656fe81593ad0403c53997216d365">
+                <img title="reposdigraph-dot_-neato-1024" alt="reposdigraph-dot_-neato-1024" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/thumbs_reposdigraph-dot_-neato-1024.png" width="100" height="75" style="max-width:none;">
+            </a>
+        </div>
+							</div> 
+			
+        
+				<div id="ngg-image-4" class="ngg-gallery-thumbnail-box">
+				        <div class="ngg-gallery-thumbnail">
+            <a href="http://www.kellyrob99.com/blog/wp-content/gallery/githubsocialgraphs/reposdigraph-dot_-osage-1024.png" title="Osage layout, poor for a graph this size" data-src="http://www.kellyrob99.com/blog/wp-content/gallery/githubsocialgraphs/reposdigraph-dot_-osage-1024.png" data-thumbnail="http://www.kellyrob99.com/blog/wp-content/gallery/githubsocialgraphs/thumbs/thumbs_reposdigraph-dot_-osage-1024.png" data-image-id="85" data-title="reposdigraph-dot_-osage-1024" data-description="Osage layout, poor for a graph this size" class="shutterset_6de656fe81593ad0403c53997216d365">
+                <img title="reposdigraph-dot_-osage-1024" alt="reposdigraph-dot_-osage-1024" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/thumbs_reposdigraph-dot_-osage-1024.png" width="100" height="75" style="max-width:none;">
+            </a>
+        </div>
+							</div> 
+			
+        
+				<div id="ngg-image-5" class="ngg-gallery-thumbnail-box">
+				        <div class="ngg-gallery-thumbnail">
+            <a href="http://www.kellyrob99.com/blog/wp-content/gallery/githubsocialgraphs/reposdigraph-dot_-sfdp-1024.png" title="Sfdp layout on larger graph, which it is specialized for." data-src="http://www.kellyrob99.com/blog/wp-content/gallery/githubsocialgraphs/reposdigraph-dot_-sfdp-1024.png" data-thumbnail="http://www.kellyrob99.com/blog/wp-content/gallery/githubsocialgraphs/thumbs/thumbs_reposdigraph-dot_-sfdp-1024.png" data-image-id="86" data-title="reposdigraph-dot_-sfdp-1024" data-description="Sfdp layout on larger graph, which it is specialized for." class="shutterset_6de656fe81593ad0403c53997216d365">
+                <img title="reposdigraph-dot_-sfdp-1024" alt="reposdigraph-dot_-sfdp-1024" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/thumbs_reposdigraph-dot_-sfdp-1024.png" width="100" height="75" style="max-width:none;">
+            </a>
+        </div>
+							</div> 
+			
+        
+				<div id="ngg-image-6" class="ngg-gallery-thumbnail-box">
+				        <div class="ngg-gallery-thumbnail">
+            <a href="http://www.kellyrob99.com/blog/wp-content/gallery/githubsocialgraphs/reposdigraph-dot_-twopi-1024.png" title="Twopi layout on larger graph." data-src="http://www.kellyrob99.com/blog/wp-content/gallery/githubsocialgraphs/reposdigraph-dot_-twopi-1024.png" data-thumbnail="http://www.kellyrob99.com/blog/wp-content/gallery/githubsocialgraphs/thumbs/thumbs_reposdigraph-dot_-twopi-1024.png" data-image-id="87" data-title="reposdigraph-dot_-twopi-1024" data-description="Twopi layout on larger graph." class="shutterset_6de656fe81593ad0403c53997216d365">
+                <img title="reposdigraph-dot_-twopi-1024" alt="reposdigraph-dot_-twopi-1024" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/thumbs_reposdigraph-dot_-twopi-1024.png" width="100" height="75" style="max-width:none;">
+            </a>
+        </div>
+							</div> 
+			
+        
+				<div id="ngg-image-7" class="ngg-gallery-thumbnail-box">
+				        <div class="ngg-gallery-thumbnail">
+            <a href="http://www.kellyrob99.com/blog/wp-content/gallery/githubsocialgraphs/sfdp-1024.png" title="Sfdp layout" data-src="http://www.kellyrob99.com/blog/wp-content/gallery/githubsocialgraphs/sfdp-1024.png" data-thumbnail="http://www.kellyrob99.com/blog/wp-content/gallery/githubsocialgraphs/thumbs/thumbs_sfdp-1024.png" data-image-id="88" data-title="sfdp-1024" data-description="Sfdp layout" class="shutterset_6de656fe81593ad0403c53997216d365">
+                <img title="sfdp-1024" alt="sfdp-1024" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/thumbs_sfdp-1024.png" width="100" height="75" style="max-width:none;">
+            </a>
+        </div>
+							</div> 
+			
+        
+				<div id="ngg-image-8" class="ngg-gallery-thumbnail-box">
+				        <div class="ngg-gallery-thumbnail">
+            <a href="http://www.kellyrob99.com/blog/wp-content/gallery/githubsocialgraphs/stabledot-1024.png" title="Dot layout" data-src="http://www.kellyrob99.com/blog/wp-content/gallery/githubsocialgraphs/stabledot-1024.png" data-thumbnail="http://www.kellyrob99.com/blog/wp-content/gallery/githubsocialgraphs/thumbs/thumbs_stabledot-1024.png" data-image-id="89" data-title="stabledot-1024" data-description="Dot layout" class="shutterset_6de656fe81593ad0403c53997216d365">
+                <img title="stabledot-1024" alt="stabledot-1024" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/thumbs_stabledot-1024.png" width="100" height="75" style="max-width:none;">
+            </a>
+        </div>
+							</div> 
+			
+        
+				<div id="ngg-image-9" class="ngg-gallery-thumbnail-box">
+				        <div class="ngg-gallery-thumbnail">
+            <a href="http://www.kellyrob99.com/blog/wp-content/gallery/githubsocialgraphs/stablesfdp-1024.png" title="Sfdp layout" data-src="http://www.kellyrob99.com/blog/wp-content/gallery/githubsocialgraphs/stablesfdp-1024.png" data-thumbnail="http://www.kellyrob99.com/blog/wp-content/gallery/githubsocialgraphs/thumbs/thumbs_stablesfdp-1024.png" data-image-id="90" data-title="stablesfdp-1024" data-description="Sfdp layout" class="shutterset_6de656fe81593ad0403c53997216d365">
+                <img title="stablesfdp-1024" alt="stablesfdp-1024" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/thumbs_stablesfdp-1024.png" width="100" height="75" style="max-width:none;">
+            </a>
+        </div>
+							</div> 
+			
+        
+				<div id="ngg-image-10" class="ngg-gallery-thumbnail-box">
+				        <div class="ngg-gallery-thumbnail">
+            <a href="http://www.kellyrob99.com/blog/wp-content/gallery/githubsocialgraphs/stabletwopi-1024.png" title="Twopi layout" data-src="http://www.kellyrob99.com/blog/wp-content/gallery/githubsocialgraphs/stabletwopi-1024.png" data-thumbnail="http://www.kellyrob99.com/blog/wp-content/gallery/githubsocialgraphs/thumbs/thumbs_stabletwopi-1024.png" data-image-id="91" data-title="stabletwopi-1024" data-description="Twopi layout" class="shutterset_6de656fe81593ad0403c53997216d365">
+                <img title="stabletwopi-1024" alt="stabletwopi-1024" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/thumbs_stabletwopi-1024.png" width="100" height="75" style="max-width:none;">
+            </a>
+        </div>
+							</div> 
+			
+        
+				<div id="ngg-image-11" class="ngg-gallery-thumbnail-box">
+				        <div class="ngg-gallery-thumbnail">
+            <a href="http://www.kellyrob99.com/blog/wp-content/gallery/githubsocialgraphs/twopi-1024.png" title="Twopi layout" data-src="http://www.kellyrob99.com/blog/wp-content/gallery/githubsocialgraphs/twopi-1024.png" data-thumbnail="http://www.kellyrob99.com/blog/wp-content/gallery/githubsocialgraphs/thumbs/thumbs_twopi-1024.png" data-image-id="92" data-title="twopi-1024" data-description="Twopi layout" class="shutterset_6de656fe81593ad0403c53997216d365">
+                <img title="twopi-1024" alt="twopi-1024" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/thumbs_twopi-1024.png" width="100" height="75" style="max-width:none;">
+            </a>
+        </div>
+							</div> 
+			
+        
+		
+		<!-- Pagination -->
+	<div class="ngg-clear"></div>	</div>
+<p></p>
+<h2>And just for fun <img src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/icon_smile.gif" alt=":)" class="wp-smiley"> </h2>
+<p>Originally I had intended to publish this functionality as an application on the <a href="https://developers.google.com/appengine/" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;outbound-article&#39;,&#39;http://developers.google.com&#39;]);">Google App Engine</a> using <a href="http://gaelyk.appspot.com/" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;outbound-article&#39;,&#39;http://gaelyk.appspot.com&#39;]);">Gaelyk</a>, but since the API limit would make it suitable for pretty much one request per hour, and likely get me in trouble with GitHub, I ended up foregoing that bit. But along the way I developed a very simple page that will load all of the publicly available <a href="https://gist.github.com/" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;outbound-article&#39;,&#39;http://gist.github.com&#39;]);">Gists</a> for a particular user and display them in a table. This is a pretty clean example of how you can whip up a quick and dirty application and make it publicly available using GAE + Gaelyk. This involved setting up the infrastructure using the <a href="https://github.com/bmuschko/gradle-gaelyk-plugin" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;outbound-article&#39;,&#39;http://github.com&#39;]);">gradle-gaelyk-plugin</a> combined with the <a href="https://github.com/bmuschko/gradle-gae-plugin" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;outbound-article&#39;,&#39;http://github.com&#39;]);">gradle-gae-plugin</a>, and using Gradle to build, test and deploy the app to the web- all told about an hour’s worth of effort. Try this link to load up all of my publicly available Gists- replace the username parameter if you’d like to check out somebody else. Please give it a second as GAE will undeploy the application if it hasn’t been requested in awhile, so the first call can take a few seconds.<br>
+<a href="http://publicgists.appspot.com/gist?username=kellyrob99" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;outbound-article&#39;,&#39;http://publicgists.appspot.com&#39;]);" title="display public gists for a specific user using the V3 API" target="_blank">http://publicgists.appspot.com/gist?username=kellyrob99</a></p>
+<p>Here’s the <a href="http://groovy.codehaus.org/Groovlets" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;outbound-article&#39;,&#39;http://groovy.codehaus.org&#39;]);">Groovlet</a> implementation that loads the data and then forwards to the template page. </p>
+<pre class="brush: groovy; title: ; notranslate" title="">def username =  request.getParameter('username') ?: 'kellyrob99'
+def text = "https://gist.github.com/api/v1/json/gists/$username".toURL().text
+log.info text
+request.setAttribute('rawJSON', text)
+request.setAttribute('username', username)
+
+forward '/WEB-INF/pages/gist.gtpl'
+</pre>
+<p>And the accompanying template page which renders a simple tabular view of the API request.</p>
+<pre class="brush: groovy; title: ; notranslate" title="">&lt;% include '/WEB-INF/includes/header.gtpl' %&gt;
+&lt;% import groovy.json.JsonSlurper %&gt;
+&lt;%
+   def gistMap = new JsonSlurper().parseText(request['rawJSON'])
+%&gt;
+&lt;h1&gt;Public Gists for username : ${request['username']} &lt;/h1&gt;
+
+&lt;p&gt;
+    &lt;table class = "gridtable"&gt;
+        &lt;th&gt;Description&lt;/th&gt;
+        &lt;th&gt;Web page&lt;/th&gt;
+        &lt;th&gt;Repo&lt;/th&gt;
+        &lt;th&gt;Owner&lt;/th&gt;
+        &lt;th&gt;Files&lt;/th&gt;
+        &lt;th&gt;Created at&lt;/th&gt;
+        &lt;%
+        gistMap.gists.each { data -&gt;
+            def repo = data.repo
+        %&gt;
+            &lt;tr&gt;
+                &lt;td&gt;${data.description ?: ''}&lt;/td&gt;
+                &lt;td&gt;
+                    &lt;a href="https://gist.github.com/${repo}"&gt;${repo}&lt;/a&gt;
+                &lt;/td&gt;
+                &lt;td&gt;
+                    &lt;a href= "git://gist.github.com/${repo}.git"&gt;${repo}&lt;/a&gt;
+                &lt;/td&gt;
+                &lt;td&gt;${data.owner}&lt;/td&gt;
+                &lt;td&gt;${data.files}&lt;/td&gt;
+                &lt;td&gt;${data.created_at}&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;% } %&gt;
+    &lt;/table&gt;
+&lt;/p&gt;
+&lt;% include '/WEB-INF/includes/footer.gtpl' %&gt;
+</pre>
+<!-- AdSense Now! V1.95 -->
+<!-- Post[count: 1] -->
+<div class="adsense adsense-leadout" style="float:right;margin: 12px;"><script type="text/javascript"><!--
+google_ad_client = "pub-6955914197200080";
+/* 728x90, created 8/3/09 */
+google_ad_slot = "4051815125";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script></div><div class="sharedaddy sd-block sd-social sd-gplus"><h3 class="sd-title">Google+</h3><div class="sd-content"><a href="https://plus.google.com/100294653733973850800" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;outbound-article&#39;,&#39;http://plus.google.com&#39;]);"><img src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/photo.jpg" alt="Kelly Robinson" width="20" height="20" align="absmiddle"> </a><a rel="author" href="https://plus.google.com/100294653733973850800" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;outbound-article&#39;,&#39;http://plus.google.com&#39;]);" class="gplus-profile">Kelly Robinson</a><span class="g-follow-wrapper"><span class="g-follow" data-href="https://plus.google.com/100294653733973850800" data-rel="author" data-height="15"></span></span></div></div><div class="addtoany_share_save_container addtoany_content_bottom"><div class="a2a_kit a2a_kit_size_32 a2a_target addtoany_list" id="" style="line-height: 32px;"><a class="a2a_dd addtoany_share_save" href="http://www.addtoany.com/share_save#url=http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2F2012%2F05%2F27%2Fgithub-social-graphs-with-groovy-and-graphviz%2F&title=GitHub%20Social%20Graphs%20with%20Groovy%20and%20GraphViz&description=Using%20the%20GitHub%20API%2C%20Groovy%20and%20GraphViz%20to%20determine%2C%20interpret%20and%20render%20a%20graph%20of%20the%20relationships%20between%20GitHub%20users%20based%20on%20the%20watchers%20of%20their" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;outbound-article&#39;,&#39;http://www.addtoany.com&#39;]);"><img src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/share_save_256_24.png" width="256" height="24" alt="Share"></a>
+<script type="text/javascript"><!--
+wpa2a.script_load();
+//--></script>
+</div></div><div class="yarpp-related">
+<p>Related posts:</p><ol>
+<li><a href="http://www.kellyrob99.com/blog/2011/12/04/five-cool-things-you-can-do-with-groovy-scripts/" rel="bookmark" title="Five Cool Things You Can Do With Groovy Scripts">Five Cool Things You Can Do With Groovy Scripts</a></li>
+<li><a href="http://www.kellyrob99.com/blog/2011/03/27/hooking-into-the-jenkinshudson-api/" rel="bookmark" title="Hooking into the Jenkins(Hudson) API">Hooking into the Jenkins(Hudson) API</a></li>
+<li><a href="http://www.kellyrob99.com/blog/2010/06/02/a-grails-app-demoing-the-stackexchange-api/" rel="bookmark" title="A Grails App Demoing the StackExchange API">A Grails App Demoing the StackExchange API</a></li>
+<li><a href="http://www.kellyrob99.com/blog/2010/07/01/groovy-and-csv-how-to-get-your-data-out/" rel="bookmark" title="Groovy and CSV: How to Get Your Data Out?">Groovy and CSV: How to Get Your Data Out?</a></li>
+<li><a href="http://www.kellyrob99.com/blog/2012/03/18/jfreechart-with-groovy-and-apache-poi/" rel="bookmark" title="JFreeChart with Groovy and Apache POI">JFreeChart with Groovy and Apache POI</a></li>
+</ol><p></p>
+</div>
+</div>
+ 
+ <div class="p-tag">Tags: <a href="http://www.kellyrob99.com/blog/tag/gae/" rel="tag">GAE</a>, <a href="http://www.kellyrob99.com/blog/tag/gaelyk/" rel="tag">Gaelyk</a>, <a href="http://www.kellyrob99.com/blog/tag/github/" rel="tag">github</a>, <a href="http://www.kellyrob99.com/blog/tag/github-api/" rel="tag">GitHub API</a>, <a href="http://www.kellyrob99.com/blog/tag/google-app-engine/" rel="tag">Google App Engine</a>, <a href="http://www.kellyrob99.com/blog/tag/gpars/" rel="tag">GPars</a>, <a href="http://www.kellyrob99.com/blog/tag/gradle/" rel="tag">Gradle</a>, <a href="http://www.kellyrob99.com/blog/tag/graphviz/" rel="tag">Graphviz</a>, <a href="http://www.kellyrob99.com/blog/tag/groovy/" rel="tag">Groovy</a>, <a href="http://www.kellyrob99.com/blog/tag/httpbuilder/" rel="tag">HTTPBuilder</a>, <a href="http://www.kellyrob99.com/blog/tag/java/" rel="tag">Java</a>, <a href="http://www.kellyrob99.com/blog/tag/kellyrob99/" rel="tag">kellyrob99</a>, <a href="http://www.kellyrob99.com/blog/tag/open-source/" rel="tag">Open source</a>, <a href="http://www.kellyrob99.com/blog/tag/programming/" rel="tag">Programming</a>, <a href="http://www.kellyrob99.com/blog/tag/thekaptain/" rel="tag">theKaptain</a></div> 
+ 
+</div>	
+
+
+<div id="social">
+		<div class="social-post">
+		<div id="loading" style="display:none">
+			<input type="hidden" id="reload_url" value="http://www.kellyrob99.com/blog/index.php?social_controller=auth&amp;social_action=reload_form&amp;redirect_to=http://www.kellyrob99.com/blog/2012/05/27/github-social-graphs-with-groovy-and-graphviz/&amp;post_id=1933">
+			Logging In...		</div>
+										<div id="respond" class="comment-respond">
+				<h3 id="reply-title" class="comment-reply-title">Profile <small><a rel="nofollow" id="cancel-comment-reply-link" href="http://www.kellyrob99.com/blog/2012/05/27/github-social-graphs-with-groovy-and-graphviz/#respond" style="display:none;">cancel</a></small></h3>
+									<form action="http://www.kellyrob99.com/blog/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+						<div class="social-sign-in-links social-clearfix">
+		<a class="social-twitter social-imr social-login comments" href="http://www.kellyrob99.com/blog/index.php?social_controller=auth&social_action=authorize&key=twitter&post_id=1933" id="twitter_signin" target="_blank">Sign in with Twitter</a>
+		<a class="social-facebook social-imr social-login comments" href="http://www.kellyrob99.com/blog/index.php?social_controller=auth&social_action=authorize&key=facebook&post_id=1933" id="facebook_signin" target="_blank">Sign in with Facebook</a>
+	</div>
+<div class="social-divider">
+	<span>or</span>
+</div>
+																				<p class="social-input-row social-input-row-author"><label for="author" class="social-label">Name</label><input id="author" name="author" class="social-input" required="required" type="text" value=""></p>
+<p class="social-input-row social-input-row-email"><label for="email" class="social-label">Email</label><input id="email" name="email" class="social-input" required="required" type="text" value=""><small class="social-help">Not published</small></p>
+<p class="social-input-row social-input-row-url"><label for="url" class="social-label">Website</label><input id="url" name="url" class="social-input" type="text" value=""><span id="openid_comment" style="display: none;">
+			<label>
+				<input type="checkbox" id="login_with_openid" name="login_with_openid" checked="checked">
+				Authenticate this comment using <span class="openid_link">OpenID</span>.			</label>
+		</span></p>
+												<p class="social-input-row social-input-row-comment"><label for="comment" class="social-label">Comment</label><div id="aec_edit_options"><span id="AtD_0"><span class="AtD_proofread_button"></span></span><span class="aec_expand cboxElement"></span></div><div><textarea id="comment" name="comment" class="social-input" required="required"></textarea></div></p>												<p class="form-submit">
+							<input name="submit" type="submit" id="submit" value="Post It">
+							<input type="hidden" name="comment_post_ID" value="1933" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+<input type="hidden" id="use_twitter_reply" name="use_twitter_reply" value="0"><input type="hidden" id="in_reply_to_status_id" name="in_reply_to_status_id" value="">						</p>
+						<div id="commentform-extras"><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="5ff7b383d2"></p>		
+		<script type="text/javascript">jQuery(function(){ add_openid_to_comment_form('http://www.kellyrob99.com/blog/index.php', '0a945828dc') })</script>
+<p class="comment-subscription-form"><input type="checkbox" name="subscribe_comments" id="subscribe_comments" value="subscribe" style="width: auto; -moz-appearance: checkbox; -webkit-appearance: checkbox;"> <label class="subscribe-label" id="subscribe-label" for="subscribe_comments">Notify me of follow-up comments by email.</label></p><p class="comment-subscription-form"><input type="checkbox" name="subscribe_blog" id="subscribe_blog" value="subscribe" style="width: auto; -moz-appearance: checkbox; -webkit-appearance: checkbox;"> <label class="subscribe-label" id="subscribe-blog-label" for="subscribe_blog">Notify me of new posts by email.</label></p><script type="text/javascript" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/form.js"></script>
+<p style="display: none;"></p><p><input type="hidden" id="comment_reply_ID" name="comment_reply_ID" value="0"><input type="hidden" id="comment_reply_dp" name="comment_reply_dp" value="0"></p><div id="cancel_reply" style="display:none;"><a href="javascript:void(0)" onclick="movecfm(null,0,1,null);" style="color:red;">Click to cancel reply</a></div><script type="text/javascript">
+/* <![CDATA[ */
+var commentformid = "comment-form";
+var USERINFO = false;
+var atreply = "none";
+/* ]]> */
+</script>
+<script type="text/javascript" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/wp-thread-comment.js.php"></script>
+</div>					<input type="hidden" id="ak_js" name="ak_js" value="1407670072524"></form>
+							</div><!-- #respond -->
+			        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                jQuery('#commentform').submit(function () {
+                    _gaq.push(
+                            ['_setAccount', 'UA-7406332-1'],
+                            ['_trackEvent', 'comment', 'submit']
+                    );
+                });
+            });
+        </script>
+			</div>
+	<div id="social-tabs-comments">
+				<ul class="social-nav social-clearfix">
+			<li class="social-all social-tab-main social-current-tab"><a href="http://www.kellyrob99.com/blog/2012/05/27/github-social-graphs-with-groovy-and-graphviz/#" rel="social-all"><span>2 Replies</span></a></li>
+			<li class="social-wordpress"><a href="http://www.kellyrob99.com/blog/2012/05/27/github-social-graphs-with-groovy-and-graphviz/#" rel="wordpress"><span>1 Comment</span></a></li>
+			<li class="social-twitter"><a href="http://www.kellyrob99.com/blog/2012/05/27/github-social-graphs-with-groovy-and-graphviz/#" rel="social-twitter"><span>0 Tweets</span></a></li>
+			<li class="social-facebook"><a href="http://www.kellyrob99.com/blog/2012/05/27/github-social-graphs-with-groovy-and-graphviz/#" rel="social-facebook"><span>0 Facebook</span></a></li>
+			<li class="social-pingback"><a href="http://www.kellyrob99.com/blog/2012/05/27/github-social-graphs-with-groovy-and-graphviz/#" rel="social-pingback"><span>1 Pingback</span></a></li>
+		</ul>
+
+		<!-- panel items -->
+		<div id="social-comments-tab-all" class="social-tabs-panel social-tabs-first-panel">
+			<div id="comments" class="social-comments">
+				<div class="social-last-reply-when">Last reply was August 30, 2012</div><div class="cf-clearfix"></div>				<ol class="social-commentlist">
+				<li class="pingback even thread-even depth-1 social-comment social-clearfix social-pingback" id="li-comment-1531">
+<div class="social-comment-inner social-clearfix" id="comment-1531">
+	<div class="social-comment-header">
+		<div class="social-comment-author vcard">
+			<cite class="social-fn fn"><a href="http://tm.durusau.net/?p=25687" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;outbound-commentauthor&#39;,&#39;http://tm.durusau.net&#39;]);" rel="external nofollow" class="url">GitHub Social Graphs with Groovy and GraphViz « Another Word For It</a></cite>		</div>
+		<!-- .comment-author .vcard -->
+		<div class="social-comment-meta social-comment-meta-pingback">
+			<span class="social-posted-from">
+								<span>View</span>
+							</span>
+			<a href="http://www.kellyrob99.com/blog/2012/05/27/github-social-graphs-with-groovy-and-graphviz/comment-page-1/#comment-1531" class="social-posted-when" target="_blank">May 29, 2012</a>
+		</div>
+	</div>
+	<div class="social-comment-body">
+				<p>[...] GitHub Social Graphs with Groovy and GraphViz [...]</p>
+	</div>
+			<div class="social-actions entry-meta">
+		<a class="comment-reply-link" href="http://www.kellyrob99.com/blog/2012/05/27/github-social-graphs-with-groovy-and-graphviz/?replytocom=1531#respond" onclick="return addComment.moveForm(&quot;comment-1531&quot;, &quot;1531&quot;, &quot;respond&quot;, &quot;1933&quot;)">Reply</a>	</div>
+		<!-- .reply -->
+</div><!-- #comment-1531 -->
+</li><!-- #comment-## -->
+<li class="wordpress odd alt thread-odd thread-alt depth-1 social-comment social-clearfix social-wordpress" id="li-comment-1874">
+<div class="social-comment-inner social-clearfix" id="comment-1874">
+	<div class="social-comment-header">
+		<div class="social-comment-author vcard">
+			<img alt="" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/96c110c5b2069203dd61a906657746e2" class="avatar avatar-40 photo grav-hashed grav-hijack" height="40" width="40" id="grav-96c110c5b2069203dd61a906657746e2-0"><cite class="social-fn fn"><span class="eg-image" style="float:right; margin-left:10px; display:block; width:60px"><img alt="" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/96c110c5b2069203dd61a906657746e2(1)" class="avatar avatar-60 photo grav-hashed grav-hijack" height="60" width="60" id="grav-96c110c5b2069203dd61a906657746e2-1"></span>Andy</cite>		</div>
+		<!-- .comment-author .vcard -->
+		<div class="social-comment-meta social-comment-meta-wordpress">
+			<span class="social-posted-from">
+								<span>View</span>
+							</span>
+			<a href="http://www.kellyrob99.com/blog/2012/05/27/github-social-graphs-with-groovy-and-graphviz/comment-page-1/#comment-1874" class="social-posted-when" target="_blank">August 30, 2012</a>
+		</div>
+	</div>
+	<div class="social-comment-body">
+				<p>Very cool! Thanks for sharing this. Was just looking for a gpars + http builder combo but the added use of GraphViz gives me more ideas…</p>
+<p class="thdrpy">[<a href="javascript:void(0)" onclick="movecfm(event,1874,1,&#39;Andy&#39;);">Reply</a>]</p>	</div>
+			<div class="social-actions entry-meta">
+		<a class="comment-reply-link" href="http://www.kellyrob99.com/blog/2012/05/27/github-social-graphs-with-groovy-and-graphviz/?replytocom=1874#respond" onclick="return addComment.moveForm(&quot;comment-1874&quot;, &quot;1874&quot;, &quot;respond&quot;, &quot;1933&quot;)">Reply</a>	</div>
+		<!-- .reply -->
+</div><!-- #comment-1874 -->
+</li><!-- #comment-## -->
+				</ol>
+							</div>
+		</div>
+			</div>
+	<!-- #Comments Tabs -->
+	</div>
+</div></div>
+
+<div class="s1">
+ <!--Start Categories -->
+<div class="categ-all"><div class="categ">
+ <h3>Categories</h3>
+ <ul>
+  	<li class="cat-item cat-item-15"><a href="http://www.kellyrob99.com/blog/category/cool-toys/" title="Cool Toys">Cool Toys</a> (11)
+</li>
+	<li class="cat-item cat-item-6"><a href="http://www.kellyrob99.com/blog/category/dev/" title="Posts on programming and software development">Development</a> (52)
+</li>
+	<li class="cat-item cat-item-127"><a href="http://www.kellyrob99.com/blog/category/tweettweet/" title="Twitter updates - BORING! ;)">TweetTweet</a> (21)
+</li>
+	<li class="cat-item cat-item-1"><a href="http://www.kellyrob99.com/blog/category/uncategorized/" title="View all posts filed under Uncategorized">Uncategorized</a> (1)
+</li>
+ </ul>
+</div></div>
+<!--End Categories -->
+
+<!--Start Categories -->
+<div class="widget"><div class="widget-all">
+<h3>Archives</h3>
+ <ul>
+  	<li><a href="http://www.kellyrob99.com/blog/2013/03/">March 2013</a></li>
+	<li><a href="http://www.kellyrob99.com/blog/2013/02/">February 2013</a></li>
+	<li><a href="http://www.kellyrob99.com/blog/2012/12/">December 2012</a></li>
+	<li><a href="http://www.kellyrob99.com/blog/2012/05/">May 2012</a></li>
+	<li><a href="http://www.kellyrob99.com/blog/2012/03/">March 2012</a></li>
+	<li><a href="http://www.kellyrob99.com/blog/2012/02/">February 2012</a></li>
+	<li><a href="http://www.kellyrob99.com/blog/2011/12/">December 2011</a></li>
+	<li><a href="http://www.kellyrob99.com/blog/2011/09/">September 2011</a></li>
+	<li><a href="http://www.kellyrob99.com/blog/2011/04/">April 2011</a></li>
+	<li><a href="http://www.kellyrob99.com/blog/2011/03/">March 2011</a></li>
+	<li><a href="http://www.kellyrob99.com/blog/2010/11/">November 2010</a></li>
+	<li><a href="http://www.kellyrob99.com/blog/2010/09/">September 2010</a></li>
+	<li><a href="http://www.kellyrob99.com/blog/2010/07/">July 2010</a></li>
+	<li><a href="http://www.kellyrob99.com/blog/2010/06/">June 2010</a></li>
+	<li><a href="http://www.kellyrob99.com/blog/2010/05/">May 2010</a></li>
+	<li><a href="http://www.kellyrob99.com/blog/2010/04/">April 2010</a></li>
+	<li><a href="http://www.kellyrob99.com/blog/2010/03/">March 2010</a></li>
+	<li><a href="http://www.kellyrob99.com/blog/2010/02/">February 2010</a></li>
+	<li><a href="http://www.kellyrob99.com/blog/2010/01/">January 2010</a></li>
+	<li><a href="http://www.kellyrob99.com/blog/2009/12/">December 2009</a></li>
+	<li><a href="http://www.kellyrob99.com/blog/2009/11/">November 2009</a></li>
+	<li><a href="http://www.kellyrob99.com/blog/2009/10/">October 2009</a></li>
+	<li><a href="http://www.kellyrob99.com/blog/2009/09/">September 2009</a></li>
+	<li><a href="http://www.kellyrob99.com/blog/2009/08/">August 2009</a></li>
+	<li><a href="http://www.kellyrob99.com/blog/2009/07/">July 2009</a></li>
+	<li><a href="http://www.kellyrob99.com/blog/2009/05/">May 2009</a></li>
+	<li><a href="http://www.kellyrob99.com/blog/2009/04/">April 2009</a></li>
+	<li><a href="http://www.kellyrob99.com/blog/2009/03/">March 2009</a></li>
+	<li><a href="http://www.kellyrob99.com/blog/2009/02/">February 2009</a></li>
+	<li><a href="http://www.kellyrob99.com/blog/2009/01/">January 2009</a></li>
+ </ul>
+</div></div>
+<!--End Categories -->
+
+<!--Start Dynamic Sidebar -->
+<div id="linkcat-10" class="widget widget_links"><div class="widget-all"><h3 class="widgettitle">Places I Visit</h3>
+	<ul class="xoxo blogroll">
+<li><a href="http://www.grails.org/" title="Grails snazzy new site" target="_blank" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;outbound-blogroll&#39;,&#39;http://www.grails.org&#39;]);">Grails</a></li>
+<li><a href="http://griffon.codehaus.org/" rel="acquaintance colleague" title="Griffon project homepage" target="" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;outbound-blogroll&#39;,&#39;http://griffon.codehaus.org&#39;]);">Griffon</a></li>
+<li><a href="http://groovy.codehaus.org/" title="Home of all things Groovy" target="_blank" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;outbound-blogroll&#39;,&#39;http://groovy.codehaus.org&#39;]);">Groovy</a></li>
+<li><a href="http://seamframework.org/" title="Seam HQ" target="_blank" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;outbound-blogroll&#39;,&#39;http://seamframework.org&#39;]);">JBoss Seam</a></li>
+<li><a href="http://lifehacker.com/" title="Hacking life is fun!" target="_blank" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;outbound-blogroll&#39;,&#39;http://lifehacker.com&#39;]);">Lifehacker</a></li>
+
+	</ul>
+</div></div>
+		<div id="recent-posts-2" class="widget widget_recent_entries"><div class="widget-all">		<h3 class="widgettitle">Recent Posts</h3>		<ul>
+					<li>
+				<a href="http://www.kellyrob99.com/blog/2013/03/10/groovy-and-http-servers/">Groovy and HTTP Servers</a>
+						</li>
+					<li>
+				<a href="http://www.kellyrob99.com/blog/2013/02/10/groovy-and-http/">Groovy and HTTP</a>
+						</li>
+					<li>
+				<a href="http://www.kellyrob99.com/blog/2012/12/08/kuler-iterm2-themes-with-groovy-scripting/">Kuler iTerm2 Themes with Groovy Scripting</a>
+						</li>
+					<li>
+				<a href="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff.htm">GitHub Social Graphs with Groovy and GraphViz</a>
+						</li>
+					<li>
+				<a href="http://www.kellyrob99.com/blog/2012/03/18/jfreechart-with-groovy-and-apache-poi/">JFreeChart with Groovy and Apache POI</a>
+						</li>
+				</ul>
+		</div></div>	<li id="myprofiles_sidebar">
+		 <div id="myprofiles_sidebar_head">
+			<h2>My Profiles</h2>
+		 </div>
+	 <div class="clear"></div>
+	<div id="myprofiles_sidebar_content">
+	 
+<div id="myprofiles_1"><a href="http://friendfeed.com/kellyrob99" title="FriendFeed" target="_blank"><img border="0" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/friendfeed.png" alt="FriendFeed"></a></div> <div id="myprofiles_2"><a href="http://www.linkedin.com/in/kellyrob99" title="Linkedin" target="_blank"><img border="0" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/linkedin.png" alt="Linkedin"></a></div> <div id="myprofiles_3"><a href="http://www.slideshare.net/buttita/" title="SlideShare" target="_blank"><img border="0" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/slideshare.gif" alt="SlideShare"></a></div> <div id="myprofiles_4"><a href="http://technorati.com/people/technorati/kellyrob99" title="Technorati" target="_blank"><img border="0" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/technorati.png" alt="Technorati"></a></div> <div id="myprofiles_5"><a href="http://www.twitter.com/kellyrob99" title="Twitter" target="_blank"><img border="0" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/twitter.png" alt="Twitter"></a></div> <div id="myprofiles_6"><a href="http://youtube.com/user/krtuber" title="YouTube" target="_blank"><img border="0" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/youtube.png" alt="YouTube"></a></div> 	</div>
+		<div class="clear"></div>
+		<br>
+		<div id="myprofiles_sidebar_footer">
+		<a href="http://wordpress.org/extend/plugins/my-profiles/">Grab it here</a>
+		</div>
+		<div class="clear"></div>
+	</li>
+<!--End Dynamic Sidebar -->
+</div>
+
+</div>
+<!-- End scs1 -->
+
+<div class="s2">
+ <!--Start Search -->
+<div class="search">
+ <h3>Search</h3>
+  <form id="search" action="http://www.kellyrob99.com/blog/">
+    <fieldset>
+    <input type="text" value="" name="s" style="width: 250px;">
+    </fieldset>
+    </form>
+</div>
+<!--End Search -->
+
+<!--Start Recent -->
+<div class="recent">
+ <ul class="tabs">
+  <li><a href="http://www.kellyrob99.com/blog/2012/05/27/github-social-graphs-with-groovy-and-graphviz/#r-posts" class="active"><span>Latest Posts</span></a></li><li><a href="http://www.kellyrob99.com/blog/2012/05/27/github-social-graphs-with-groovy-and-graphviz/#r-com"><span>Latest Comments</span></a></li><li><a href="http://www.kellyrob99.com/blog/2012/05/27/github-social-graphs-with-groovy-and-graphviz/#r-tags"><span>Tags</span></a></li>
+ </ul>
+ <br clear="all">
+<ul id="r-posts" style="">
+ 	
+  <li><a href="http://www.kellyrob99.com/blog/2013/03/10/groovy-and-http-servers/">Groovy and HTTP Servers</a></li>
+ 	
+  <li><a href="http://www.kellyrob99.com/blog/2013/02/10/groovy-and-http/">Groovy and HTTP</a></li>
+ 	
+  <li><a href="http://www.kellyrob99.com/blog/2012/12/08/kuler-iterm2-themes-with-groovy-scripting/">Kuler iTerm2 Themes with Groovy Scripting</a></li>
+ 	
+  <li><a href="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff.htm">GitHub Social Graphs with Groovy and GraphViz</a></li>
+ 	
+  <li><a href="http://www.kellyrob99.com/blog/2012/03/18/jfreechart-with-groovy-and-apache-poi/">JFreeChart with Groovy and Apache POI</a></li>
+ 	
+  <li><a href="http://www.kellyrob99.com/blog/2012/02/26/hooking-into-the-jenkinshudson-api-part-2/">Hooking into the Jenkins(Hudson) API, Part 2</a></li>
+ 	
+  <li><a href="http://www.kellyrob99.com/blog/2011/12/04/five-cool-things-you-can-do-with-groovy-scripts/">Five Cool Things You Can Do With Groovy Scripts</a></li>
+ 	
+  <li><a href="http://www.kellyrob99.com/blog/2011/09/18/using-gradle-to-bootstrap-your-legacy-ant-builds/">Using Gradle to Bootstrap your Legacy Ant Builds</a></li>
+ 	
+  <li><a href="http://www.kellyrob99.com/blog/2011/04/03/a-groovygradle-jslint-plugin/">A Groovy/Gradle JSLint Plugin</a></li>
+ 	
+  <li><a href="http://www.kellyrob99.com/blog/2011/03/27/hooking-into-the-jenkinshudson-api/">Hooking into the Jenkins(Hudson) API</a></li>
+ </ul>
+<ul id="r-com" style="display: none;">
+ 				<li>
+					<a href="http://www.kellyrob99.com/blog/2011/09/18/using-gradle-to-bootstrap-your-legacy-ant-builds/#comment-2995">Dynamically add JAR to Gradle dependencies | SuperBlog:</a>
+					[…] on an external library built with Ant. To accomplish building the library, I followed the advice here and created a task which builds the ex				</li>
+							<li>
+					<a href="http://www.kellyrob99.com/blog/2012/03/18/jfreechart-with-groovy-and-apache-poi/#comment-2084">Dave Cherry:</a>
+					This is a great usage of the groovychart project. The binary distribution had been lost during java.net moving to new infrastructure. I've put a snaps				</li>
+							<li>
+					<a href="http://www.kellyrob99.com/blog/2010/03/14/breaking-weak-captcha-in-slightly-more-than-26-lines-of-groovy-code/#comment-2083">Podcast grails.org.mx: Episodio 6 de la Temporada 1: Desarrollo web con Groovy |:</a>
+					[…] Breaking Weak CAPTCHA in… slightly more than 26 Lines of Groovy Code […]				</li>
+			</ul>
+<div id="r-tags" style="display: none;">
+ <a href="http://www.kellyrob99.com/blog/tag/ant/" class="tag-link-225" title="3 topics" style="font-size: 9.448275862069pt;">Ant</a>
+<a href="http://www.kellyrob99.com/blog/tag/apache/" class="tag-link-94" title="4 topics" style="font-size: 10.655172413793pt;">Apache</a>
+<a href="http://www.kellyrob99.com/blog/tag/apache-camel/" class="tag-link-55" title="3 topics" style="font-size: 9.448275862069pt;">Apache Camel</a>
+<a href="http://www.kellyrob99.com/blog/tag/api/" class="tag-link-209" title="4 topics" style="font-size: 10.655172413793pt;">API</a>
+<a href="http://www.kellyrob99.com/blog/tag/apple/" class="tag-link-67" title="3 topics" style="font-size: 9.448275862069pt;">Apple</a>
+<a href="http://www.kellyrob99.com/blog/tag/application-programming-interface/" class="tag-link-81" title="3 topics" style="font-size: 9.448275862069pt;">Application programming interface</a>
+<a href="http://www.kellyrob99.com/blog/tag/atlassian/" class="tag-link-159" title="5 topics" style="font-size: 11.620689655172pt;">Atlassian</a>
+<a href="http://www.kellyrob99.com/blog/tag/bamboo/" class="tag-link-161" title="5 topics" style="font-size: 11.620689655172pt;">Bamboo</a>
+<a href="http://www.kellyrob99.com/blog/tag/cli/" class="tag-link-134" title="3 topics" style="font-size: 9.448275862069pt;">cli</a>
+<a href="http://www.kellyrob99.com/blog/tag/collections/" class="tag-link-9" title="3 topics" style="font-size: 9.448275862069pt;">Collections</a>
+<a href="http://www.kellyrob99.com/blog/tag/fisheye/" class="tag-link-143" title="3 topics" style="font-size: 9.448275862069pt;">Fisheye</a>
+<a href="http://www.kellyrob99.com/blog/tag/git/" class="tag-link-115" title="4 topics" style="font-size: 10.655172413793pt;">git</a>
+<a href="http://www.kellyrob99.com/blog/tag/github/" class="tag-link-116" title="5 topics" style="font-size: 11.620689655172pt;">github</a>
+<a href="http://www.kellyrob99.com/blog/tag/google/" class="tag-link-60" title="8 topics" style="font-size: 13.672413793103pt;">Google</a>
+<a href="http://www.kellyrob99.com/blog/tag/gradle/" class="tag-link-219" title="11 topics" style="font-size: 15.241379310345pt;">Gradle</a>
+<a href="http://www.kellyrob99.com/blog/tag/grails/" class="tag-link-19" title="14 topics" style="font-size: 16.448275862069pt;">Grails</a>
+<a href="http://www.kellyrob99.com/blog/tag/griffon/" class="tag-link-20" title="12 topics" style="font-size: 15.603448275862pt;">Griffon</a>
+<a href="http://www.kellyrob99.com/blog/tag/groovy/" class="tag-link-7" title="43 topics" style="font-size: 22pt;">Groovy</a>
+<a href="http://www.kellyrob99.com/blog/tag/httpbuilder/" class="tag-link-140" title="5 topics" style="font-size: 11.620689655172pt;">HTTPBuilder</a>
+<a href="http://www.kellyrob99.com/blog/tag/hudson/" class="tag-link-221" title="4 topics" style="font-size: 10.655172413793pt;">Hudson</a>
+<a href="http://www.kellyrob99.com/blog/tag/integrated-development-environment/" class="tag-link-103" title="4 topics" style="font-size: 10.655172413793pt;">Integrated development environment</a>
+<a href="http://www.kellyrob99.com/blog/tag/intellij-idea/" class="tag-link-14" title="3 topics" style="font-size: 9.448275862069pt;">IntelliJ IDEA</a>
+<a href="http://www.kellyrob99.com/blog/tag/iphone/" class="tag-link-13" title="5 topics" style="font-size: 11.620689655172pt;">IPhone</a>
+<a href="http://www.kellyrob99.com/blog/tag/java/" class="tag-link-8" title="33 topics" style="font-size: 20.672413793103pt;">Java</a>
+<a href="http://www.kellyrob99.com/blog/tag/jboss-seam/" class="tag-link-73" title="3 topics" style="font-size: 9.448275862069pt;">JBoss Seam</a>
+<a href="http://www.kellyrob99.com/blog/tag/jenkins/" class="tag-link-226" title="3 topics" style="font-size: 9.448275862069pt;">jenkins</a>
+<a href="http://www.kellyrob99.com/blog/tag/jira/" class="tag-link-145" title="6 topics" style="font-size: 12.465517241379pt;">Jira</a>
+<a href="http://www.kellyrob99.com/blog/tag/json/" class="tag-link-138" title="4 topics" style="font-size: 10.655172413793pt;">JSON</a>
+<a href="http://www.kellyrob99.com/blog/tag/kellyrob99/" class="tag-link-112" title="30 topics" style="font-size: 20.189655172414pt;">kellyrob99</a>
+<a href="http://www.kellyrob99.com/blog/tag/kellyrob99-com/" class="tag-link-202" title="3 topics" style="font-size: 9.448275862069pt;">kellyrob99.com</a>
+<a href="http://www.kellyrob99.com/blog/tag/maven/" class="tag-link-42" title="9 topics" style="font-size: 14.275862068966pt;">maven</a>
+<a href="http://www.kellyrob99.com/blog/tag/model-view-controller/" class="tag-link-17" title="3 topics" style="font-size: 9.448275862069pt;">Model-view-controller</a>
+<a href="http://www.kellyrob99.com/blog/tag/open-source/" class="tag-link-28" title="7 topics" style="font-size: 13.068965517241pt;">Open source</a>
+<a href="http://www.kellyrob99.com/blog/tag/programming/" class="tag-link-35" title="21 topics" style="font-size: 18.379310344828pt;">Programming</a>
+<a href="http://www.kellyrob99.com/blog/tag/rest/" class="tag-link-142" title="3 topics" style="font-size: 9.448275862069pt;">REST</a>
+<a href="http://www.kellyrob99.com/blog/tag/source-code/" class="tag-link-148" title="8 topics" style="font-size: 13.672413793103pt;">Source code</a>
+<a href="http://www.kellyrob99.com/blog/tag/swing/" class="tag-link-18" title="8 topics" style="font-size: 13.672413793103pt;">Swing</a>
+<a href="http://www.kellyrob99.com/blog/tag/swingworker/" class="tag-link-34" title="2 topics" style="font-size: 8pt;">SwingWorker</a>
+<a href="http://www.kellyrob99.com/blog/tag/swingx/" class="tag-link-46" title="3 topics" style="font-size: 9.448275862069pt;">SwingX</a>
+<a href="http://www.kellyrob99.com/blog/tag/testng/" class="tag-link-49" title="4 topics" style="font-size: 10.655172413793pt;">TestNG</a>
+<a href="http://www.kellyrob99.com/blog/tag/thekaptain/" class="tag-link-113" title="42 topics" style="font-size: 21.879310344828pt;">theKaptain</a>
+<a href="http://www.kellyrob99.com/blog/tag/tweet/" class="tag-link-30" title="21 topics" style="font-size: 18.379310344828pt;">tweet</a>
+<a href="http://www.kellyrob99.com/blog/tag/twitter/" class="tag-link-31" title="21 topics" style="font-size: 18.379310344828pt;">twitter</a>
+<a href="http://www.kellyrob99.com/blog/tag/wordpress/" class="tag-link-3" title="3 topics" style="font-size: 9.448275862069pt;">wordpress</a>
+<a href="http://www.kellyrob99.com/blog/tag/xml/" class="tag-link-74" title="4 topics" style="font-size: 10.655172413793pt;">XML</a></div>
+</div>
+<!--End Recent -->
+
+
+<!-- Start Flickr Photostream -->
+<!-- End Flickr Photostream -->
+
+<div class="about-all"><div class="about">
+<h3>About</h3>
+Tales of development, life and the folly that goes along with both.
+</div></div>
+
+
+<br>
+<!--Start Dynamic Sidebar -->
+	        <div id="wp-cumulus" class="widget wp_cumulus_widget"><div class="widget-all">							<h3 class="widgettitle">Tags</h3>						<!-- SWFObject embed by Geoff Stearns geoff@deconcept.com http://blog.deconcept.com/swfobject/ --><script type="text/javascript" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/swfobject(1).js"></script><div id="wpcumuluswidgetcontent5001758"><embed type="application/x-shockwave-flash" src="http://www.kellyrob99.com/blog/wp-content/plugins/wp-cumulus/tagcloud.swf?r=904383" width="270" height="160" id="tagcloudflash" name="tagcloudflash" bgcolor="#ffffff" quality="high" allowscriptaccess="always" flashvars="tcolor=0x055395&amp;tcolor2=0x2380B3&amp;hicolor=0x000000&amp;tspeed=100&amp;distr=true&amp;mode=both&amp;tagcloud=%3Ctags%3E%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fant%2F%27+class%3D%27tag-link-225%27+title%3D%273+topics%27+style%3D%27font-size%3A+9.448275862069pt%3B%27%3EAnt%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fapache%2F%27+class%3D%27tag-link-94%27+title%3D%274+topics%27+style%3D%27font-size%3A+10.655172413793pt%3B%27%3EApache%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fapache-camel%2F%27+class%3D%27tag-link-55%27+title%3D%273+topics%27+style%3D%27font-size%3A+9.448275862069pt%3B%27%3EApache+Camel%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fapi%2F%27+class%3D%27tag-link-209%27+title%3D%274+topics%27+style%3D%27font-size%3A+10.655172413793pt%3B%27%3EAPI%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fapple%2F%27+class%3D%27tag-link-67%27+title%3D%273+topics%27+style%3D%27font-size%3A+9.448275862069pt%3B%27%3EApple%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fapplication-programming-interface%2F%27+class%3D%27tag-link-81%27+title%3D%273+topics%27+style%3D%27font-size%3A+9.448275862069pt%3B%27%3EApplication+programming+interface%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fatlassian%2F%27+class%3D%27tag-link-159%27+title%3D%275+topics%27+style%3D%27font-size%3A+11.620689655172pt%3B%27%3EAtlassian%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fbamboo%2F%27+class%3D%27tag-link-161%27+title%3D%275+topics%27+style%3D%27font-size%3A+11.620689655172pt%3B%27%3EBamboo%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fcli%2F%27+class%3D%27tag-link-134%27+title%3D%273+topics%27+style%3D%27font-size%3A+9.448275862069pt%3B%27%3Ecli%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fcollections%2F%27+class%3D%27tag-link-9%27+title%3D%273+topics%27+style%3D%27font-size%3A+9.448275862069pt%3B%27%3ECollections%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Ffisheye%2F%27+class%3D%27tag-link-143%27+title%3D%273+topics%27+style%3D%27font-size%3A+9.448275862069pt%3B%27%3EFisheye%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fgit%2F%27+class%3D%27tag-link-115%27+title%3D%274+topics%27+style%3D%27font-size%3A+10.655172413793pt%3B%27%3Egit%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fgithub%2F%27+class%3D%27tag-link-116%27+title%3D%275+topics%27+style%3D%27font-size%3A+11.620689655172pt%3B%27%3Egithub%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fgoogle%2F%27+class%3D%27tag-link-60%27+title%3D%278+topics%27+style%3D%27font-size%3A+13.672413793103pt%3B%27%3EGoogle%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fgradle%2F%27+class%3D%27tag-link-219%27+title%3D%2711+topics%27+style%3D%27font-size%3A+15.241379310345pt%3B%27%3EGradle%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fgrails%2F%27+class%3D%27tag-link-19%27+title%3D%2714+topics%27+style%3D%27font-size%3A+16.448275862069pt%3B%27%3EGrails%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fgriffon%2F%27+class%3D%27tag-link-20%27+title%3D%2712+topics%27+style%3D%27font-size%3A+15.603448275862pt%3B%27%3EGriffon%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fgroovy%2F%27+class%3D%27tag-link-7%27+title%3D%2743+topics%27+style%3D%27font-size%3A+22pt%3B%27%3EGroovy%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fhttpbuilder%2F%27+class%3D%27tag-link-140%27+title%3D%275+topics%27+style%3D%27font-size%3A+11.620689655172pt%3B%27%3EHTTPBuilder%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fhudson%2F%27+class%3D%27tag-link-221%27+title%3D%274+topics%27+style%3D%27font-size%3A+10.655172413793pt%3B%27%3EHudson%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fintegrated-development-environment%2F%27+class%3D%27tag-link-103%27+title%3D%274+topics%27+style%3D%27font-size%3A+10.655172413793pt%3B%27%3EIntegrated+development+environment%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fintellij-idea%2F%27+class%3D%27tag-link-14%27+title%3D%273+topics%27+style%3D%27font-size%3A+9.448275862069pt%3B%27%3EIntelliJ+IDEA%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fiphone%2F%27+class%3D%27tag-link-13%27+title%3D%275+topics%27+style%3D%27font-size%3A+11.620689655172pt%3B%27%3EIPhone%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fjava%2F%27+class%3D%27tag-link-8%27+title%3D%2733+topics%27+style%3D%27font-size%3A+20.672413793103pt%3B%27%3EJava%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fjboss-seam%2F%27+class%3D%27tag-link-73%27+title%3D%273+topics%27+style%3D%27font-size%3A+9.448275862069pt%3B%27%3EJBoss+Seam%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fjenkins%2F%27+class%3D%27tag-link-226%27+title%3D%273+topics%27+style%3D%27font-size%3A+9.448275862069pt%3B%27%3Ejenkins%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fjira%2F%27+class%3D%27tag-link-145%27+title%3D%276+topics%27+style%3D%27font-size%3A+12.465517241379pt%3B%27%3EJira%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fjson%2F%27+class%3D%27tag-link-138%27+title%3D%274+topics%27+style%3D%27font-size%3A+10.655172413793pt%3B%27%3EJSON%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fkellyrob99%2F%27+class%3D%27tag-link-112%27+title%3D%2730+topics%27+style%3D%27font-size%3A+20.189655172414pt%3B%27%3Ekellyrob99%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fkellyrob99-com%2F%27+class%3D%27tag-link-202%27+title%3D%273+topics%27+style%3D%27font-size%3A+9.448275862069pt%3B%27%3Ekellyrob99.com%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fmaven%2F%27+class%3D%27tag-link-42%27+title%3D%279+topics%27+style%3D%27font-size%3A+14.275862068966pt%3B%27%3Emaven%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fmodel-view-controller%2F%27+class%3D%27tag-link-17%27+title%3D%273+topics%27+style%3D%27font-size%3A+9.448275862069pt%3B%27%3EModel-view-controller%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fopen-source%2F%27+class%3D%27tag-link-28%27+title%3D%277+topics%27+style%3D%27font-size%3A+13.068965517241pt%3B%27%3EOpen+source%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fprogramming%2F%27+class%3D%27tag-link-35%27+title%3D%2721+topics%27+style%3D%27font-size%3A+18.379310344828pt%3B%27%3EProgramming%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Frest%2F%27+class%3D%27tag-link-142%27+title%3D%273+topics%27+style%3D%27font-size%3A+9.448275862069pt%3B%27%3EREST%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fsource-code%2F%27+class%3D%27tag-link-148%27+title%3D%278+topics%27+style%3D%27font-size%3A+13.672413793103pt%3B%27%3ESource+code%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fswing%2F%27+class%3D%27tag-link-18%27+title%3D%278+topics%27+style%3D%27font-size%3A+13.672413793103pt%3B%27%3ESwing%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fswingworker%2F%27+class%3D%27tag-link-34%27+title%3D%272+topics%27+style%3D%27font-size%3A+8pt%3B%27%3ESwingWorker%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fswingx%2F%27+class%3D%27tag-link-46%27+title%3D%273+topics%27+style%3D%27font-size%3A+9.448275862069pt%3B%27%3ESwingX%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Ftestng%2F%27+class%3D%27tag-link-49%27+title%3D%274+topics%27+style%3D%27font-size%3A+10.655172413793pt%3B%27%3ETestNG%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fthekaptain%2F%27+class%3D%27tag-link-113%27+title%3D%2742+topics%27+style%3D%27font-size%3A+21.879310344828pt%3B%27%3EtheKaptain%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Ftweet%2F%27+class%3D%27tag-link-30%27+title%3D%2721+topics%27+style%3D%27font-size%3A+18.379310344828pt%3B%27%3Etweet%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Ftwitter%2F%27+class%3D%27tag-link-31%27+title%3D%2721+topics%27+style%3D%27font-size%3A+18.379310344828pt%3B%27%3Etwitter%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fwordpress%2F%27+class%3D%27tag-link-3%27+title%3D%273+topics%27+style%3D%27font-size%3A+9.448275862069pt%3B%27%3Ewordpress%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fxml%2F%27+class%3D%27tag-link-74%27+title%3D%274+topics%27+style%3D%27font-size%3A+10.655172413793pt%3B%27%3EXML%3C%2Fa%3E%3C%2Ftags%3E&amp;categories=%09%3Ca+href%3D%22http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Fcategory%2Fcool-toys%2F%22+title%3D%22Cool+Toys%22%3ECool+Toys%3C%2Fa%3E+%2811%29%3Cbr+%2F%3E%0A%09%3Ca+href%3D%22http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Fcategory%2Fdev%2F%22+title%3D%22Posts+on+programming+and+software+development%22%3EDevelopment%3C%2Fa%3E+%2852%29%3Cbr+%2F%3E%0A%09%3Ca+href%3D%22http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Fcategory%2Ftweettweet%2F%22+title%3D%22Twitter+updates+-+BORING%21+%3B%29%22%3ETweetTweet%3C%2Fa%3E+%2821%29%3Cbr+%2F%3E%0A%09%3Ca+href%3D%22http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Fcategory%2Funcategorized%2F%22+title%3D%22View+all+posts+filed+under+Uncategorized%22%3EUncategorized%3C%2Fa%3E+%281%29%3Cbr+%2F%3E%0A"></div><script type="text/javascript">var widget_so4168700 = new SWFObject("http://www.kellyrob99.com/blog/wp-content/plugins/wp-cumulus/tagcloud.swf?r=904383", "tagcloudflash", "270", "160", "9", "#ffffff");widget_so4168700.addParam("allowScriptAccess", "always");widget_so4168700.addVariable("tcolor", "0x055395");widget_so4168700.addVariable("tcolor2", "0x2380B3");widget_so4168700.addVariable("hicolor", "0x000000");widget_so4168700.addVariable("tspeed", "100");widget_so4168700.addVariable("distr", "true");widget_so4168700.addVariable("mode", "both");widget_so4168700.addVariable("tagcloud", "%3Ctags%3E%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fant%2F%27+class%3D%27tag-link-225%27+title%3D%273+topics%27+style%3D%27font-size%3A+9.448275862069pt%3B%27%3EAnt%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fapache%2F%27+class%3D%27tag-link-94%27+title%3D%274+topics%27+style%3D%27font-size%3A+10.655172413793pt%3B%27%3EApache%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fapache-camel%2F%27+class%3D%27tag-link-55%27+title%3D%273+topics%27+style%3D%27font-size%3A+9.448275862069pt%3B%27%3EApache+Camel%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fapi%2F%27+class%3D%27tag-link-209%27+title%3D%274+topics%27+style%3D%27font-size%3A+10.655172413793pt%3B%27%3EAPI%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fapple%2F%27+class%3D%27tag-link-67%27+title%3D%273+topics%27+style%3D%27font-size%3A+9.448275862069pt%3B%27%3EApple%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fapplication-programming-interface%2F%27+class%3D%27tag-link-81%27+title%3D%273+topics%27+style%3D%27font-size%3A+9.448275862069pt%3B%27%3EApplication+programming+interface%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fatlassian%2F%27+class%3D%27tag-link-159%27+title%3D%275+topics%27+style%3D%27font-size%3A+11.620689655172pt%3B%27%3EAtlassian%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fbamboo%2F%27+class%3D%27tag-link-161%27+title%3D%275+topics%27+style%3D%27font-size%3A+11.620689655172pt%3B%27%3EBamboo%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fcli%2F%27+class%3D%27tag-link-134%27+title%3D%273+topics%27+style%3D%27font-size%3A+9.448275862069pt%3B%27%3Ecli%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fcollections%2F%27+class%3D%27tag-link-9%27+title%3D%273+topics%27+style%3D%27font-size%3A+9.448275862069pt%3B%27%3ECollections%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Ffisheye%2F%27+class%3D%27tag-link-143%27+title%3D%273+topics%27+style%3D%27font-size%3A+9.448275862069pt%3B%27%3EFisheye%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fgit%2F%27+class%3D%27tag-link-115%27+title%3D%274+topics%27+style%3D%27font-size%3A+10.655172413793pt%3B%27%3Egit%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fgithub%2F%27+class%3D%27tag-link-116%27+title%3D%275+topics%27+style%3D%27font-size%3A+11.620689655172pt%3B%27%3Egithub%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fgoogle%2F%27+class%3D%27tag-link-60%27+title%3D%278+topics%27+style%3D%27font-size%3A+13.672413793103pt%3B%27%3EGoogle%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fgradle%2F%27+class%3D%27tag-link-219%27+title%3D%2711+topics%27+style%3D%27font-size%3A+15.241379310345pt%3B%27%3EGradle%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fgrails%2F%27+class%3D%27tag-link-19%27+title%3D%2714+topics%27+style%3D%27font-size%3A+16.448275862069pt%3B%27%3EGrails%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fgriffon%2F%27+class%3D%27tag-link-20%27+title%3D%2712+topics%27+style%3D%27font-size%3A+15.603448275862pt%3B%27%3EGriffon%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fgroovy%2F%27+class%3D%27tag-link-7%27+title%3D%2743+topics%27+style%3D%27font-size%3A+22pt%3B%27%3EGroovy%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fhttpbuilder%2F%27+class%3D%27tag-link-140%27+title%3D%275+topics%27+style%3D%27font-size%3A+11.620689655172pt%3B%27%3EHTTPBuilder%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fhudson%2F%27+class%3D%27tag-link-221%27+title%3D%274+topics%27+style%3D%27font-size%3A+10.655172413793pt%3B%27%3EHudson%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fintegrated-development-environment%2F%27+class%3D%27tag-link-103%27+title%3D%274+topics%27+style%3D%27font-size%3A+10.655172413793pt%3B%27%3EIntegrated+development+environment%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fintellij-idea%2F%27+class%3D%27tag-link-14%27+title%3D%273+topics%27+style%3D%27font-size%3A+9.448275862069pt%3B%27%3EIntelliJ+IDEA%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fiphone%2F%27+class%3D%27tag-link-13%27+title%3D%275+topics%27+style%3D%27font-size%3A+11.620689655172pt%3B%27%3EIPhone%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fjava%2F%27+class%3D%27tag-link-8%27+title%3D%2733+topics%27+style%3D%27font-size%3A+20.672413793103pt%3B%27%3EJava%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fjboss-seam%2F%27+class%3D%27tag-link-73%27+title%3D%273+topics%27+style%3D%27font-size%3A+9.448275862069pt%3B%27%3EJBoss+Seam%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fjenkins%2F%27+class%3D%27tag-link-226%27+title%3D%273+topics%27+style%3D%27font-size%3A+9.448275862069pt%3B%27%3Ejenkins%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fjira%2F%27+class%3D%27tag-link-145%27+title%3D%276+topics%27+style%3D%27font-size%3A+12.465517241379pt%3B%27%3EJira%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fjson%2F%27+class%3D%27tag-link-138%27+title%3D%274+topics%27+style%3D%27font-size%3A+10.655172413793pt%3B%27%3EJSON%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fkellyrob99%2F%27+class%3D%27tag-link-112%27+title%3D%2730+topics%27+style%3D%27font-size%3A+20.189655172414pt%3B%27%3Ekellyrob99%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fkellyrob99-com%2F%27+class%3D%27tag-link-202%27+title%3D%273+topics%27+style%3D%27font-size%3A+9.448275862069pt%3B%27%3Ekellyrob99.com%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fmaven%2F%27+class%3D%27tag-link-42%27+title%3D%279+topics%27+style%3D%27font-size%3A+14.275862068966pt%3B%27%3Emaven%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fmodel-view-controller%2F%27+class%3D%27tag-link-17%27+title%3D%273+topics%27+style%3D%27font-size%3A+9.448275862069pt%3B%27%3EModel-view-controller%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fopen-source%2F%27+class%3D%27tag-link-28%27+title%3D%277+topics%27+style%3D%27font-size%3A+13.068965517241pt%3B%27%3EOpen+source%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fprogramming%2F%27+class%3D%27tag-link-35%27+title%3D%2721+topics%27+style%3D%27font-size%3A+18.379310344828pt%3B%27%3EProgramming%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Frest%2F%27+class%3D%27tag-link-142%27+title%3D%273+topics%27+style%3D%27font-size%3A+9.448275862069pt%3B%27%3EREST%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fsource-code%2F%27+class%3D%27tag-link-148%27+title%3D%278+topics%27+style%3D%27font-size%3A+13.672413793103pt%3B%27%3ESource+code%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fswing%2F%27+class%3D%27tag-link-18%27+title%3D%278+topics%27+style%3D%27font-size%3A+13.672413793103pt%3B%27%3ESwing%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fswingworker%2F%27+class%3D%27tag-link-34%27+title%3D%272+topics%27+style%3D%27font-size%3A+8pt%3B%27%3ESwingWorker%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fswingx%2F%27+class%3D%27tag-link-46%27+title%3D%273+topics%27+style%3D%27font-size%3A+9.448275862069pt%3B%27%3ESwingX%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Ftestng%2F%27+class%3D%27tag-link-49%27+title%3D%274+topics%27+style%3D%27font-size%3A+10.655172413793pt%3B%27%3ETestNG%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fthekaptain%2F%27+class%3D%27tag-link-113%27+title%3D%2742+topics%27+style%3D%27font-size%3A+21.879310344828pt%3B%27%3EtheKaptain%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Ftweet%2F%27+class%3D%27tag-link-30%27+title%3D%2721+topics%27+style%3D%27font-size%3A+18.379310344828pt%3B%27%3Etweet%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Ftwitter%2F%27+class%3D%27tag-link-31%27+title%3D%2721+topics%27+style%3D%27font-size%3A+18.379310344828pt%3B%27%3Etwitter%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fwordpress%2F%27+class%3D%27tag-link-3%27+title%3D%273+topics%27+style%3D%27font-size%3A+9.448275862069pt%3B%27%3Ewordpress%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Ftag%2Fxml%2F%27+class%3D%27tag-link-74%27+title%3D%274+topics%27+style%3D%27font-size%3A+10.655172413793pt%3B%27%3EXML%3C%2Fa%3E%3C%2Ftags%3E");widget_so4168700.addVariable("categories", "%09%3Ca+href%3D%22http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Fcategory%2Fcool-toys%2F%22+title%3D%22Cool+Toys%22%3ECool+Toys%3C%2Fa%3E+%2811%29%3Cbr+%2F%3E%0A%09%3Ca+href%3D%22http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Fcategory%2Fdev%2F%22+title%3D%22Posts+on+programming+and+software+development%22%3EDevelopment%3C%2Fa%3E+%2852%29%3Cbr+%2F%3E%0A%09%3Ca+href%3D%22http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Fcategory%2Ftweettweet%2F%22+title%3D%22Twitter+updates+-+BORING%21+%3B%29%22%3ETweetTweet%3C%2Fa%3E+%2821%29%3Cbr+%2F%3E%0A%09%3Ca+href%3D%22http%3A%2F%2Fwww.kellyrob99.com%2Fblog%2Fcategory%2Funcategorized%2F%22+title%3D%22View+all+posts+filed+under+Uncategorized%22%3EUncategorized%3C%2Fa%3E+%281%29%3Cbr+%2F%3E%0A");widget_so4168700.write("wpcumuluswidgetcontent5001758");</script>	        </div></div>		<div id="text-2" class="widget widget_text"><div class="widget-all">			<div class="textwidget"><script type="text/javascript"><!--
+google_ad_client = "pub-6955914197200080";
+/* 250x250, created 6/27/10 */
+google_ad_slot = "6547262068";
+google_ad_width = 250;
+google_ad_height = 250;
+//-->
+</script>
+<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script></div>
+		</div></div><div id="text-3" class="widget widget_text"><div class="widget-all">			<div class="textwidget"><img src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/247700.png" width="208" height="58" alt="profile for TheKaptain at Stack Overflow, Q&amp;A for professional and enthusiast programmers" title="profile for TheKaptain at Stack Overflow, Q&amp;A for professional and enthusiast programmers"></div>
+		</div></div><!--End Dynamic Sidebar --></div>
+
+</div>
+<!-- End Con -->
+
+
+
+<!-- Start Footer -->
+<div>
+<div class="footer">
+ <p>Copyright © 2009 The Kaptain on … stuff is proudly powered by <a href="http://wordpress.org/">WordPress</a></p>
+ <p>Legal Disclaimer: The views expressed in this blog do not necessarily express the views of my employers, publications, or professional associations and are mine alone.</p>
+ <p class="theme">Fervens - A Theme is created by: <a href="http://designdisease.com/" title="Blog Design">Design Disease</a> brought to you by Smashing Magazine</p>
+ <a href="http://www.dreamhost.com/green.cgi">
+<img border="0" alt="Green Web Hosting! This site hosted by DreamHost." src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/green4.gif" height="15" width="80"></a>
+</div>
+</div>
+<!-- End Footer -->
+
+
+</div>
+<!-- ngg_resource_manager_marker --><script type="text/javascript">
+/* <![CDATA[ */
+var Sociali18n = {"commentReplyTitle":"Post a Reply"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/social.js"></script>
+<script type="text/javascript" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/devicepx-jetpack.js"></script>
+<script type="text/javascript" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/gprofiles.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/wpgroho.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var aec_frontend = {"atdlang":"true","atd":"true","expand":"true","url":"http:\/\/www.kellyrob99.com\/blog\/?aec_page=comment-popup.php","title":"Comment Box"};
+var aec_frontend = {"atdlang":"true","atd":"true","expand":"true","url":"http:\/\/www.kellyrob99.com\/blog\/?aec_page=comment-popup.php","title":"Comment Box"};
+var aec_frontend = {"atdlang":"true","atd":"true","expand":"true","url":"http:\/\/www.kellyrob99.com\/blog\/?aec_page=comment-popup.php","title":"Comment Box"};
+var aec_frontend = {"atdlang":"true","atd":"true","expand":"true","url":"http:\/\/www.kellyrob99.com\/blog\/?aec_page=comment-popup.php","title":"Comment Box"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/jquery.atd.textarea.js"></script>
+<script type="text/javascript" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/frontend.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+
+var galleries = {};
+galleries.gallery_340e9219077512c188f899f6d1dbce20 = {"id":null,"source":"galleries","container_ids":[],"gallery_ids":[],"album_ids":[],"tag_ids":[],"display_type":"photocrati-nextgen_basic_singlepic","exclusions":[],"order_by":"sortorder","order_direction":"ASC","entity_ids":["81"],"tagcloud":false,"inner_content":"","returns":"included","slug":null,"display_settings":{"use_lightbox_effect":true,"width":"","height":"","mode":"watermark","display_watermark":0,"display_reflection":0,"float":"","link":"","quality":100,"crop":0,"template":"","ngg_triggers_display":"never","w":"900","h":"450"},"excluded_container_ids":[],"sortorder":[],"maximum_entity_count":500,"_errors":[],"transient_id":"340e9219077512c188f899f6d1dbce20","ID":"340e9219077512c188f899f6d1dbce20"};
+var nextgen_lightbox_settings = {"static_path":"http:\/\/www.kellyrob99.com\/blog\/wp-content\/plugins\/nextgen-gallery\/products\/photocrati_nextgen\/modules\/lightbox\/static","context":"nextgen_images"};
+galleries.gallery_6de656fe81593ad0403c53997216d365 = {"id":null,"source":"galleries","container_ids":["16"],"album_ids":[],"tag_ids":[],"display_type":"photocrati-nextgen_basic_thumbnails","exclusions":[],"order_by":"sortorder","order_direction":"ASC","image_ids":[],"entity_ids":[],"tagcloud":false,"inner_content":"","returns":"included","slug":null,"display_settings":{"use_lightbox_effect":true,"images_per_page":"20","number_of_columns":0,"thumbnail_width":100,"thumbnail_height":75,"show_all_in_lightbox":0,"ajax_pagination":0,"template":"","disable_pagination":0,"show_slideshow_link":1,"slideshow_link_text":"[Show as slideshow]","override_thumbnail_settings":0,"thumbnail_quality":"100","thumbnail_crop":1,"thumbnail_watermark":0,"piclens_link_text":"[Show PicLens]","show_piclens_link":0,"ngg_triggers_display":"never","use_imagebrowser_effect":0,"display_no_images_error":1},"excluded_container_ids":[],"sortorder":[],"maximum_entity_count":500,"_errors":[],"transient_id":"6de656fe81593ad0403c53997216d365","ID":"6de656fe81593ad0403c53997216d365"};
+var nextgen_lightbox_settings = {"static_path":"http:\/\/www.kellyrob99.com\/blog\/wp-content\/plugins\/nextgen-gallery\/products\/photocrati_nextgen\/modules\/lightbox\/static","context":"nextgen_images"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/common.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+
+msgLoading = "http:\/\/www.kellyrob99.com\/blog\/static\/L O A D I N G";
+msgClose = "http:\/\/www.kellyrob99.com\/blog\/static\/Click to Close";
+/* ]]> */
+</script>
+<script type="text/javascript" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/shutter.js"></script>
+<script type="text/javascript" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/nextgen_shutter.js"></script>
+<script type="text/javascript" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/nextgen_basic_thumbnails.js"></script>
+
+<script type="text/javascript"><!--
+wpa2a.targets=[
+{title:'GitHub Social Graphs with Groovy and GraphViz',url:'http://www.kellyrob99.com/blog/2012/05/27/github-social-graphs-with-groovy-and-graphviz/'}];
+wpa2a.html_done=true;if(wpa2a.script_ready&&!wpa2a.done)wpa2a.init();wpa2a.script_load();
+//--></script>
+
+<div style="position:relative;">
+	<div class="wp_followme_c2">
+		<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="32" height="160" id="wpFollowmeFlash" style="visibility: visible;">
+			<param name="movie" value="http://www.kellyrob99.com/blog/wp-content/plugins/wp-followme/flash/wp_followme.swf">
+			<param name="allowfullscreen" value="false">
+			<param name="allowscriptaccess" value="always">
+			<param name="flashvars" value="twit_icon=http://www.kellyrob99.com/blog/wp-content/plugins/wp-followme/icons/11.png&amp;turl=http://twitter.com/kellyrob99&amp;twitmsg=Follow Me&amp;twitmsgcolor=FFFFFF&amp;iconbgcolor=FFFFFF">
+			<param name="bgcolor" value="#59B7FF">
+			<!--[if !IE]>-->
+			<object type="application/x-shockwave-flash" data="http://www.kellyrob99.com/blog/wp-content/plugins/wp-followme/flash/wp_followme.swf" width="32" height="160">
+				<param name="allowfullscreen" value="false">
+				<param name="allowscriptaccess" value="always">
+				<param name="flashvars" value="twit_icon=http://www.kellyrob99.com/blog/wp-content/plugins/wp-followme/icons/11.png&amp;turl=http://twitter.com/kellyrob99&amp;twitmsg=Follow Me&amp;twitmsgcolor=FFFFFF&amp;iconbgcolor=FFFFFF">
+				<param name="bgcolor" value="#59B7FF">
+				<!--<![endif]-->
+				<div class="getflash">
+					<a rel="nofollow" href="http://www.adobe.com/go/getflashplayer"><img src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/get_flash_player.gif" alt="Get Adobe Flash player"></a>
+									</div><!--[if !IE]>-->
+			</object> <!--<![endif]-->
+		</object>
+	</div>
+</div>
+
+	<div style="display:none">
+	<div class="grofile-hash-map-eedd8a707a430e7a6957cd76fc0d4c7e">
+	</div>
+	</div>
+<script type="text/javascript" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/shCore.js"></script>
+<script type="text/javascript" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/shBrushGroovy.js"></script>
+<script type="text/javascript">
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "http://www.kellyrob99.com/blog/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCore.css?ver=3.0.83c";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
+		var themecssurl = "http://www.kellyrob99.com/blog/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeDefault.css?ver=3.0.83c";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['pad-line-numbers'] = true;
+	SyntaxHighlighter.defaults['wrap-lines'] = false;
+	SyntaxHighlighter.all();
+</script>
+
+	<script src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/e-201429.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	st_go({v:'ext',j:'1:2.9.3',blog:'6509706',post:'1933',tz:'-9'});
+	var load_cmc = function(){linktracker_init(6509706,1933,2);};
+	if ( typeof addLoadEvent != 'undefined' ) addLoadEvent(load_cmc);
+	else load_cmc();
+	</script><img id="wpstats" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/g.gif" alt=""><div id="yieldsquare-ad" class="yieldsquare-enabled" style="display: none; clear: both;"><iframe id="yieldsquare-frame" frameborder="0" width="0" height="0" src="about:blank" style="margin: 0px; overflow: hidden; display: none !important; visibility: hidden !important; opacity: 0 !important; background-position: 0px 0px;"></iframe><div id="yieldsquare-about-ad">This ad is supporting your extension Smooth Gestures<a id="yieldsquare-disable-ad" href="http://www.kellyrob99.com/blog/2012/05/27/github-social-graphs-with-groovy-and-graphviz/undefined">Turn off these ads?</a></div></div>
+
+
+<!-- Dynamic page generated in 2.613 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2014-07-15 15:06:43 -->
+
+<!-- super cache --><div id="cboxOverlay" style="display: none;"></div><div id="colorbox" class="" role="dialog" tabindex="-1" style="display: none;"><div id="cboxWrapper"><div><div id="cboxTopLeft" style="float: left;"></div><div id="cboxTopCenter" style="float: left;"></div><div id="cboxTopRight" style="float: left;"></div></div><div style="clear: left;"><div id="cboxMiddleLeft" style="float: left;"></div><div id="cboxContent" style="float: left;"><div id="cboxTitle" style="float: left;"></div><div id="cboxCurrent" style="float: left;"></div><button type="button" id="cboxPrevious"></button><button type="button" id="cboxNext"></button><button id="cboxSlideshow"></button><div id="cboxLoadingOverlay" style="float: left;"></div><div id="cboxLoadingGraphic" style="float: left;"></div><button type="button" id="cboxClose"></button></div><div id="cboxMiddleRight" style="float: left;"></div></div><div style="clear: left;"><div id="cboxBottomLeft" style="float: left;"></div><div id="cboxBottomCenter" style="float: left;"></div><div id="cboxBottomRight" style="float: left;"></div></div></div><div style="position: absolute; width: 9999px; visibility: hidden; display: none;"></div></div><div style="position: static;"><div id="a2apage_dropdown" class="a2a_menu" onmouseover="a2a.onMouseOver_stay()" onmouseout="a2a.onMouseOut_delay()" style="display:none"><div class="a2a_menu_inside"><div id="a2apage_title_container" class="a2a_menu_title_container" style="display:none"><input id="a2apage_title" class="a2a_menu_title"></div><div class="a2apage_wide a2a_wide"><div class="a2a_tabs a2a_tabs_default"><div id="a2apage_DEFAULT" class="a2a_tab_selected" style="margin-right:1px"><span class="a2a_i_a2a">Partager</span></div></div><div class="a2a_tabs"><div title="Partager par courriel" id="a2apage_EMAIL" style="margin-right:1px"><span class="a2a_i_email_bw">Courriel</span></div></div></div><div class="a2a_clear"></div><div id="a2apage_find_container" class="a2a_menu_find_container"><input id="a2apage_find" class="a2a_menu_find" type="text" onclick="a2a.focus_find()" onkeyup="a2a.do_find()" autocomplete="off" onfocus="a2a[&#39;page&#39;].find_focused=true;a2a.onMouseOver_stay()" title="Trouver instantanément un service à ajouter"><span id="a2apage_find_icon" class="a2a_i_find" onclick="a2a.focus_find()"></span></div><div id="a2apage_cols_container" class="a2a_cols_container"><div class="a2a_col1" id="a2apage_col1"><a id="a2apage_facebook" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank"><span class="a2a_i_facebook">Facebook</span></a><a id="a2apage_twitter" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank"><span class="a2a_i_twitter">Twitter</span></a><a id="a2apage_google_plus" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank"><span class="a2a_i_google_plus">Google+</span></a><a id="a2apage_pinterest" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank"><span class="a2a_i_pinterest">Pinterest</span></a><a id="a2apage_linkedin" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank"><span class="a2a_i_linkedin">LinkedIn</span></a><a id="a2apage_stumbleupon" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank"><span class="a2a_i_stumbleupon">StumbleUpon</span></a><a id="a2apage_reddit" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank"><span class="a2a_i_reddit">Reddit</span></a><a id="a2apage_google_bookmarks" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank"><span class="a2a_i_google">Google Bookmarks</span></a><a id="a2apage_wordpress" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank"><span class="a2a_i_wordpress">WordPress</span></a><a id="a2apage_tumblr" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank"><span class="a2a_i_tumblr">Tumblr</span></a><a id="a2apage_delicious" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_delicious">Delicious</span></a><a id="a2apage_digg" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_digg">Digg</span></a><a id="a2apage_myspace" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_myspace">MySpace</span></a><a id="a2apage_yahoo_bookmarks" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_yahoo">Yahoo Bookmarks</span></a><a id="a2apage_bebo" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_bebo">Bebo</span></a><a id="a2apage_app_net" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_app_net">App.net</span></a><a id="a2apage_wanelo" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_wanelo">Wanelo</span></a><a id="a2apage_orkut" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_orkut">Orkut</span></a><a id="a2apage_xing" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_xing">XING</span></a><a id="a2apage_buffer" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_buffer">Buffer</span></a><a id="a2apage_evernote" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_evernote">Evernote</span></a><a id="a2apage_whatsapp" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_whatsapp">WhatsApp</span></a><a id="a2apage_mendeley" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_mendeley">Mendeley</span></a><a id="a2apage_pocket" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_pocket">Pocket</span></a><a id="a2apage_vk" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_vk">VK</span></a><a id="a2apage_pinboard" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_pinboard">Pinboard</span></a><a id="a2apage_springpad" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_springpad">Springpad</span></a><a id="a2apage_flipboard" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_flipboard">Flipboard</span></a><a id="a2apage_arto" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_arto">Arto</span></a><a id="a2apage_aim" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_aim">AIM</span></a><a id="a2apage_yahoo_messenger" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_yim">Yahoo Messenger</span></a><a id="a2apage_plurk" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_plurk">Plurk</span></a><a id="a2apage_diaspora" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_diaspora">Diaspora</span></a><a id="a2apage_blogger_post" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_blogger">Blogger Post</span></a><a id="a2apage_typepad_post" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_typepad">TypePad Post</span></a><a id="a2apage_box_net" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_box">Box.net</span></a><a id="a2apage_kindle_it" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_kindle">Kindle It</span></a><a id="a2apage_sina_weibo" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_sina_weibo">Sina Weibo</span></a><a id="a2apage_baidu" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_baidu">Baidu</span></a><a id="a2apage_netlog" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_netlog">Netlog</span></a><a id="a2apage_citeulike" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_citeulike">CiteULike</span></a><a id="a2apage_jumptags" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_jumptags">Jumptags</span></a><a id="a2apage_funp" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_funp">FunP</span></a><a id="a2apage_instapaper" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_instapaper">Instapaper</span></a><a id="a2apage_phonefavs" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_phonefavs">PhoneFavs</span></a><a id="a2apage_xerpi" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_xerpi">Xerpi</span></a><a id="a2apage_netvouz" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_netvouz">Netvouz</span></a><a id="a2apage_diigo" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_diigo">Diigo</span></a><a id="a2apage_bibsonomy" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_bibsonomy">BibSonomy</span></a><a id="a2apage_blogmarks" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_blogmarks">BlogMarks</span></a><a id="a2apage_startaid" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_startaid">StartAid</span></a><a id="a2apage_khabbr" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_khabbr">Khabbr</span></a><a id="a2apage_meneame" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_meneame">Meneame</span></a><a id="a2apage_yoolink" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_yoolink">Yoolink</span></a><a id="a2apage_bookmarks_fr" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_bookmarks_fr">Bookmarks.fr</span></a><a id="a2apage_technotizie" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_technotizie">Technotizie</span></a><a id="a2apage_newsvine" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_newsvine">NewsVine</span></a><a id="a2apage_friendfeed" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_friendfeed">FriendFeed</span></a><a id="a2apage_protopage_bookmarks" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_protopage">Protopage Bookmarks</span></a><a id="a2apage_blinklist" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_blinklist">Blinklist</span></a><a id="a2apage_webnews" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_webnews">Webnews</span></a><a id="a2apage_segnalo" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_segnalo">Segnalo</span></a><a id="a2apage_pusha" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_pusha">Pusha</span></a><a id="a2apage_youmob" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_youmob">YouMob</span></a><a id="a2apage_slashdot" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_slashdot">Slashdot</span></a><a id="a2apage_fark" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_fark">Fark</span></a><a id="a2apage_allvoices" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_allvoices">Allvoices</span></a><a id="a2apage_jamespot" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_jamespot">Jamespot</span></a><a id="a2apage_twiddla" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_twiddla">Twiddla</span></a><a id="a2apage_linkagogo" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_linkagogo">LinkaGoGo</span></a><a id="a2apage_nowpublic" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_nowpublic">NowPublic</span></a><a id="a2apage_livejournal" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_livejournal">LiveJournal</span></a><a id="a2apage_linkatopia" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_linkatopia">Linkatopia</span></a><a id="a2apage_buddymarks" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_buddymarks">BuddyMarks</span></a><a id="a2apage_viadeo" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_viadeo">Viadeo</span></a><a id="a2apage_wists" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_wists">Wists</span></a><a id="a2apage_sitejot" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_sitejot">SiteJot</span></a><a id="a2apage_dzone" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_dzone">DZone</span></a><a id="a2apage_care2_news" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_care2">Care2 News</span></a><a id="a2apage_bitty_browser" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_bitty">Bitty Browser</span></a><a id="a2apage_odnoklassniki" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_odnoklassniki">Odnoklassniki</span></a><a id="a2apage_mail_ru" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_mail_ru">Mail.Ru</span></a><a id="a2apage_symbaloo_feeds" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_symbaloo">Symbaloo Feeds</span></a><a id="a2apage_folkd" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_folkd">Folkd</span></a><a id="a2apage_newstrust" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_newstrust">NewsTrust</span></a><a id="a2apage_amazon_wish_list" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_amazon">Amazon Wish List</span></a><a id="a2apage_printfriendly" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_printfriendly">PrintFriendly</span></a><a id="a2apage_tuenti" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_tuenti">Tuenti</span></a><a id="a2apage_email" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_email">Email</span></a><a id="a2apage_rediff" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank" style="display: none;"><span class="a2a_i_rediff">Rediff MyPage</span></a></div><div id="a2apage_2_col1" style="display:none"><a id="a2apage_google_gmail" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank"><span class="a2a_i_gmail">Google Gmail</span></a><a id="a2apage_yahoo_mail" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank"><span class="a2a_i_yahoo">Yahoo Mail</span></a><a id="a2apage_outlook_com" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank"><span class="a2a_i_outlook_com">Outlook.com</span></a><a id="a2apage_aol_mail" rel="nofollow" class="a2a_i" href="http://www.kellyrob99.com/" target="_blank"><span class="a2a_i_aol">AOL Mail</span></a><a id="a2apage_any_email" rel="nofollow" class="a2a_i a2a_emailer" href="http://www.kellyrob99.com/" target="_blank"><span class="a2a_i_email">Any email</span></a><a id="a2apage_email_client" rel="nofollow" class="a2a_i a2a_emailer a2a_email_client" href="http://www.kellyrob99.com/" target=""><span class="a2a_i_outlook">&nbsp;</span><span class="a2a_i_windows_mail">&nbsp;</span><span class="a2a_i_apple_mail">&nbsp;</span><span class="a2a_i_thunderbird">&nbsp;</span></a></div><div class="a2a_clear"></div></div><div class="a2apage_wide a2a_wide"><a href="" id="a2apage_show_more_less" class="a2a_menu_show_more_less" onmouseover="img=this.firstChild;if(a2a.c.color_arrow_hover==&#39;fff&#39;){if(img.className.indexOf(&#39;_wt&#39;)==-1)img.className+=&#39;_wt&#39;}else img.className=img.className.replace(/_wt/,&#39;&#39;)" onmouseout="img=this.firstChild;if(a2a.c.color_arrow==&#39;fff&#39;){if(img.className.indexOf(&#39;_wt&#39;)==-1)img.className+=&#39;_wt&#39;}else img.className=img.className.replace(/_wt/,&#39;&#39;)" title="Tout voir"><span class="a2a_i_darr"></span></a></div><div class="a2a_menu_powered_by" id="a2apage_powered_by" onmouseover="if(this.innerHTML!=this.orig&amp;&amp;!window.opera)this.innerHTML=this.orig;this.style.textAlign=&#39;center&#39;">By <a href="http://www.addtoany.com/" target="_blank" title="Share Buttons">AddToAny</a></div></div></div><div style="height: 1px; width: 1px; position: absolute; z-index: 100000; visibility: hidden;"><iframe id="a2apage_sm_ifr" height="1" width="1" title="AddToAny Utility Frame" transparency="true" allowtransparency="true" frameborder="0" src="./GitHub Social Graphs with Groovy and GraphViz   The Kaptain on ... stuff_files/sm11.htm" style="height: 1px; width: 1px; border: 0px; left: 0px; top: 0px; position: absolute; z-index: 100000; display: none;"></iframe></div></div></body></html>

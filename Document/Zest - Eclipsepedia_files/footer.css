@@ -1,0 +1,36 @@
+#footer {
+/* 	background:transparent url('/eclipse.org-common/themes/Nova/images/footer.png');*/
+	-moz-border-radius-bottomleft:14px;
+	-moz-border-radius-bottomright:14px;
+ 	padding-top:15px;
+}
+
+#footer *{
+	text-decoration:none;
+	color: #FFF;
+}
+
+#footer ul {	
+	padding-left:20px;
+	float:left;	
+	font-size:12px;
+	margin: 0 0 0 0;
+}
+
+#footer ul li {
+	display:inline;	
+	padding-right:15px;
+}
+
+#footer a {
+	font-weight:bold;
+}
+
+#copyright {
+	clear:none;
+	color:#222;
+	font-size:12px;
+	font-weight:bold;
+        float: right;
+	padding-right: 20px;
+}

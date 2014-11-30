@@ -1,0 +1,405 @@
+
+<!-- saved from url=(0064)http://langref.org/all-languages/strings/reversing-a-string/trim -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+<script src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/application.js" type="text/javascript"></script><style type="text/css"></style>
+<link href="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/style-languages.css" media="screen" rel="stylesheet" type="text/css">
+<link href="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/style.css" media="screen" rel="stylesheet" type="text/css">
+<title>
+langref.org - ruby, java, perl, groovy ... - Strings | Manipulation | Remove leading and trailing whitespace from a string</title>
+<style type="text/css">#yieldsquare-ad {
+  margin:10px auto 20px;
+
+  width: 728px;
+}
+
+#yieldsquare-about a {
+  cursor: pointer;
+}
+
+.yieldsquare-enabled {
+  border-radius:0 0 5px 5px;
+  box-shadow: inset 0 0 75px 75px lightgray, 0 0 0 lightgray;
+  -webkit-transition:opacity 1s linear;
+}
+
+.yieldsquare-disabled-first {
+  -webkit-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.45);
+  -webkit-transition: opacity 1s linear;
+  background-image: url(http://s3.amazonaws.com/static.yieldsquare.com/ads-disabled/messagebed.gif);
+  height: 90px;
+  opacity: 1;
+  position: relative;
+  width: 728px;
+}
+
+.yieldsquare-disabled-second {
+  -webkit-transition: all 0.4s ease-in-out;
+  background-image: url(http://s3.amazonaws.com/static.yieldsquare.com/ads-disabled/messagebed.gif);
+  border-radius:0 0 5px 5px;
+  box-shadow: inset 0 0 35px 35px transparent, 0 0 75px 50px transparent;
+  height: 90px;
+  opacity: 0;
+  position: relative;
+  width: 728px;
+}
+
+#yieldsquare-about-ad {
+  font:11px arial !important;
+  color:#555;
+  padding: 4px;
+  text-align:center;
+}
+
+#yieldsquare-about-ad a {
+  cursor: pointer;
+  color: #333;
+}
+
+.yieldsquare-message-icon {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.yieldsquare-message-p {
+    font: 13px/17px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+    width: 542px;
+    height: 74px;
+    left: 123px;
+    position: absolute;
+    top: 0px;
+    color: #3d3d3d;
+    margin-top: 13px;
+    margin-bottom: 13px;
+}
+
+.yieldsquare-message-p span {
+    font: bold 16px/17px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+    color: #292929;
+}
+
+.yieldsquare-message-p a {
+    text-decoration: none;
+    color: #1d97cf;
+}
+
+.yieldsquare-message-p a:hover {
+    text-decoration: underline;
+}
+
+#yieldsquare-message-x {
+    position: absolute;
+    left: 715px;
+    top: 6px;
+}
+
+</style></head> 
+<body>
+  <div id="header">
+      <div class="box">
+      <b class="rtop">
+        <b class="r1"></b> <b class="r2"></b> <b class="r3"></b> <b class="r4"></b>
+      </b>
+      <div class="content">
+
+    <div id="topright"> 
+      <span id="login_box">
+       
+      <a href="http://langref.org/login">Login</a> 
+      | 
+
+      <a href="http://langref.org/signup">Signup</a> 
+       
+</span>
+<span id="search">
+    <form action="http://langref.org/all-languages/search" method="get">
+      <input id="q" name="q" type="text" value="Search">
+      <input name="s" type="submit" value="go">
+    </form>
+  </span>
+    </div>
+  <a href="http://langref.org/">langref.org</a>
+  
+    - 
+    <a href="http://langref.org/ruby/strings/reversing-a-string/trim">ruby</a>, <a href="http://langref.org/java/strings/reversing-a-string/trim">java</a>, <a href="http://langref.org/perl/strings/reversing-a-string/trim">perl</a>, <a href="http://langref.org/groovy/strings/reversing-a-string/trim">groovy</a> ...
+    
+    
+  
+      </div>
+      <b class="rbottom">
+        <b class="r4"></b> <b class="r3"></b> <b class="r2"></b> <b class="r1"></b>
+      </b>
+    </div>
+
+</div>
+<div id="sidebar">
+    <div class="box">
+      <b class="rtop">
+        <b class="r1"></b> <b class="r2"></b> <b class="r3"></b> <b class="r4"></b>
+      </b>
+      <div class="content">
+
+  <ul>
+    <li><a href="http://langref.org/all-languages">Home</a></li>
+    <li><a href="http://langref.org/all-languages/all">All</a></li>
+    <li><a href="http://langref.org/all-languages/solved">Solved</a></li>
+    <li><a href="http://langref.org/all-languages/unsolved">Unsolved</a></li>
+    
+    <li><hr></li>   
+    
+    <li>
+        <a href="http://langref.org/all-languages/strings">Strings</a>
+    </li>
+  
+    <li>
+        <a href="http://langref.org/all-languages/numbers">Numbers</a>
+    </li>
+  
+    <li>
+        <a href="http://langref.org/all-languages/pattern-matching">Regex</a>
+    </li>
+  
+    <li>
+        <a href="http://langref.org/all-languages/lists">Lists</a>
+    </li>
+  
+    <li>
+        <a href="http://langref.org/all-languages/maps">Maps</a>
+    </li>
+  
+    <li>
+        <a href="http://langref.org/all-languages/program-structure">Structure</a>
+    </li>
+  
+    <li>
+        <a href="http://langref.org/all-languages/files">Files</a>
+    </li>
+  
+    <li>
+        <a href="http://langref.org/all-languages/dates">Dates</a>
+    </li>
+  
+    <li>
+        <a href="http://langref.org/all-languages/oop">OOP</a>
+    </li>
+  
+    <li>
+        <a href="http://langref.org/all-languages/networking">Networking</a>
+    </li>
+  
+    <li>
+        <a href="http://langref.org/all-languages/xml">XML</a>
+    </li>
+  
+    <li>
+        <a href="http://langref.org/all-languages/algorithms">Algorithms</a>
+    </li>
+  
+    <li>
+        <a href="http://langref.org/all-languages/misc">Misc</a>
+    </li>
+  
+    <li>
+        <a href="http://langref.org/all-languages/parallel">Parallel</a>
+    </li>
+  
+  </ul>
+      </div>
+      <b class="rbottom">
+        <b class="r4"></b> <b class="r3"></b> <b class="r2"></b> <b class="r1"></b>
+      </b>
+    </div>
+
+<br>
+<div class="google_adsense ad160x600">
+<script type="text/javascript">
+//<![CDATA[
+google_ad_client = 'pub-0165089109383292';
+google_ad_width = 160;
+google_ad_height = 600;
+google_ad_type = 'text';
+google_ad_format = '160x600_as';
+google_language = 'en';
+google_color_border = '666666';
+google_color_bg = 'DDDDDD';
+google_color_link = '0000FF';
+google_color_url = '008800';
+google_color_text = '000000';
+google_ui_features  = 'rc:6';
+//]]>
+</script>
+<script src="http://pagead2.googlesyndication.com/pagead/show_ads.js" type="text/javascript"></script>
+</div>
+
+</div>
+<div id="main">
+  
+  <div id="title-short">
+        <div class="box">
+      <b class="rtop">
+        <b class="r1"></b> <b class="r2"></b> <b class="r3"></b> <b class="r4"></b>
+      </b>
+      <div class="content">
+
+  View Problem
+          </div>
+      <b class="rbottom">
+        <b class="r4"></b> <b class="r3"></b> <b class="r2"></b> <b class="r1"></b>
+      </b>
+    </div>
+
+  </div>
+  
+<div class="category-short">
+      <div class="box">
+      <b class="rtop">
+        <b class="r1"></b> <b class="r2"></b> <b class="r3"></b> <b class="r4"></b>
+      </b>
+      <div class="content">
+
+      <a href="http://langref.org/all-languages/strings">Strings</a>
+        </div>
+      <b class="rbottom">
+        <b class="r4"></b> <b class="r3"></b> <b class="r2"></b> <b class="r1"></b>
+      </b>
+    </div>
+
+</div>
+  <div class="subcategory">
+        <div class="box">
+      <b class="rtop">
+        <b class="r1"></b> <b class="r2"></b> <b class="r3"></b> <b class="r4"></b>
+      </b>
+      <div class="content">
+
+      <a href="http://langref.org/all-languages/strings/reversing-a-string">Manipulation</a>
+          </div>
+      <b class="rbottom">
+        <b class="r4"></b> <b class="r3"></b> <b class="r2"></b> <b class="r1"></b>
+      </b>
+    </div>
+
+  </div>
+  <div style="clear:both">
+    <div class="problem">
+  <h3><a href="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string.htm">Remove leading and trailing whitespace from a string</a></h3>
+  <div class="solutions" id="problem71">
+    Given the string <code>"&nbsp;&nbsp;hello&nbsp;&nbsp;&nbsp;&nbsp;"</code> return the string <code>"hello"</code>.
+    
+    
+      
+<div class="ruby"><div class="code"><div class="edit"><a href="http://langref.org/all-languages/strings/reversing-a-string/trim/799"><img alt="Disk" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/disk.png"></a><a href="http://langref.org/solutions/799/edit"><img alt="Edit" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/edit.png"></a></div><span class="type">ruby</span> <span class="version"></span><div id="brief_solution799" class="body">puts " hello ".strip</div><div id="full_solution799" class="body" style="display:none">puts " hello ".strip</div></div></div>
+      
+<div class="ruby"><div class="code"><div class="edit"><a href="http://langref.org/all-languages/strings/reversing-a-string/trim/1320"><img alt="Disk" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/disk.png"></a><a href="http://langref.org/solutions/1320/edit"><img alt="Edit" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/edit.png"></a></div><span class="type">ruby</span> <span class="version"></span><div id="brief_solution1320" class="body">" hello ".strip!</div><div id="full_solution1320" class="body" style="display:none">" hello ".strip!</div></div></div>
+          
+    
+      
+<div class="java"><div class="code"><div class="edit"><img alt="Contract" id="contract_solution808" onclick="contract(808)" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/contract.png" style="display:none"><img alt="Expand" id="expand_solution808" onclick="expand(808)" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/expand.png"><a href="http://langref.org/all-languages/strings/reversing-a-string/trim/808"><img alt="Disk" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/disk.png"></a><a href="http://langref.org/solutions/808/edit"><img alt="Edit" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/edit.png"></a></div><span class="type">java</span> <span class="version"></span><div id="brief_solution808" class="body">String s = "     hello     "; String trimmed = s.trim();</div><div id="full_solution808" class="body" style="display:none">public class SolutionXX {<br>    public static void main(String[] args) {<br>String s = "     hello     "; String trimmed = s.trim();<br><br>System.out.printf("|%s|%s|\n", s, trimmed);<br>    }<br>}<br></div></div></div>
+          
+    
+      
+<div class="perl"><div class="code"><div class="edit"><a href="http://langref.org/all-languages/strings/reversing-a-string/trim/874"><img alt="Disk" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/disk.png"></a><a href="http://langref.org/solutions/874/edit"><img alt="Edit" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/edit.png"></a></div><span class="type">perl</span> <span class="version"></span><div id="brief_solution874" class="body">my $string = "  hello    ";<br>$string =~ s{<br>    \A\s*  # Any number of spaces at the start of the string<br>    (.+?)  # Remember any number of characters until we reach<br>    \s*\z  # any number of spaces at the end of the string<br>}{<br>    $1     # Leave the characters we remembered<br>}x;</div><div id="full_solution874" class="body" style="display:none">my $string = "  hello    ";<br>$string =~ s{<br>    \A\s*  # Any number of spaces at the start of the string<br>    (.+?)  # Remember any number of characters until we reach<br>    \s*\z  # any number of spaces at the end of the string<br>}{<br>    $1     # Leave the characters we remembered<br>}x;</div></div></div>
+      
+<div class="perl"><div class="code"><div class="edit"><a href="http://langref.org/all-languages/strings/reversing-a-string/trim/875"><img alt="Disk" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/disk.png"></a><a href="http://langref.org/solutions/875/edit"><img alt="Edit" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/edit.png"></a></div><span class="type">perl</span> <span class="version"></span><div id="brief_solution875" class="body">my $string = "  hello    ";<br>$string =~ s{\A\s*}{};<br>$string =~ s{\s*\z}{};<br><br></div><div id="full_solution875" class="body" style="display:none">my $string = "  hello    ";<br>$string =~ s{\A\s*}{};<br>$string =~ s{\s*\z}{};<br><br></div></div></div>
+      
+<div class="perl"><div class="code"><div class="edit"><a href="http://langref.org/all-languages/strings/reversing-a-string/trim/938"><img alt="Disk" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/disk.png"></a><a href="http://langref.org/solutions/938/edit"><img alt="Edit" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/edit.png"></a></div><span class="type">perl</span> <span class="version"></span><div id="brief_solution938" class="body">#Modification History:<br># 2009-MAR-17: GGARIEPY: [creation] (geoff.gariepy@gmail.com)<br><br>$string = "        hello                              ";<br>$string =~ s/^\s+|\s+$//g;	# All the action happens in one regex!<br><br># Regex Notes:<br># ^ - anchors to the beginning of the string<br># $ - anchors to the end of the string<br># g - causes regex to match as many times as possible <br># | - logical OR<br></div><div id="full_solution938" class="body" style="display:none">#Modification History:<br># 2009-MAR-17: GGARIEPY: [creation] (geoff.gariepy@gmail.com)<br><br>$string = "        hello                              ";<br>$string =~ s/^\s+|\s+$//g;	# All the action happens in one regex!<br><br># Regex Notes:<br># ^ - anchors to the beginning of the string<br># $ - anchors to the end of the string<br># g - causes regex to match as many times as possible <br># | - logical OR<br></div></div></div>
+          
+    
+      
+<div class="groovy"><div class="code"><div class="edit"><a href="http://langref.org/all-languages/strings/reversing-a-string/trim/814"><img alt="Disk" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/disk.png"></a><a href="http://langref.org/solutions/814/edit"><img alt="Edit" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/edit.png"></a></div><span class="type">groovy</span> <span class="version"></span><div id="brief_solution814" class="body">assert "hello" == " hello ".trim()</div><div id="full_solution814" class="body" style="display:none">assert "hello" == " hello ".trim()</div></div></div>
+          
+    
+      
+<div class="scala"><div class="code"><div class="edit"><img alt="Contract" id="contract_solution809" onclick="contract(809)" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/contract.png" style="display:none"><img alt="Expand" id="expand_solution809" onclick="expand(809)" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/expand.png"><a href="http://langref.org/all-languages/strings/reversing-a-string/trim/809"><img alt="Disk" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/disk.png"></a><a href="http://langref.org/solutions/809/edit"><img alt="Edit" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/edit.png"></a></div><span class="type">scala</span> <span class="version"></span><div id="brief_solution809" class="body">val s = "     hello     ".trim</div><div id="full_solution809" class="body" style="display:none">object Solution809 extends Application {<br>val s = "     hello     ".trim<br><br>printf("|%s|%s|\n", s, trimmed)<br>}</div></div></div>
+          
+    
+      
+<div class="python"><div class="code"><div class="edit"><a href="http://langref.org/all-languages/strings/reversing-a-string/trim/902"><img alt="Disk" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/disk.png"></a><a href="http://langref.org/solutions/902/edit"><img alt="Edit" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/edit.png"></a></div><span class="type">python</span> <span class="version"></span><div id="brief_solution902" class="body">assert 'hello' == ' hello '.strip()</div><div id="full_solution902" class="body" style="display:none">assert 'hello' == ' hello '.strip()</div></div></div>
+          
+    
+      
+<div class="cpp"><div class="code"><div class="edit"><img alt="Contract" id="contract_solution804" onclick="contract(804)" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/contract.png" style="display:none"><img alt="Expand" id="expand_solution804" onclick="expand(804)" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/expand.png"><a href="http://langref.org/all-languages/strings/reversing-a-string/trim/804"><img alt="Disk" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/disk.png"></a><a href="http://langref.org/solutions/804/edit"><img alt="Edit" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/edit.png"></a></div><span class="type">cpp</span> <span class="version">C++/CLI .NET 2.0</span><div id="brief_solution804" class="body">String^ s = "     hello     "; String^ trimmed = s-&gt;Trim();</div><div id="full_solution804" class="body" style="display:none">using namespace System;<br><br>int main()<br>{<br>String^ s = "     hello     "; String^ trimmed = s-&gt;Trim();<br><br>System::Console::WriteLine("|{0}|{1}|", s, trimmed);<br>}<br></div></div></div>
+          
+    
+      
+<div class="fsharp"><div class="code"><div class="edit"><img alt="Contract" id="contract_solution806" onclick="contract(806)" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/contract.png" style="display:none"><img alt="Expand" id="expand_solution806" onclick="expand(806)" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/expand.png"><a href="http://langref.org/all-languages/strings/reversing-a-string/trim/806"><img alt="Disk" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/disk.png"></a><a href="http://langref.org/solutions/806/edit"><img alt="Edit" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/edit.png"></a></div><span class="type">fsharp</span> <span class="version"></span><div id="brief_solution806" class="body">let s = "   hello    "<br>let trimmed = s.Trim()</div><div id="full_solution806" class="body" style="display:none">#light<br>open System<br><br>let s = "   hello    "<br>let trimmed = s.Trim()<br><br>printfn "|%s|%s|" s trimmed<br><br></div></div></div>
+      
+<div class="fsharp"><div class="code"><div class="edit"><img alt="Contract" id="contract_solution807" onclick="contract(807)" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/contract.png" style="display:none"><img alt="Expand" id="expand_solution807" onclick="expand(807)" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/expand.png"><a href="http://langref.org/all-languages/strings/reversing-a-string/trim/807"><img alt="Disk" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/disk.png"></a><a href="http://langref.org/solutions/807/edit"><img alt="Edit" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/edit.png"></a></div><span class="type">fsharp</span> <span class="version"></span><div id="brief_solution807" class="body">let trimmed = "   hello    ".Trim()</div><div id="full_solution807" class="body" style="display:none">#light<br>open System<br><br>let trimmed = "   hello    ".Trim()<br><br>printfn "|%s|" trimmed<br></div></div></div>
+          
+    
+      
+<div class="erlang"><div class="code"><div class="edit"><img alt="Contract" id="contract_solution805" onclick="contract(805)" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/contract.png" style="display:none"><img alt="Expand" id="expand_solution805" onclick="expand(805)" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/expand.png"><a href="http://langref.org/all-languages/strings/reversing-a-string/trim/805"><img alt="Disk" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/disk.png"></a><a href="http://langref.org/solutions/805/edit"><img alt="Edit" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/edit.png"></a></div><span class="type">erlang</span> <span class="version"></span><div id="brief_solution805" class="body">Trimmed = string:strip(S),</div><div id="full_solution805" class="body" style="display:none">-module(trim).<br>-export([start/0]).<br><br>start() -&gt;<br><br>S = "    hello    ",<br><br>Trimmed = string:strip(S),<br><br>io:format("|~s|~s|~n", [S, Trimmed]).<br></div></div></div>
+          
+    
+      
+<div class="ocaml"><div class="code"><div class="edit"><a href="http://langref.org/all-languages/strings/reversing-a-string/trim/1650"><img alt="Disk" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/disk.png"></a><a href="http://langref.org/solutions/1650/edit"><img alt="Edit" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/edit.png"></a></div><span class="type">ocaml</span> <span class="version"></span><div id="brief_solution1650" class="body">let left_pos s len =<br>  let rec aux i =<br>    if i &gt;= len then None<br>    else match s.[i] with<br>    | ' ' | '\n' | '\t' | '\r' -&gt; aux (succ i)<br>    | _ -&gt; Some i<br>  in<br>  aux 0<br><br>let right_pos s len =<br>  let rec aux i =<br>    if i &lt; 0 then None<br>    else match s.[i] with<br>    | ' ' | '\n' | '\t' | '\r' -&gt; aux (pred i)<br>    | _ -&gt; Some i<br>  in<br>  aux (pred len)<br><br>let trim s =<br>  let len = String.length s in<br>  match left_pos s len, right_pos s len with<br>  | Some i, Some j -&gt; String.sub s i (j - i + 1)<br>  | None, None -&gt; ""<br>  | _ -&gt; assert false<br><br>let () =<br>  let res = trim "  hello    " in<br>  print_endline res</div><div id="full_solution1650" class="body" style="display:none">let left_pos s len =<br>  let rec aux i =<br>    if i &gt;= len then None<br>    else match s.[i] with<br>    | ' ' | '\n' | '\t' | '\r' -&gt; aux (succ i)<br>    | _ -&gt; Some i<br>  in<br>  aux 0<br><br>let right_pos s len =<br>  let rec aux i =<br>    if i &lt; 0 then None<br>    else match s.[i] with<br>    | ' ' | '\n' | '\t' | '\r' -&gt; aux (pred i)<br>    | _ -&gt; Some i<br>  in<br>  aux (pred len)<br><br>let trim s =<br>  let len = String.length s in<br>  match left_pos s len, right_pos s len with<br>  | Some i, Some j -&gt; String.sub s i (j - i + 1)<br>  | None, None -&gt; ""<br>  | _ -&gt; assert false<br><br>let () =<br>  let res = trim "  hello    " in<br>  print_endline res</div></div></div>
+      
+<div class="ocaml"><div class="code"><div class="edit"><a href="http://langref.org/all-languages/strings/reversing-a-string/trim/1999"><img alt="Disk" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/disk.png"></a><a href="http://langref.org/solutions/1999/edit"><img alt="Edit" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/edit.png"></a></div><span class="type">ocaml</span> <span class="version">4.00.0</span><div id="brief_solution1999" class="body">String.trim " hello "</div><div id="full_solution1999" class="body" style="display:none">String.trim " hello "</div></div></div>
+          
+    
+      
+<div class="csharp"><div class="code"><div class="edit"><img alt="Contract" id="contract_solution1173" onclick="contract(1173)" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/contract.png" style="display:none"><img alt="Expand" id="expand_solution1173" onclick="expand(1173)" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/expand.png"><a href="http://langref.org/all-languages/strings/reversing-a-string/trim/1173"><img alt="Disk" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/disk.png"></a><a href="http://langref.org/solutions/1173/edit"><img alt="Edit" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/edit.png"></a></div><span class="type">csharp</span> <span class="version"></span><div id="brief_solution1173" class="body">string str = "   hello   ";<br>str = str.Trim();<br>Console.WriteLine(str);</div><div id="full_solution1173" class="body" style="display:none">class SolutionXX<br>{<br>    static void Main()<br>    {<br>	string str = "   hello   ";<br>	str = str.Trim();<br>	Console.WriteLine(str);<br>    }<br>}<br></div></div></div>
+          
+    
+      
+<div class="php"><div class="code"><div class="edit"><img alt="Contract" id="contract_solution977" onclick="contract(977)" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/contract.png" style="display:none"><img alt="Expand" id="expand_solution977" onclick="expand(977)" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/expand.png"><a href="http://langref.org/all-languages/strings/reversing-a-string/trim/977"><img alt="Disk" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/disk.png"></a><a href="http://langref.org/solutions/977/edit"><img alt="Edit" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/edit.png"></a></div><span class="type">php</span> <span class="version"></span><div id="brief_solution977" class="body">$hello_trimmed = trim("  hello    ");</div><div id="full_solution977" class="body" style="display:none">&lt;?php<br>$hello_trimmed = trim("  hello    ");<br>?&gt; <br></div></div></div>
+          
+    
+      
+<div class="haskell"><div class="code"><div class="edit"><a href="http://langref.org/all-languages/strings/reversing-a-string/trim/1300"><img alt="Disk" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/disk.png"></a><a href="http://langref.org/solutions/1300/edit"><img alt="Edit" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/edit.png"></a></div><span class="type">haskell</span> <span class="version"></span><div id="brief_solution1300" class="body">unwords (words "  hello    ")</div><div id="full_solution1300" class="body" style="display:none">unwords (words "  hello    ")</div></div></div>
+          
+    
+      
+<div class="clojure"><div class="code"><div class="edit"><a href="http://langref.org/all-languages/strings/reversing-a-string/trim/1316"><img alt="Disk" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/disk.png"></a><a href="http://langref.org/solutions/1316/edit"><img alt="Edit" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/edit.png"></a></div><span class="type">clojure</span> <span class="version"></span><div id="brief_solution1316" class="body">(use 'clojure.contrib.str-utils2)<br>(trim " hello ")</div><div id="full_solution1316" class="body" style="display:none">(use 'clojure.contrib.str-utils2)<br>(trim " hello ")</div></div></div>
+      
+<div class="clojure"><div class="code"><div class="edit"><a href="http://langref.org/all-languages/strings/reversing-a-string/trim/1893"><img alt="Disk" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/disk.png"></a><a href="http://langref.org/solutions/1893/edit"><img alt="Edit" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/edit.png"></a></div><span class="type">clojure</span> <span class="version">1.3</span><div id="brief_solution1893" class="body">(clojure.string/trim "  hello    ")</div><div id="full_solution1893" class="body" style="display:none">(clojure.string/trim "  hello    ")</div></div></div>
+      
+<div class="clojure"><div class="code"><div class="edit"><a href="http://langref.org/all-languages/strings/reversing-a-string/trim/1894"><img alt="Disk" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/disk.png"></a><a href="http://langref.org/solutions/1894/edit"><img alt="Edit" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/edit.png"></a></div><span class="type">clojure</span> <span class="version"></span><div id="brief_solution1894" class="body">(.trim "  hello    ")</div><div id="full_solution1894" class="body" style="display:none">(.trim "  hello    ")</div></div></div>
+          
+    
+      
+<div class="fantom"><div class="code"><div class="edit"><img alt="Contract" id="contract_solution1429" onclick="contract(1429)" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/contract.png" style="display:none"><img alt="Expand" id="expand_solution1429" onclick="expand(1429)" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/expand.png"><a href="http://langref.org/all-languages/strings/reversing-a-string/trim/1429"><img alt="Disk" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/disk.png"></a><a href="http://langref.org/solutions/1429/edit"><img alt="Edit" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/edit.png"></a></div><span class="type">fantom</span> <span class="version"></span><div id="brief_solution1429" class="body">s := "  hello    ".trim     </div><div id="full_solution1429" class="body" style="display:none">class SolutionXX<br>{<br>  Void main()<br>  {<br>   s := "  hello    ".trim     <br>  }<br>}</div></div></div>
+          
+    
+      
+<div class="go"><div class="code"><div class="edit"><img alt="Contract" id="contract_solution1857" onclick="contract(1857)" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/contract.png" style="display:none"><img alt="Expand" id="expand_solution1857" onclick="expand(1857)" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/expand.png"><a href="http://langref.org/all-languages/strings/reversing-a-string/trim/1857"><img alt="Disk" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/disk.png"></a><a href="http://langref.org/solutions/1857/edit"><img alt="Edit" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/edit.png"></a></div><span class="type">go</span> <span class="version"></span><div id="brief_solution1857" class="body">s := strings.TrimSpace("  hello    ")</div><div id="full_solution1857" class="body" style="display:none">package main<br><br>import "fmt"<br>import "strings"<br><br>func main() {<br>	s := strings.TrimSpace("  hello    ")<br>}<br></div></div></div>
+          
+    
+    <br>
+    
+      Submit a new solution for
+      <span class="type"><a href="http://langref.org/solutions/new?lang=1&languages=all-languages&problem=71">ruby</a></span>, <span class="type"><a href="http://langref.org/solutions/new?lang=2&languages=all-languages&problem=71">java</a></span>, <span class="type"><a href="http://langref.org/solutions/new?lang=3&languages=all-languages&problem=71">perl</a></span>, <span class="type"><a href="http://langref.org/solutions/new?lang=4&languages=all-languages&problem=71">groovy</a></span> ...
+    
+    <br>
+    
+  </div>
+</div>
+
+  <div id="footer">
+        <div class="box">
+      <b class="rtop">
+        <b class="r1"></b> <b class="r2"></b> <b class="r3"></b> <b class="r4"></b>
+      </b>
+      <div class="content">
+
+      <a href="http://langref.org/submit/strings/reversing-a-string">submit problem</a> | 
+      <a href="mailto:rob@langref.org">contact</a> | 
+      
+      sponsored by <a href="http://refactor.com.au/"><img alt="Refactor-small" border="0" src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/refactor-small.png" style="vertical-align:middle; padding-bottom:5px"></a>
+          </div>
+      <b class="rbottom">
+        <b class="r4"></b> <b class="r3"></b> <b class="r2"></b> <b class="r1"></b>
+      </b>
+    </div>
+
+  </div> 
+</div>
+      <script src="./langref.org - ruby, java, perl, groovy ... - Strings   Manipulation   Remove leading and trailing whitespace from a string_files/urchin.js" type="text/javascript">
+      </script>
+      <script type="text/javascript">
+      _uacct = "UA-4264032-1";
+      _udn = "langref.org";
+      urchinTracker();
+      </script>
+ 
+</div><div id="yieldsquare-ad" class="yieldsquare-enabled" style="display: none; clear: both;"><iframe id="yieldsquare-frame" frameborder="0" width="0" height="0" src="about:blank" style="margin: 0px; overflow: hidden; display: none !important; visibility: hidden !important; opacity: 0 !important; background-position: 0px 0px;"></iframe><div id="yieldsquare-about-ad">This ad is supporting your extension Smooth Gestures<a id="yieldsquare-disable-ad" href="http://langref.org/all-languages/strings/reversing-a-string/undefined">Turn off these ads?</a></div></div></body></html>
